@@ -1,0 +1,17 @@
+-- Archivo de referencia. No guardar contraseñas reales en Git.
+-- En cPanel, crear la base y el usuario desde "MySQL Databases" y asignar todos
+-- los privilegios. cPanel normalmente agrega el prefijo de la cuenta a ambos nombres.
+-- Ejecutar este ejemplo solo en servidores donde se disponga de privilegios SQL suficientes.
+
+CREATE DATABASE IF NOT EXISTS cancionero
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+
+CREATE USER IF NOT EXISTS 'cancionero_user'@'localhost'
+IDENTIFIED BY 'REEMPLAZAR_CON_PASSWORD_SEGURA';
+
+GRANT ALL PRIVILEGES
+ON cancionero.*
+TO 'cancionero_user'@'localhost';
+
+FLUSH PRIVILEGES;
