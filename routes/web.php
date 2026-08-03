@@ -74,6 +74,8 @@ Route::middleware(['auth', 'active'])->group(function () {
         Route::delete('/songs/{song}/files/{file}', [SongFileController::class, 'destroy'])->name('songs.files.destroy');
         Route::put('/songs/{song}/files/reorder', [SongFileController::class, 'reorder'])->name('songs.files.reorder');
         Route::post('/repertoires/{repertoire}/export', RepertoireExportController::class)->name('repertoires.export');
+        Route::get('/repertoires/trashed', [RepertoireController::class, 'trashed'])->name('repertoires.trashed');
+        Route::put('/repertoires/{repertoire}/restore', [RepertoireController::class, 'restore'])->whereNumber('repertoire')->name('repertoires.restore');
         Route::get('/repertoires/{repertoire}/presentation', PresentationController::class)->name('repertoires.presentation');
         Route::post('/repertoires/{repertoire}/duplicate', [RepertoireController::class, 'duplicate'])->name('repertoires.duplicate');
         Route::post('/repertoires/{repertoire}/songs', [RepertoireSongController::class, 'store'])->name('repertoires.songs.store');

@@ -13,6 +13,7 @@ use App\Services\RepertoirePageService;
 use App\Services\RepertoireService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
@@ -36,7 +37,14 @@ class RepertoireController extends Controller
             default => $query->orderByRaw('event_date IS NULL')->orderBy('event_date')->orderBy('event_time'),
         };
 
-        return view('repertoires.index', ['repertoires' => $query->paginate(12)->withQueryString()]);
+        $trashedCount = Repertoire::onlyTrashed()
+            ->when(! $request->user()->is_admin, fn ($archived) => $archived->where('user_id', $request->user()->id))
+            ->count();
+
+        return view('repertoires.index', [
+            'repertoires' => $query->paginate(12)->withQueryString(),
+            'trashedCount' => $trashedCount,
+        ]);
     }
 
     public function create(): View
@@ -110,9 +118,40 @@ class RepertoireController extends Controller
     public function destroy(Repertoire $repertoire): RedirectResponse
     {
         Gate::authorize('delete', $repertoire);
-        $repertoire->delete();
 
-        return redirect()->route('repertoires.index')->with('status', 'Repertorio archivado correctamente.');
+        DB::transaction(function () use ($repertoire): void {
+            if ($repertoire->visibility === 'public') {
+                $repertoire->update(['visibility' => 'private', 'allow_public_download' => false]);
+            }
+
+            $repertoire->delete();
+        });
+
+        return redirect()->route('repertoires.index')->with('status', 'Repertorio enviado a la papelera.');
+    }
+
+    public function trashed(Request $request): View
+    {
+        Gate::authorize('viewAny', Repertoire::class);
+
+        $query = Repertoire::onlyTrashed()
+            ->when(! $request->user()->is_admin, fn ($repertoires) => $repertoires->where('user_id', $request->user()->id))
+            ->with('owner')->withCount('songs')
+            ->when($request->filled('q'), fn ($repertoires) => $repertoires->where(fn ($search) => $search
+                ->where('name', 'like', '%'.$request->string('q').'%')
+                ->orWhere('location', 'like', '%'.$request->string('q').'%')))
+            ->latest('deleted_at');
+
+        return view('repertoires.trashed', ['repertoires' => $query->paginate(12)->withQueryString()]);
+    }
+
+    public function restore(int $repertoire): RedirectResponse
+    {
+        $repertoire = Repertoire::onlyTrashed()->findOrFail($repertoire);
+        Gate::authorize('restore', $repertoire);
+        $repertoire->restore();
+
+        return redirect()->route('repertoires.show', $repertoire)->with('status', 'Repertorio restaurado como privado.');
     }
 
     public function duplicate(Repertoire $repertoire, RepertoireService $service): RedirectResponse

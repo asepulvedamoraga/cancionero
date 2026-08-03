@@ -44,7 +44,6 @@ Después ejecutar:
 php artisan migrate --seed
 npm install
 npm run build
-php artisan storage:link
 php artisan serve
 ```
 
@@ -62,6 +61,8 @@ Las migraciones crean `users`, `categories`, `liturgical_moments`, `liturgical_s
 
 ## Producción
 
+La guía operativa completa para instalación, actualización, respaldos, rollback, cron y solución de problemas está en [docs/DEPLOYMENT_CPANEL.md](docs/DEPLOYMENT_CPANEL.md).
+
 ```bash
 composer install --no-dev --optimize-autoloader
 php artisan migrate --seed --force
@@ -71,7 +72,6 @@ php artisan optimize:clear
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
-php artisan storage:link
 ```
 
 El usuario del servidor web necesita escritura en `storage/` y `bootstrap/cache/`. El Document Root del dominio debe apuntar a la carpeta `public/` del proyecto.
@@ -100,7 +100,7 @@ Las pruebas usan SQLite en memoria según `phpunit.xml`; no deben apuntar a la b
 
 La Etapa 2 incorpora CRUD, búsqueda, filtros, paginación, categorías, momentos y tiempos litúrgicos, carga múltiple de imágenes, un PDF por carga, miniaturas GD, archivos privados, reemplazo, eliminación, reordenamiento táctil, descarga y modo lectura básico.
 
-Los originales se guardan en `storage/app/private/songs/{song_id}/originals`; páginas convertidas y miniaturas usan `pages/` y `thumbnails/`. Nunca se sirven directamente desde `public/`: las rutas protegidas verifican autenticación, visibilidad de la canción y permisos de su propietario.
+Los originales se guardan en `storage/app/songs/{song_id}/originals`; páginas convertidas y miniaturas usan `storage/app/songs/{song_id}/pages` y `storage/app/songs/{song_id}/thumbnails`. Nunca se sirven directamente desde `public/`: las rutas protegidas verifican autenticación, visibilidad de la canción y permisos de su propietario.
 
 La conversión automática está desactivada por defecto mediante `SONG_PDF_CONVERSION_ENABLED=false`. Los PDF originales se conservan y pueden abrirse o descargarse, por lo que el hosting no necesita Imagick ni Ghostscript.
 ## Módulo de repertorios
@@ -149,7 +149,7 @@ Al aplicar la migración sobre una instalación existente, las canciones y reper
 
 La Etapa 4 agrega el modo presentación protegido para tablet en `/repertoires/{repertoire}/presentation`, con secuencia plana, controles táctiles, teclado, índice, pantalla completa y zoom básico. Los PDF originales se muestran embebidos sin conversión cuando no existen páginas generadas.
 
-La Etapa 5 genera un PDF consolidado privado mediante FPDF y FPDI, respetando el orden de canciones y archivos. La portada y el índice se controlan con `REPERTOIRE_EXPORT_COVER` y `REPERTOIRE_EXPORT_INDEX`. Los archivos temporales se guardan bajo `storage/app/private/exports` y vencen según `REPERTOIRE_EXPORT_TTL_HOURS`.
+La Etapa 5 genera un PDF consolidado privado mediante FPDF y FPDI, respetando el orden de canciones y archivos. La portada y el índice se controlan con `REPERTOIRE_EXPORT_COVER` y `REPERTOIRE_EXPORT_INDEX`. Los archivos temporales se guardan bajo `storage/app/exports` y vencen según `REPERTOIRE_EXPORT_TTL_HOURS`.
 
 Programar diariamente en cron, usando la ruta absoluta real del proyecto:
 
@@ -166,9 +166,39 @@ La Etapa 10 incorpora una sección administrativa única en `/admin/settings`. D
 Los catálogos permiten crear y editar nombre, slug, descripción, orden y estado. El slug se genera desde el nombre cuando se deja vacío y debe ser único dentro de cada catálogo. Las opciones activas se muestran en los formularios de canciones. Una opción asociada a canciones no puede desactivarse hasta retirar esas asociaciones; no existe eliminación permanente desde la interfaz.
 
 Esta etapa no requiere migraciones ni dependencias nuevas.
+## Papelera de repertorios
+
+La Etapa 11 completa el ciclo de vida de los repertorios con una papelera en `/repertoires/trashed`. El propietario puede restaurar sus repertorios eliminados sin perder canciones, orden ni notas; los administradores pueden recuperar cualquier repertorio. Los demás usuarios no pueden ver ni restaurar contenido ajeno.
+
+Enviar un repertorio público a la papelera revoca inmediatamente su vista, presentación, archivos y descarga pública. La revocación y el borrado lógico se ejecutan dentro de una transacción. Por seguridad, el repertorio se restaura como privado y con la descarga pública desactivada; su propietario puede publicarlo nuevamente desde la edición.
+
+Esta etapa no requiere migraciones ni dependencias nuevas.
+## Preparación técnica para producción
+
+La Etapa 12 agrega el comando de diagnóstico de solo lectura:
+
+```bash
+php artisan cancionero:production-check
+```
+
+Debe ejecutarse con la configuración real del servidor antes de abrir el sitio. Comprueba entorno, debug, clave, URL HTTPS, cookie segura, MySQL/MariaDB, correo real, assets compilados, permisos de escritura, almacenamiento privado, extensiones PHP, conexión y tablas. No muestra contraseñas ni detalles internos de las excepciones. Un resultado fallido impide considerar listo el despliegue.
+
+La limpieza de exportaciones está programada diariamente a las 03:00. En producción se debe configurar una única tarea cron que ejecute el scheduler cada minuto:
+
+```bash
+* * * * * cd /ruta/absoluta/cancionero && php artisan schedule:run >> /dev/null 2>&1
+```
+
+La ruta y el binario PHP deben reemplazarse por los valores reales del hosting. `schedule:list` permite verificar que `repertoire:cleanup-exports` esté registrado.
+
+Antes de cada migración o actualización se debe generar un respaldo de la base MySQL y de `storage/app/songs`, descargar una copia fuera del hosting y realizar al menos una prueba de restauración. Cancionero no genera automáticamente backups porque cPanel, proveedores y políticas de retención varían; el respaldo debe configurarse mediante la herramienta del hosting o un mecanismo operacional aprobado.
+
+`.env.example` utiliza `utf8mb4_unicode_ci`, compatible con MySQL y MariaDB, y documenta valores recomendados para HTTPS, logs diarios, cookies seguras y correo. No se modifica automáticamente el `.env` de instalaciones existentes.
+
+Esta etapa no requiere migraciones ni dependencias nuevas.
 ## Estado
 
-Etapas 1 a 10 implementadas: base Laravel, canciones, repertorios, presentación, exportación, propiedad/visibilidad multiusuario, gestión de cuentas, biblioteca compartida, repertorios públicos seguros y administración de catálogos.
+Etapas 1 a 13 implementadas: base Laravel, canciones, repertorios, presentación, exportación, propiedad/visibilidad multiusuario, gestión de cuentas, biblioteca compartida, repertorios públicos seguros, administración de catálogos, recuperación segura de repertorios, preparación técnica y guía definitiva de despliegue en cPanel.
 
 ## Estabilización Laravel 12
 

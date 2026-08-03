@@ -78,5 +78,5 @@
     </div>
 </section>
 
-<form class="app-danger-zone" method="POST" action="{{ route('repertoires.destroy',$repertoire) }}" data-confirm="¿Archivar este repertorio?">@csrf @method('DELETE')<button class="btn btn-outline-danger"><i class="bi bi-archive"></i>Archivar repertorio</button></form>
+<form class="app-danger-zone" method="POST" action="{{ route('repertoires.destroy',$repertoire) }}" data-confirm="¿Enviar este repertorio a la papelera? El enlace público quedará desactivado.">@csrf @method('DELETE')<button class="btn btn-outline-danger"><i class="bi bi-trash3"></i>Enviar a la papelera</button></form>
 @endsection

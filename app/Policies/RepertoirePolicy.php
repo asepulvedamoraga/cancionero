@@ -37,6 +37,11 @@ class RepertoirePolicy
         return $repertoire->user_id === $user->id;
     }
 
+    public function restore(User $user, Repertoire $repertoire): bool
+    {
+        return $repertoire->user_id === $user->id;
+    }
+
     public function duplicate(User $user, Repertoire $repertoire): bool
     {
         return $this->update($user, $repertoire);
