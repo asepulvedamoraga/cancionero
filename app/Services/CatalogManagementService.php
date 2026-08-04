@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Category;
 use App\Models\LiturgicalMoment;
 use App\Models\LiturgicalSeason;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -24,11 +25,20 @@ class CatalogManagementService
         return self::CATALOGS[$catalog];
     }
 
-    public function items(string $catalog)
+    public function items(string $catalog, ?string $search = null, ?bool $active = null, int $perPage = 12): LengthAwarePaginator
     {
         $definition = $this->definition($catalog);
 
-        return $definition['model']::query()->withCount('songs')->orderBy('sort_order')->orderBy('name')->get();
+        return $definition['model']::query()
+            ->withCount('songs')
+            ->when($search, fn ($query) => $query->where(fn ($filter) => $filter
+                ->where('name', 'like', '%'.$search.'%')
+                ->orWhere('description', 'like', '%'.$search.'%')))
+            ->when($active !== null, fn ($query) => $query->where('is_active', $active))
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->paginate($perPage)
+            ->withQueryString();
     }
 
     public function find(string $catalog, int $id): Model

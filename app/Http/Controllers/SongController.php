@@ -51,7 +51,7 @@ class SongController extends Controller
             ->when($request->filled('q'), fn ($query) => $query->where(fn ($search) => $search->where('title', 'like', '%'.$request->string('q').'%')->orWhere('author', 'like', '%'.$request->string('q').'%')))
             ->latest('deleted_at');
 
-        return view('songs.archived', ['songs' => $query->paginate(20)->withQueryString()]);
+        return view('songs.archived', ['songs' => $query->paginate($this->perPage($request))->withQueryString()]);
     }
 
     public function suggestions(Request $request): JsonResponse

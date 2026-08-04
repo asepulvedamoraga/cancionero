@@ -14,12 +14,23 @@ class CatalogController extends Controller
 {
     public function __construct(private readonly CatalogManagementService $catalogs) {}
 
-    public function index(string $catalog): View
+    public function index(Request $request, string $catalog): View
     {
+        $status = match ($request->string('status')->toString()) {
+            'active' => true,
+            'inactive' => false,
+            default => null,
+        };
+
         return view('admin.catalogs.index', [
             'catalog' => $catalog,
             'definition' => $this->catalogs->definition($catalog),
-            'items' => $this->catalogs->items($catalog),
+            'items' => $this->catalogs->items(
+                $catalog,
+                trim($request->string('q')->toString()) ?: null,
+                $status,
+                $this->perPage($request),
+            ),
         ]);
     }
 
@@ -40,6 +51,12 @@ class CatalogController extends Controller
         return back()->with('status', ucfirst($definition['singular']).' actualizada correctamente.');
     }
 
+    private function perPage(Request $request): int
+    {
+        $perPage = $request->integer('per_page', 12);
+
+        return in_array($perPage, [12, 24, 48], true) ? $perPage : 12;
+    }
     private function validated(Request $request, string $table, ?int $ignore = null): array
     {
         $request->merge([

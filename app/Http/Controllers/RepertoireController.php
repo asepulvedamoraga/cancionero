@@ -142,7 +142,7 @@ class RepertoireController extends Controller
                 ->orWhere('location', 'like', '%'.$request->string('q').'%')))
             ->latest('deleted_at');
 
-        return view('repertoires.trashed', ['repertoires' => $query->paginate(12)->withQueryString()]);
+        return view('repertoires.trashed', ['repertoires' => $query->paginate($this->perPage($request))->withQueryString()]);
     }
 
     public function restore(int $repertoire): RedirectResponse

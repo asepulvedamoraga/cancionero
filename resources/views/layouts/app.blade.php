@@ -10,7 +10,8 @@
     @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm"><div class="container">
+<a class="app-skip-link" href="#main-content">Saltar al contenido</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm app-navbar"><div class="container">
     <a class="navbar-brand fw-semibold" href="{{ auth()->user()->hasVerifiedEmail() ? route('dashboard') : route('verification.notice') }}"><i class="bi bi-music-note-beamed me-1"></i>{{ config('cancionero.name') }}</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Abrir navegación"><span class="navbar-toggler-icon"></span></button>
     <div class="collapse navbar-collapse" id="mainNav"><ul class="navbar-nav me-auto gap-lg-1">
@@ -22,7 +23,7 @@
         @endif
     </ul><div class="navbar-nav align-items-lg-center gap-lg-2"><a class="nav-link {{ request()->routeIs('profile.*') ? 'active' : '' }}" href="{{ route('profile.edit') }}"><i class="bi bi-person-circle me-1"></i>{{ auth()->user()->name }}</a><form method="POST" action="{{ route('logout') }}">@csrf<button class="btn btn-outline-light btn-sm" type="submit"><i class="bi bi-box-arrow-right"></i>Cerrar sesión</button></form></div></div>
 </div></nav>
-<main class="container app-main">
+<main id="main-content" class="container app-main" tabindex="-1">
 @if(session('status'))<div class="alert alert-success d-flex gap-2" role="status"><i class="bi bi-check-circle-fill"></i><div>{{ session('status') }}</div></div>@endif
 @foreach((array) session('warnings',[]) as $warning)<div class="alert alert-warning d-flex gap-2" role="alert"><i class="bi bi-exclamation-triangle-fill"></i><div>{{ $warning }}</div></div>@endforeach
 @if($errors->any())<div class="alert alert-danger" role="alert"><div class="d-flex gap-2"><i class="bi bi-exclamation-circle-fill"></i><div><strong>Revisa los datos ingresados.</strong><ul class="mb-0 mt-1">@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div></div></div>@endif

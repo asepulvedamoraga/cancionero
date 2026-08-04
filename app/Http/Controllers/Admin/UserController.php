@@ -16,12 +16,18 @@ class UserController extends Controller
             ->withCount(['songs', 'repertoires'])
             ->when($request->filled('q'), fn ($query) => $query->where(fn ($search) => $search->where('name', 'like', '%'.$request->string('q').'%')->orWhere('email', 'like', '%'.$request->string('q').'%')))
             ->latest()
-            ->paginate(20)
+            ->paginate($this->perPage($request))
             ->withQueryString();
 
         return view('admin.users.index', compact('users'));
     }
 
+    private function perPage(Request $request): int
+    {
+        $perPage = $request->integer('per_page', 12);
+
+        return in_array($perPage, [12, 24, 48], true) ? $perPage : 12;
+    }
     public function update(Request $request, User $user): RedirectResponse
     {
         $validated = $request->validate(['is_active' => ['required', 'boolean']]);

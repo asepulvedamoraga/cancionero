@@ -64,6 +64,25 @@ class CatalogManagementTest extends TestCase
             ->assertSeeInOrder(['Primero', 'Segundo']);
     }
 
+    public function test_catalog_list_can_be_searched_filtered_and_paginated(): void
+    {
+        $admin = User::factory()->create(['is_admin' => true]);
+        Category::factory()->count(30)->create(['is_active' => true]);
+        Category::factory()->create(['name' => 'Opción inactiva única', 'is_active' => false]);
+
+        $this->actingAs($admin)->get(route('admin.catalogs.index', ['categories', 'per_page' => 24]))
+            ->assertOk()
+            ->assertViewHas('items', fn ($items) => $items->perPage() === 24 && $items->count() === 24);
+
+        $this->actingAs($admin)->get(route('admin.catalogs.index', ['categories', 'q' => 'Opción inactiva única', 'status' => 'inactive']))
+            ->assertOk()
+            ->assertSee('Opción inactiva única')
+            ->assertViewHas('items', fn ($items) => $items->total() === 1);
+
+        $this->actingAs($admin)->get(route('admin.catalogs.index', ['categories', 'per_page' => 500]))
+            ->assertOk()
+            ->assertViewHas('items', fn ($items) => $items->perPage() === 12);
+    }
     public function test_admin_can_deactivate_an_unused_item_but_not_an_item_in_use(): void
     {
         $admin = User::factory()->create(['is_admin' => true]);

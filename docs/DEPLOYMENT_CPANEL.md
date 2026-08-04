@@ -334,6 +334,40 @@ El último comando debe finalizar sin fallos. Luego verifica manualmente:
 11. El diseño y la presentación funcionan en teléfono y tablet.
 12. `storage/logs/laravel.log` no contiene errores nuevos ni secretos.
 
+## 10.1. Recordatorio rápido del hosting actual
+
+Configuración confirmada para la cuenta de producción:
+
+- Proyecto Laravel: `/home/sanacion/public_html/repositories/cancionero`
+- Entorno Node.js de cPanel: `/home/sanacion/nodevenv/node-build-cancionero/20`
+- PHP CLI: `/usr/local/bin/php`
+
+Después de actualizar el código, ejecutar:
+
+```bash
+source /home/sanacion/nodevenv/node-build-cancionero/20/bin/activate
+cd /home/sanacion/public_html/repositories/cancionero
+composer install --no-dev --optimize-autoloader
+npm run build
+/usr/local/bin/php artisan optimize:clear
+/usr/local/bin/php artisan migrate --force
+/usr/local/bin/php artisan config:cache
+/usr/local/bin/php artisan route:cache
+/usr/local/bin/php artisan view:cache
+/usr/local/bin/php artisan cancionero:production-check
+deactivate
+```
+
+`npm run build` debe ejecutarse en el proyecto Laravel, donde están `package.json` y `vite.config.js`, no dentro de `node-build-cancionero`.
+
+En este hosting, `npm install` desde Terminal intenta leer un `package.json` incorrecto dentro del entorno virtual. Cuando `package.json` o `package-lock.json` cambien, usar **cPanel → Setup Node.js App → node-build-cancionero → Run NPM Install** y después volver a ejecutar `npm run build` desde el proyecto Laravel.
+
+El scheduler utiliza este trabajo cron cada minuto:
+
+```cron
+* * * * * cd /home/sanacion/public_html/repositories/cancionero && /usr/local/bin/php artisan schedule:run >> /dev/null 2>&1
+```
+
 ## 11. Procedimiento de actualización
 
 1. Informa una ventana de mantenimiento.
