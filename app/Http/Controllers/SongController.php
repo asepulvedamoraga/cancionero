@@ -34,7 +34,7 @@ class SongController extends Controller
         $this->applyFilters($query, $request);
 
         return view('songs.index', [
-            'songs' => $query->paginate(12)->withQueryString(),
+            'songs' => $query->paginate($this->perPage($request))->withQueryString(),
             'scope' => $scope,
             'ownCount' => Song::where('user_id', $request->user()->id)->count(),
             'archivedCount' => Song::onlyTrashed()->when(! $request->user()->is_admin, fn ($archived) => $archived->where('user_id', $request->user()->id))->count(),
@@ -169,6 +169,13 @@ class SongController extends Controller
         match ($request->string('sort')->toString()) {
             'title_desc' => $query->orderByDesc('title'), 'oldest' => $query->oldest(), 'newest' => $query->latest(), default => $query->orderBy('title')
         };
+    }
+
+    private function perPage(Request $request): int
+    {
+        $perPage = $request->integer('per_page', 12);
+
+        return in_array($perPage, [12, 24, 48], true) ? $perPage : 12;
     }
 
     private function catalogs(): array

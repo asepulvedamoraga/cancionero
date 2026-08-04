@@ -42,7 +42,7 @@ class RepertoireController extends Controller
             ->count();
 
         return view('repertoires.index', [
-            'repertoires' => $query->paginate(12)->withQueryString(),
+            'repertoires' => $query->paginate($this->perPage($request))->withQueryString(),
             'trashedCount' => $trashedCount,
         ]);
     }
@@ -162,6 +162,13 @@ class RepertoireController extends Controller
         $copy = $service->duplicate($repertoire, $name, $this->uniqueSlug(null, $name));
 
         return redirect()->route('repertoires.edit', $copy)->with('status', 'Repertorio duplicado como borrador.');
+    }
+
+    private function perPage(Request $request): int
+    {
+        $perPage = $request->integer('per_page', 12);
+
+        return in_array($perPage, [12, 24, 48], true) ? $perPage : 12;
     }
 
     private function uniqueSlug(?string $slug, string $name, ?int $ignore = null): string

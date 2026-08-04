@@ -54,6 +54,19 @@ class SharedSongLibraryTest extends TestCase
         $this->actingAs($user)->get(route('songs.index', ['ownership' => 'others']))->assertSee($shared->title)->assertDontSee($own->title);
     }
 
+    public function test_library_accepts_only_supported_page_sizes(): void
+    {
+        $user = User::factory()->create();
+        Song::factory()->count(30)->create(['is_active' => true]);
+
+        $this->actingAs($user)->get(route('songs.index', ['per_page' => 24]))
+            ->assertOk()
+            ->assertViewHas('songs', fn ($songs) => $songs->perPage() === 24 && $songs->count() === 24);
+
+        $this->actingAs($user)->get(route('songs.index', ['per_page' => 500]))
+            ->assertOk()
+            ->assertViewHas('songs', fn ($songs) => $songs->perPage() === 12 && $songs->count() === 12);
+    }
     public function test_owner_can_restore_archived_song_and_other_user_cannot(): void
     {
         $owner = User::factory()->create();

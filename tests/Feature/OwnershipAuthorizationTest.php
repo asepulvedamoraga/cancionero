@@ -76,6 +76,19 @@ class OwnershipAuthorizationTest extends TestCase
         $this->actingAs($admin)->get(route('songs.edit', $song))->assertOk();
     }
 
+    public function test_repertoire_list_accepts_only_supported_page_sizes(): void
+    {
+        $user = User::factory()->create();
+        Repertoire::factory()->count(30)->for($user, 'owner')->create();
+
+        $this->actingAs($user)->get(route('repertoires.index', ['per_page' => 24]))
+            ->assertOk()
+            ->assertViewHas('repertoires', fn ($repertoires) => $repertoires->perPage() === 24 && $repertoires->count() === 24);
+
+        $this->actingAs($user)->get(route('repertoires.index', ['per_page' => 500]))
+            ->assertOk()
+            ->assertViewHas('repertoires', fn ($repertoires) => $repertoires->perPage() === 12 && $repertoires->count() === 12);
+    }
     public function test_user_sees_public_repertoire_but_cannot_manage_or_export_it(): void
     {
         $owner = User::factory()->create();
