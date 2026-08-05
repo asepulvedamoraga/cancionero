@@ -27,18 +27,24 @@ class PdfConversionService
             $imagick->setResolution((int) config('cancionero.pdf_resolution', 150), (int) config('cancionero.pdf_resolution', 150));
             $imagick->readImage($absolutePdfPath);
             foreach ($imagick as $index => $page) {
-                $page->setImageFormat('webp');
-                $page->setImageCompressionQuality((int) config('cancionero.image_quality', 85));
+                // Ensure pages are flattened against a white background and have no alpha
+                $flatten = clone $page;
+                $flatten->setImageBackgroundColor('white');
+                $flatten = $flatten->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
+
+                $flatten->setImageFormat('webp');
+                $flatten->setImageCompressionQuality((int) config('cancionero.image_quality', 85));
                 $pageName = sprintf('page-%04d.webp', $index + 1);
                 $thumbName = sprintf('page-%04d-thumb.webp', $index + 1);
                 $pagePath = $pagesDirectory.DIRECTORY_SEPARATOR.$pageName;
                 $thumbPath = $thumbnailsDirectory.DIRECTORY_SEPARATOR.$thumbName;
-                $page->writeImage($pagePath);
-                $thumbnail = clone $page;
+                $flatten->writeImage($pagePath);
+                $thumbnail = clone $flatten;
                 $thumbnail->thumbnailImage(360, 480, true, true);
                 $thumbnail->writeImage($thumbPath);
                 $pages[] = ['page_number' => $index + 1, 'stored_name' => $pageName, 'page_path' => $pagePath, 'thumbnail_path' => $thumbPath, 'mime_type' => 'image/webp', 'extension' => 'webp', 'file_size' => filesize($pagePath) ?: 0];
                 $thumbnail->clear();
+                $flatten->clear();
             }
             $imagick->clear();
         } catch (Throwable $exception) {
