@@ -33,7 +33,6 @@ if (root) {
         current = Math.max(0, Math.min(index, slides.length - 1));
         slides.forEach((slide, position) => { slide.hidden = position !== current; });
         const slide = slides[current];
-        zoom = 1;
         applyZoom();
         text('[data-song-title]', slide.dataset.songTitle);
         text('[data-song-counter]', `Canción ${slide.dataset.songPosition} de ${slide.dataset.songCount}`);
