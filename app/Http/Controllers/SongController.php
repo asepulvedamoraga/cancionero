@@ -105,9 +105,13 @@ class SongController extends Controller
     public function show(Request $request, Song $song): View
     {
         Gate::authorize('view', $song);
+        $song->ensureDefaultTone();
         $song->load(['owner', 'category', 'liturgicalMoment', 'liturgicalSeasons', 'files', 'tones']);
 
         $selectedTone = $song->selectedTone($request->integer('tone') ?: null);
+        if ($song->tones->isEmpty()) {
+            $song->setRelation('tones', collect([$selectedTone]));
+        }
         $displayFiles = $song->filesForTone($selectedTone->id);
 
         return view('songs.show', ['song' => $song, 'selectedTone' => $selectedTone, 'displayFiles' => $displayFiles]);
@@ -116,9 +120,13 @@ class SongController extends Controller
     public function read(Request $request, Song $song): View
     {
         Gate::authorize('view', $song);
+        $song->ensureDefaultTone();
         $song->load(['files' => fn ($query) => $query->whereIn('file_type', ['image', 'generated_image'])->orderBy('sort_order'), 'tones']);
 
         $selectedTone = $song->selectedTone($request->integer('tone') ?: null);
+        if ($song->tones->isEmpty()) {
+            $song->setRelation('tones', collect([$selectedTone]));
+        }
         $displayFiles = $song->filesForTone($selectedTone->id)->whereIn('file_type', ['image', 'generated_image'])->values();
 
         return view('songs.read', compact('song', 'selectedTone', 'displayFiles'));
@@ -127,8 +135,12 @@ class SongController extends Controller
     public function edit(Request $request, Song $song): View
     {
         Gate::authorize('update', $song);
+        $song->ensureDefaultTone();
         $song->load(['liturgicalSeasons', 'files', 'tones']);
         $selectedTone = $song->selectedTone($request->integer('tone') ?: null);
+        if ($song->tones->isEmpty()) {
+            $song->setRelation('tones', collect([$selectedTone]));
+        }
 
         return view('songs.edit', ['song' => $song, 'selectedTone' => $selectedTone, ...$this->catalogs(), 'imagickAvailable' => app(PdfConversionService::class)->available()]);
     }
