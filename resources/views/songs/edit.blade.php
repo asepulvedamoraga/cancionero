@@ -18,15 +18,33 @@
     <div>
         <h1 class="h2">Editar cancion</h1>
         <p class="text-secondary mb-0">{{ $song->title }}</p>
+        @if($activeTone)
+            <div class="small text-secondary mt-1">Tonalidad activa: <strong>{{ $activeTone->name }}</strong></div>
+        @endif
     </div>
     <a class="btn btn-outline-primary" href="{{ route('songs.show', ['song' => $song, 'tone' => $activeTone?->id]) }}">
         <i class="bi bi-eye"></i>Ver cancion
     </a>
 </div>
 
-<div class="card card-body mb-4">
-    <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
-        <strong>Tonalidades</strong>
+<form class="card card-body mb-4 song-upload-form"
+      method="POST"
+      action="{{ route('songs.update', $song) }}"
+      enctype="multipart/form-data"
+      data-song-upload-form
+      data-song-upload-message="Estamos convirtiendo el PDF y generando sus paginas. No cierres esta ventana hasta que termine.">
+    @csrf
+    @method('PUT')
+    @include('songs._form', ['selectedTone' => $activeTone])
+</form>
+
+<details class="card card-body mb-4 song-tone-tools">
+    <summary class="song-tone-tools__summary">
+        <span><i class="bi bi-sliders me-1"></i>Gestionar tonalidades</span>
+        <small class="text-secondary">Opcional</small>
+    </summary>
+
+    <div class="d-flex flex-wrap gap-2 align-items-center mb-3 mt-3">
         @foreach($song->tones as $tone)
             <a class="btn btn-sm {{ $activeTone && $tone->id === $activeTone->id ? 'btn-primary' : 'btn-outline-secondary' }}"
                href="{{ route('songs.edit', ['song' => $song, 'tone' => $tone->id]) }}">
@@ -66,18 +84,7 @@
             <button class="btn btn-sm btn-outline-primary">Agregar tonalidad</button>
         </div>
     </form>
-</div>
-
-<form class="card card-body mb-4 song-upload-form"
-      method="POST"
-      action="{{ route('songs.update', $song) }}"
-      enctype="multipart/form-data"
-      data-song-upload-form
-      data-song-upload-message="Estamos convirtiendo el PDF y generando sus paginas. No cierres esta ventana hasta que termine.">
-    @csrf
-    @method('PUT')
-    @include('songs._form', ['selectedTone' => $activeTone])
-</form>
+</details>
 
 @if($toneFiles->isNotEmpty())
     <div class="card">
