@@ -45,6 +45,30 @@ class SongManagementTest extends TestCase
         $this->assertFalse($song->fresh()->is_active);
     }
 
+    public function test_admin_can_store_optional_youtube_video_and_see_it_in_song_view(): void
+    {
+        $response = $this->actingAs($this->admin)->post(route('songs.store'), [
+            'title' => 'Con video',
+            'is_active' => 1,
+            'video_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        ]);
+
+        $song = Song::firstOrFail();
+        $response->assertRedirect(route('songs.show', $song));
+        $this->assertSame('https://www.youtube.com/watch?v=dQw4w9WgXcQ', $song->video_url);
+        $this->actingAs($this->admin)->get(route('songs.show', $song))->assertOk()->assertSee('Video de apoyo')->assertSee('youtube-nocookie.com/embed/dQw4w9WgXcQ', false);
+        $this->actingAs($this->admin)->get(route('songs.read', $song))->assertOk()->assertSee('Video de apoyo')->assertSee('youtube-nocookie.com/embed/dQw4w9WgXcQ', false);
+    }
+
+    public function test_non_youtube_video_url_is_rejected(): void
+    {
+        $this->actingAs($this->admin)->post(route('songs.store'), [
+            'title' => 'Video inválido',
+            'is_active' => 1,
+            'video_url' => 'https://example.com/watch?v=dQw4w9WgXcQ',
+        ])->assertSessionHasErrors('video_url');
+    }
+
     public function test_admin_can_upload_valid_image_and_private_file_is_recorded(): void
     {
         Storage::fake('local');
