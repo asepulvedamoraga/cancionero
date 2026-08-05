@@ -5,5 +5,6 @@ import { initSongFileSorter } from './modules/song-files-sorter';
 import { initSongDuplicateCheck } from './modules/song-duplicate-check';
 import { initRepertoireSorter } from './modules/repertoire-sorter';
 import { initRepertoireSelector } from './modules/repertoire-selector';
+import { initSongUploadFeedback } from './modules/song-upload-feedback';
 document.documentElement.classList.add('js');
-document.addEventListener('DOMContentLoaded',()=>{ initFilePreview(); initCopyButtons(); initSongFileSorter(); initSongDuplicateCheck(); initRepertoireSorter(); initRepertoireSelector(); document.querySelectorAll('form[data-confirm]').forEach(form=>form.addEventListener('submit',event=>{ if(!window.confirm(form.dataset.confirm))event.preventDefault(); })); });
+document.addEventListener('DOMContentLoaded',()=>{ initFilePreview(); initCopyButtons(); initSongFileSorter(); initSongDuplicateCheck(); initRepertoireSorter(); initRepertoireSelector(); initSongUploadFeedback(); document.querySelectorAll('form[data-confirm]').forEach(form=>form.addEventListener('submit',event=>{ if(!window.confirm(form.dataset.confirm))event.preventDefault(); })); });
