@@ -20,7 +20,6 @@ class DashboardController extends Controller
             'repertoireCount' => (clone $repertoires)->count(),
             'latestSongs' => (clone $songs)->latest()->limit(5)->get(),
             'recentRepertoires' => (clone $repertoires)->latest()->limit(5)->get(),
-            'upcomingRepertoires' => (clone $repertoires)->whereNotNull('event_date')->whereDate('event_date', '>=', today())->orderBy('event_date')->limit(5)->get(),
             'lastRepertoire' => (clone $repertoires)->latest()->first(),
         ]);
     }

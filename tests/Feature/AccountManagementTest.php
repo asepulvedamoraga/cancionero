@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use App\Notifications\VerifyEmailNotification;
 use Illuminate\Auth\Notifications\ResetPassword;
-use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
@@ -38,7 +38,14 @@ class AccountManagementTest extends TestCase
         $this->assertFalse($user->hasVerifiedEmail());
         $this->assertFalse($user->is_admin);
         $this->assertTrue($user->is_active);
-        Notification::assertSentTo($user, VerifyEmail::class);
+        Notification::assertSentTo($user, VerifyEmailNotification::class, function (VerifyEmailNotification $notification) use ($user): bool {
+            $mail = $notification->toMail($user);
+
+            return $notification->locale === 'es'
+                && $mail->subject === 'Verifica tu correo electrónico'
+                && $mail->actionText === 'Verificar mi correo'
+                && str_contains($mail->greeting, $user->name);
+        });
         $this->get(route('songs.index'))->assertRedirect(route('verification.notice'));
     }
 
@@ -102,7 +109,7 @@ class AccountManagementTest extends TestCase
         $user->refresh();
         $this->assertSame('Nombre actualizado', $user->name);
         $this->assertNull($user->email_verified_at);
-        Notification::assertSentTo($user, VerifyEmail::class);
+        Notification::assertSentTo($user, VerifyEmailNotification::class);
 
         $this->actingAs($user)->put(route('profile.password.update'), [
             'current_password' => 'ClaveActual1',
