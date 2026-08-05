@@ -159,6 +159,15 @@ class SongController extends Controller
         return redirect()->route('songs.show', $archivedSong)->with('status', 'Canción restaurada correctamente.');
     }
 
+    public function forceDestroy(int $song, SongFileService $files): RedirectResponse
+    {
+        $archivedSong = Song::onlyTrashed()->findOrFail($song);
+        Gate::authorize('delete', $archivedSong);
+        $files->purgeSong($archivedSong);
+
+        return redirect()->route('songs.archived')->with('status', 'Canción eliminada definitivamente junto con sus archivos.');
+    }
+
     private function applyFilters(Builder $query, Request $request): void
     {
         $query->when($request->filled('q'), fn ($q) => $q->where(fn ($sub) => $sub->where('title', 'like', '%'.$request->string('q').'%')->orWhere('author', 'like', '%'.$request->string('q').'%')))

@@ -2,9 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\Models\SongFile;
 use App\Models\Song;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class SharedSongLibraryTest extends TestCase
@@ -93,6 +95,28 @@ class SharedSongLibraryTest extends TestCase
         $this->actingAs($admin)->get(route('songs.archived'))->assertSee($song->title);
         $this->actingAs($admin)->put(route('songs.restore', $song->id))->assertRedirect();
         $this->assertNotSoftDeleted($song);
+    }
+
+    public function test_owner_can_permanently_delete_archived_song_and_its_files(): void
+    {
+        Storage::fake('local');
+        $owner = User::factory()->create();
+        $song = Song::factory()->for($owner, 'owner')->create(['title' => 'Eliminar para siempre']);
+        $file = SongFile::factory()->create([
+            'song_id' => $song->id,
+            'original_path' => "songs/{$song->id}/originals/page.jpg",
+            'preview_path' => "songs/{$song->id}/thumbnails/page.webp",
+        ]);
+        Storage::disk('local')->put($file->original_path, 'original');
+        Storage::disk('local')->put($file->preview_path, 'preview');
+        $song->delete();
+
+        $this->actingAs($owner)->delete(route('songs.force-destroy', $song->id))->assertRedirect(route('songs.archived'));
+
+        $this->assertModelMissing($song);
+        $this->assertModelMissing($file);
+        Storage::disk('local')->assertMissing("songs/{$song->id}/originals/page.jpg");
+        Storage::disk('local')->assertMissing("songs/{$song->id}/thumbnails/page.webp");
     }
 
     public function test_suggestions_return_only_active_matches_without_private_account_data(): void

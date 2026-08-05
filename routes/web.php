@@ -65,6 +65,7 @@ Route::middleware(['auth', 'active'])->group(function () {
         Route::get('/songs/archived', [SongController::class, 'archived'])->name('songs.archived');
         Route::get('/songs/suggestions', [SongController::class, 'suggestions'])->middleware('throttle:60,1')->name('songs.suggestions');
         Route::put('/songs/{song}/restore', [SongController::class, 'restore'])->name('songs.restore');
+        Route::delete('/songs/{song}/force', [SongController::class, 'forceDestroy'])->name('songs.force-destroy');
         Route::get('/songs/{song}/read', [SongController::class, 'read'])->name('songs.read');
         Route::resource('songs', SongController::class);
         Route::get('/songs/{song}/files/{file}', [SongFileController::class, 'show'])->name('songs.files.show');
@@ -76,6 +77,7 @@ Route::middleware(['auth', 'active'])->group(function () {
         Route::post('/repertoires/{repertoire}/export', RepertoireExportController::class)->name('repertoires.export');
         Route::get('/repertoires/trashed', [RepertoireController::class, 'trashed'])->name('repertoires.trashed');
         Route::put('/repertoires/{repertoire}/restore', [RepertoireController::class, 'restore'])->whereNumber('repertoire')->name('repertoires.restore');
+        Route::delete('/repertoires/{repertoire}/force', [RepertoireController::class, 'forceDestroy'])->whereNumber('repertoire')->name('repertoires.force-destroy');
         Route::get('/repertoires/{repertoire}/presentation', PresentationController::class)->name('repertoires.presentation');
         Route::post('/repertoires/{repertoire}/duplicate', [RepertoireController::class, 'duplicate'])->name('repertoires.duplicate');
         Route::post('/repertoires/{repertoire}/songs', [RepertoireSongController::class, 'store'])->name('repertoires.songs.store');

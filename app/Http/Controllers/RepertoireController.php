@@ -154,6 +154,15 @@ class RepertoireController extends Controller
         return redirect()->route('repertoires.show', $repertoire)->with('status', 'Repertorio restaurado como privado.');
     }
 
+    public function forceDestroy(int $repertoire): RedirectResponse
+    {
+        $trashedRepertoire = Repertoire::onlyTrashed()->findOrFail($repertoire);
+        Gate::authorize('delete', $trashedRepertoire);
+        $trashedRepertoire->forceDelete();
+
+        return redirect()->route('repertoires.trashed')->with('status', 'Repertorio eliminado definitivamente.');
+    }
+
     public function duplicate(Repertoire $repertoire, RepertoireService $service): RedirectResponse
     {
         Gate::authorize('duplicate', $repertoire);

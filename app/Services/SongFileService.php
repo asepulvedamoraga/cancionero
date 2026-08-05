@@ -98,6 +98,20 @@ class SongFileService
         });
     }
 
+    public function purgeSong(Song $song): void
+    {
+        DB::transaction(fn () => $song->forceDelete());
+
+        try {
+            Storage::disk('local')->deleteDirectory("songs/{$song->id}");
+        } catch (Throwable $exception) {
+            Log::warning('No fue posible eliminar el directorio físico de una canción.', [
+                'song_id' => $song->id,
+                'exception' => $exception->getMessage(),
+            ]);
+        }
+    }
+
     private function storeImage(Song $song, UploadedFile $upload, int $sortOrder): array
     {
         $extension = strtolower($upload->guessExtension() ?: $upload->extension());

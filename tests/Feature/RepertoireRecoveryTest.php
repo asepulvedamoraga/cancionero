@@ -73,4 +73,18 @@ class RepertoireRecoveryTest extends TestCase
         $this->actingAs($admin)->put(route('repertoires.restore', $repertoire->id))->assertRedirect();
         $this->assertNotSoftDeleted($repertoire);
     }
+
+    public function test_owner_can_permanently_delete_trashed_repertoire(): void
+    {
+        $owner = User::factory()->create();
+        $song = Song::factory()->create();
+        $repertoire = Repertoire::factory()->for($owner, 'owner')->create(['name' => 'Eliminar papelera']);
+        $repertoire->songs()->attach($song, ['sort_order' => 1, 'notes' => 'nota']);
+        $repertoire->delete();
+
+        $this->actingAs($owner)->delete(route('repertoires.force-destroy', $repertoire->id))->assertRedirect(route('repertoires.trashed'));
+
+        $this->assertModelMissing($repertoire);
+        $this->assertDatabaseMissing('repertoire_song', ['repertoire_id' => $repertoire->id, 'song_id' => $song->id]);
+    }
 }
