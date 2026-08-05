@@ -23,11 +23,7 @@ export function initSongUploadFeedback() {
 
             form.classList.add('is-uploading');
             overlay.hidden = false;
-            form.querySelectorAll('button, input, select, textarea, a').forEach(element => {
-                if (element instanceof HTMLInputElement && element.type === 'hidden') {
-                    return;
-                }
-
+            form.querySelectorAll('button, a').forEach(element => {
                 if (element instanceof HTMLAnchorElement) {
                     element.setAttribute('aria-disabled', 'true');
                     element.tabIndex = -1;
