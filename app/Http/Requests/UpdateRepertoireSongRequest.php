@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateRepertoireSongRequest extends FormRequest
 {
@@ -13,6 +14,9 @@ class UpdateRepertoireSongRequest extends FormRequest
 
     public function rules(): array
     {
-        return ['notes' => ['nullable', 'string', 'max:2000']];
+        return [
+            'notes' => ['nullable', 'string', 'max:2000'],
+            'song_tone_id' => ['nullable', 'integer', Rule::exists('song_tones', 'id')],
+        ];
     }
 }

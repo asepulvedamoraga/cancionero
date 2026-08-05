@@ -26,6 +26,6 @@ class Repertoire extends Model
 
     public function songs(): BelongsToMany
     {
-        return $this->belongsToMany(Song::class)->withPivot(['sort_order', 'notes'])->withTimestamps()->orderByPivot('sort_order');
+        return $this->belongsToMany(Song::class)->withPivot(['sort_order', 'notes', 'song_tone_id'])->withTimestamps()->orderByPivot('sort_order');
     }
 }

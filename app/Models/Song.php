@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Song extends Model
@@ -18,6 +19,13 @@ class Song extends Model
     protected function casts(): array
     {
         return ['is_active' => 'boolean'];
+    }
+
+    protected static function booted(): void
+    {
+        static::created(function (Song $song): void {
+            $song->ensureDefaultTone();
+        });
     }
 
     public function owner(): BelongsTo
@@ -45,9 +53,65 @@ class Song extends Model
         return $this->hasMany(SongFile::class)->orderBy('sort_order');
     }
 
+    public function tones(): HasMany
+    {
+        return $this->hasMany(SongTone::class)->orderByDesc('is_default')->orderBy('name');
+    }
+
     public function repertoires(): BelongsToMany
     {
-        return $this->belongsToMany(Repertoire::class)->withPivot(['sort_order', 'notes'])->withTimestamps()->orderByPivot('sort_order');
+        return $this->belongsToMany(Repertoire::class)->withPivot(['sort_order', 'notes', 'song_tone_id'])->withTimestamps()->orderByPivot('sort_order');
+    }
+
+    public function ensureDefaultTone(): SongTone
+    {
+        $default = $this->tones()->where('is_default', true)->first();
+        if ($default) {
+            return $default;
+        }
+
+        $first = $this->tones()->first();
+        if ($first) {
+            $first->update(['is_default' => true]);
+
+            return $first;
+        }
+
+        return $this->tones()->create([
+            'name' => $this->defaultToneName(),
+            'is_default' => true,
+        ]);
+    }
+
+    public function resolveToneId(?int $candidate): ?int
+    {
+        if ($candidate && $this->tones()->whereKey($candidate)->exists()) {
+            return $candidate;
+        }
+
+        return $this->ensureDefaultTone()->id;
+    }
+
+    public function selectedTone(?int $candidate = null): SongTone
+    {
+        $toneId = $this->resolveToneId($candidate);
+
+        return $this->tones()->whereKey($toneId)->firstOrFail();
+    }
+
+    public function filesForTone(int $toneId): Collection
+    {
+        $files = $this->files;
+        $toneFiles = $files->where('song_tone_id', $toneId);
+
+        return $toneFiles->isNotEmpty() ? $toneFiles->values() : $files->values();
+    }
+
+    private function defaultToneName(): string
+    {
+        $name = trim((string) $this->musical_key);
+
+        return $name !== '' ? $name : 'Original';
     }
 
     public function youtubeEmbedUrl(): ?string

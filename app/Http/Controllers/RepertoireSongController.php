@@ -7,6 +7,7 @@ use App\Http\Requests\ReorderRepertoireSongsRequest;
 use App\Http\Requests\UpdateRepertoireSongRequest;
 use App\Models\Repertoire;
 use App\Models\Song;
+use App\Models\SongTone;
 use App\Services\RepertoireService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -17,7 +18,7 @@ class RepertoireSongController extends Controller
     public function store(AddRepertoireSongsRequest $request, Repertoire $repertoire, RepertoireService $service): RedirectResponse
     {
         Gate::authorize('update', $repertoire);
-        $count = $service->addSongs($repertoire, $request->validated('song_ids'));
+        $count = $service->addSongs($repertoire, $request->validated('song_ids'), (array) $request->validated('song_tones', []));
 
         return redirect()->route('repertoires.edit', $repertoire)->with('status', $count === 1 ? 'Canción agregada al repertorio.' : $count.' canciones agregadas al repertorio.');
     }
@@ -26,7 +27,16 @@ class RepertoireSongController extends Controller
     {
         Gate::authorize('update', $repertoire);
         $this->ensureAttached($repertoire, $song);
-        $repertoire->songs()->updateExistingPivot($song->id, ['notes' => $request->string('notes')->trim()->value() ?: null]);
+
+        $toneId = $request->integer('song_tone_id') ?: null;
+        if ($toneId && ! SongTone::query()->whereKey($toneId)->where('song_id', $song->id)->exists()) {
+            return back()->withErrors(['song_tone_id' => 'La tonalidad seleccionada no corresponde a la canción.']);
+        }
+
+        $repertoire->songs()->updateExistingPivot($song->id, [
+            'notes' => $request->string('notes')->trim()->value() ?: null,
+            'song_tone_id' => $song->resolveToneId($toneId),
+        ]);
 
         return back()->with('status', 'Nota actualizada.');
     }

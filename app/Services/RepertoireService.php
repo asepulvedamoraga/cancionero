@@ -2,13 +2,14 @@
 
 namespace App\Services;
 
+use App\Models\Song;
 use App\Models\Repertoire;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class RepertoireService
 {
-    public function addSongs(Repertoire $repertoire, array $songIds): int
+    public function addSongs(Repertoire $repertoire, array $songIds, array $songToneIds = []): int
     {
         $songIds = collect($songIds)->map(fn ($id) => (int) $id)->unique()->values();
         $existing = $repertoire->songs()->whereKey($songIds)->pluck('songs.id');
@@ -17,11 +18,25 @@ class RepertoireService
             throw ValidationException::withMessages(['song_ids' => 'Una o más canciones ya pertenecen al repertorio.']);
         }
 
-        return DB::transaction(function () use ($repertoire, $songIds): int {
+        return DB::transaction(function () use ($repertoire, $songIds, $songToneIds): int {
             $nextOrder = ((int) $repertoire->songs()->max('repertoire_song.sort_order')) + 1;
             $attachments = [];
+
+            $songs = Song::query()->with('tones')->whereIn('id', $songIds)->get()->keyBy('id');
+
             foreach ($songIds as $songId) {
-                $attachments[$songId] = ['sort_order' => $nextOrder++];
+                $song = $songs->get($songId);
+                if (! $song) {
+                    continue;
+                }
+
+                $requestedTone = (int) ($songToneIds[(string) $songId] ?? $songToneIds[$songId] ?? 0);
+                $toneId = $song->resolveToneId($requestedTone);
+
+                $attachments[$songId] = [
+                    'sort_order' => $nextOrder++,
+                    'song_tone_id' => $toneId,
+                ];
             }
             $repertoire->songs()->attach($attachments);
 
@@ -60,6 +75,7 @@ class RepertoireService
                 $copy->songs()->attach($song->id, [
                     'sort_order' => $song->pivot->sort_order,
                     'notes' => $song->pivot->notes,
+                    'song_tone_id' => $song->pivot->song_tone_id,
                 ]);
             }
 

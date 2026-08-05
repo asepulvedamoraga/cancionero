@@ -9,7 +9,7 @@ export function initRepertoireSelector() {
     const clear = selector.querySelector('[data-clear-search]');
 
     const update = () => {
-        const selected = checks.filter(check => check.checked).length;
+        const selected = checks.filter(check => !check.disabled && check.checked).length;
         count.textContent = selected === 1 ? '1 canción seleccionada' : `${selected} canciones seleccionadas`;
         submit.disabled = selected === 0;
     };

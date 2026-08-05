@@ -88,12 +88,13 @@ class SongController extends Controller
         $validated = $request->validated();
         $validated['user_id'] = $request->user()->id;
         $uploads = $request->file('files', []);
+        $selectedToneId = $request->integer('song_tone_id') ?: null;
         unset($validated['files'], $validated['liturgical_seasons']);
         $validated['slug'] = $this->uniqueSlug($validated['slug'] ?? null, $validated['title']);
-        $result = DB::transaction(function () use ($validated, $request, $uploads, $files) {
+        $result = DB::transaction(function () use ($validated, $request, $uploads, $files, $selectedToneId) {
             $song = Song::create($validated);
             $song->liturgicalSeasons()->sync($request->input('liturgical_seasons', []));
-            $stored = $files->storeUploads($song, $uploads);
+            $stored = $files->storeUploads($song, $uploads, $selectedToneId);
 
             return [$song, $stored];
         });
@@ -101,28 +102,35 @@ class SongController extends Controller
         return redirect()->route('songs.show', $result[0])->with('status', 'Canción creada correctamente.')->with('warnings', $result[1]['warnings']);
     }
 
-    public function show(Song $song): View
+    public function show(Request $request, Song $song): View
     {
         Gate::authorize('view', $song);
-        $song->load(['owner', 'category', 'liturgicalMoment', 'liturgicalSeasons', 'files']);
+        $song->load(['owner', 'category', 'liturgicalMoment', 'liturgicalSeasons', 'files', 'tones']);
 
-        return view('songs.show', ['song' => $song]);
+        $selectedTone = $song->selectedTone($request->integer('tone') ?: null);
+        $displayFiles = $song->filesForTone($selectedTone->id);
+
+        return view('songs.show', ['song' => $song, 'selectedTone' => $selectedTone, 'displayFiles' => $displayFiles]);
     }
 
-    public function read(Song $song): View
+    public function read(Request $request, Song $song): View
     {
         Gate::authorize('view', $song);
-        $song->load(['files' => fn ($query) => $query->whereIn('file_type', ['image', 'generated_image'])->orderBy('sort_order')]);
+        $song->load(['files' => fn ($query) => $query->whereIn('file_type', ['image', 'generated_image'])->orderBy('sort_order'), 'tones']);
 
-        return view('songs.read', compact('song'));
+        $selectedTone = $song->selectedTone($request->integer('tone') ?: null);
+        $displayFiles = $song->filesForTone($selectedTone->id)->whereIn('file_type', ['image', 'generated_image'])->values();
+
+        return view('songs.read', compact('song', 'selectedTone', 'displayFiles'));
     }
 
-    public function edit(Song $song): View
+    public function edit(Request $request, Song $song): View
     {
         Gate::authorize('update', $song);
-        $song->load(['liturgicalSeasons', 'files']);
+        $song->load(['liturgicalSeasons', 'files', 'tones']);
+        $selectedTone = $song->selectedTone($request->integer('tone') ?: null);
 
-        return view('songs.edit', ['song' => $song, ...$this->catalogs(), 'imagickAvailable' => app(PdfConversionService::class)->available()]);
+        return view('songs.edit', ['song' => $song, 'selectedTone' => $selectedTone, ...$this->catalogs(), 'imagickAvailable' => app(PdfConversionService::class)->available()]);
     }
 
     public function update(UpdateSongRequest $request, Song $song, SongFileService $files): RedirectResponse
@@ -130,16 +138,19 @@ class SongController extends Controller
         Gate::authorize('update', $song);
         $validated = $request->validated();
         $uploads = $request->file('files', []);
+        $selectedToneId = $request->integer('song_tone_id') ?: null;
         unset($validated['files'], $validated['liturgical_seasons']);
         $validated['slug'] = $this->uniqueSlug($validated['slug'] ?? null, $validated['title'], $song->id);
-        $stored = DB::transaction(function () use ($song, $validated, $request, $uploads, $files) {
+        $stored = DB::transaction(function () use ($song, $validated, $request, $uploads, $files, $selectedToneId) {
             $song->update($validated);
             $song->liturgicalSeasons()->sync($request->input('liturgical_seasons', []));
 
-            return $files->storeUploads($song, $uploads);
+            return $files->storeUploads($song, $uploads, $selectedToneId);
         });
 
-        return redirect()->route('songs.edit', $song)->with('status', 'Canción actualizada correctamente.')->with('warnings', $stored['warnings']);
+        $tone = $song->resolveToneId($selectedToneId);
+
+        return redirect()->route('songs.edit', ['song' => $song, 'tone' => $tone])->with('status', 'Canción actualizada correctamente.')->with('warnings', $stored['warnings']);
     }
 
     public function destroy(Song $song): RedirectResponse

@@ -50,6 +50,24 @@ class RepertoireManagementTest extends TestCase
         $this->assertDatabaseCount('repertoire_song', 1);
     }
 
+    public function test_admin_can_add_song_with_selected_tone(): void
+    {
+        $repertoire = Repertoire::factory()->create();
+        $song = Song::factory()->create(['is_active' => true, 'musical_key' => 'Do']);
+        $altTone = $song->tones()->create(['name' => 'Re', 'is_default' => false]);
+
+        $this->actingAs($this->admin)->post(route('repertoires.songs.store', $repertoire), [
+            'song_ids' => [$song->id],
+            'song_tones' => [$song->id => $altTone->id],
+        ])->assertSessionHasNoErrors();
+
+        $this->assertDatabaseHas('repertoire_song', [
+            'repertoire_id' => $repertoire->id,
+            'song_id' => $song->id,
+            'song_tone_id' => $altTone->id,
+        ]);
+    }
+
     public function test_inactive_song_cannot_be_added(): void
     {
         $repertoire = Repertoire::factory()->create();

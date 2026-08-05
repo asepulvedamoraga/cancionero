@@ -67,7 +67,7 @@ class RepertoireController extends Controller
     public function show(Repertoire $repertoire, RepertoirePageService $pages): View
     {
         Gate::authorize('view', $repertoire);
-        $repertoire->load(['owner', 'songs.category', 'songs.liturgicalMoment'])->loadCount('songs');
+        $repertoire->load(['owner', 'songs.category', 'songs.liturgicalMoment', 'songs.tones'])->loadCount('songs');
         $repertoire->songs->loadCount(['files as page_count' => fn ($query) => $query->whereIn('file_type', ['image', 'generated_image', 'pdf'])]);
 
         return view('repertoires.show', ['repertoire' => $repertoire, 'presentationPageCount' => count($pages->pages($repertoire))]);
@@ -76,14 +76,14 @@ class RepertoireController extends Controller
     public function edit(Request $request, Repertoire $repertoire): View
     {
         Gate::authorize('update', $repertoire);
-        $repertoire->load(['songs.owner', 'songs.category', 'songs.liturgicalMoment']);
+        $repertoire->load(['songs.owner', 'songs.category', 'songs.liturgicalMoment', 'songs.tones']);
         $repertoire->songs->loadCount(['files as page_count' => fn ($query) => $query->whereIn('file_type', ['image', 'generated_image', 'pdf'])]);
 
         $searchTerms = preg_split('/\s+/', trim($request->string('song_q')->toString()), -1, PREG_SPLIT_NO_EMPTY) ?: [];
         $selectedSongIds = $repertoire->songs->modelKeys();
 
         $songs = Song::query()->where('is_active', true)->whereNotIn('id', $selectedSongIds)
-            ->with(['owner', 'category', 'liturgicalMoment'])->withCount(['files as page_count' => fn ($query) => $query->whereIn('file_type', ['image', 'generated_image', 'pdf'])])
+            ->with(['owner', 'category', 'liturgicalMoment', 'tones'])->withCount(['files as page_count' => fn ($query) => $query->whereIn('file_type', ['image', 'generated_image', 'pdf'])])
             ->when($searchTerms, function ($query) use ($searchTerms): void {
                 foreach ($searchTerms as $term) {
                     $query->where(fn ($sub) => $sub->where('title', 'like', '%'.$term.'%')

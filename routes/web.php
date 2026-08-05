@@ -22,6 +22,7 @@ use App\Http\Controllers\RepertoireExportController;
 use App\Http\Controllers\RepertoireSongController;
 use App\Http\Controllers\SongController;
 use App\Http\Controllers\SongFileController;
+use App\Http\Controllers\SongToneController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('r')->name('public.repertoires.')->group(function () {
@@ -74,6 +75,9 @@ Route::middleware(['auth', 'active'])->group(function () {
         Route::put('/songs/{song}/files/{file}/replace', [SongFileController::class, 'replace'])->name('songs.files.replace');
         Route::delete('/songs/{song}/files/{file}', [SongFileController::class, 'destroy'])->name('songs.files.destroy');
         Route::put('/songs/{song}/files/reorder', [SongFileController::class, 'reorder'])->name('songs.files.reorder');
+        Route::post('/songs/{song}/tones', [SongToneController::class, 'store'])->name('songs.tones.store');
+        Route::put('/songs/{song}/tones/{tone}/default', [SongToneController::class, 'makeDefault'])->name('songs.tones.default');
+        Route::delete('/songs/{song}/tones/{tone}', [SongToneController::class, 'destroy'])->name('songs.tones.destroy');
         Route::post('/repertoires/{repertoire}/export', RepertoireExportController::class)->name('repertoires.export');
         Route::get('/repertoires/trashed', [RepertoireController::class, 'trashed'])->name('repertoires.trashed');
         Route::put('/repertoires/{repertoire}/restore', [RepertoireController::class, 'restore'])->whereNumber('repertoire')->name('repertoires.restore');

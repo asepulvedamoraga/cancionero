@@ -41,7 +41,7 @@ class SongManagementTest extends TestCase
         $response->assertRedirect(route('songs.show', $song));
         $this->assertSame('pescador-de-hombres', $song->slug);
         $this->assertTrue($song->liturgicalSeasons->contains($season));
-        $this->actingAs($this->admin)->put(route('songs.update', $song), ['title' => 'Pescador de hombres actualizado', 'slug' => $song->slug, 'is_active' => 0])->assertRedirect(route('songs.edit', $song));
+        $this->actingAs($this->admin)->put(route('songs.update', $song), ['title' => 'Pescador de hombres actualizado', 'slug' => $song->slug, 'is_active' => 0])->assertRedirect(route('songs.edit', ['song' => $song, 'tone' => $song->ensureDefaultTone()->id]));
         $this->assertFalse($song->fresh()->is_active);
     }
 
@@ -67,6 +67,44 @@ class SongManagementTest extends TestCase
             'is_active' => 1,
             'video_url' => 'https://example.com/watch?v=dQw4w9WgXcQ',
         ])->assertSessionHasErrors('video_url');
+    }
+
+    public function test_admin_can_manage_song_tones_and_upload_into_selected_tone(): void
+    {
+        Storage::fake('local');
+        $song = Song::factory()->create(['musical_key' => 'Do']);
+
+        $this->actingAs($this->admin)->post(route('songs.tones.store', $song), ['name' => 'Re'])->assertSessionHasNoErrors();
+
+        $tone = $song->tones()->where('name', 'Re')->firstOrFail();
+        $upload = UploadedFile::fake()->image('tono-re.jpg', 600, 900);
+
+        $this->actingAs($this->admin)->put(route('songs.update', $song), [
+            'title' => $song->title,
+            'slug' => $song->slug,
+            'is_active' => 1,
+            'song_tone_id' => $tone->id,
+            'files' => [$upload],
+        ])->assertSessionHasNoErrors();
+
+        $file = $song->files()->latest('id')->firstOrFail();
+        $this->assertSame($tone->id, $file->song_tone_id);
+    }
+
+    public function test_read_mode_filters_pages_by_selected_tone(): void
+    {
+        $song = Song::factory()->create(['title' => 'Con tonos', 'musical_key' => 'Do']);
+        $defaultTone = $song->tones()->where('is_default', true)->firstOrFail();
+        $altTone = $song->tones()->create(['name' => 'Re', 'is_default' => false]);
+
+        SongFile::factory()->create(['song_id' => $song->id, 'song_tone_id' => $defaultTone->id, 'original_name' => 'do.jpg']);
+        $altFile = SongFile::factory()->create(['song_id' => $song->id, 'song_tone_id' => $altTone->id, 'original_name' => 're.jpg']);
+
+        $this->actingAs($this->admin)
+            ->get(route('songs.read', ['song' => $song, 'tone' => $altTone->id]))
+            ->assertOk()
+            ->assertSee('Con tonos · Re')
+                ->assertSee(route('songs.files.show', [$song, $altFile]), false);
     }
 
     public function test_admin_can_upload_valid_image_and_private_file_is_recorded(): void

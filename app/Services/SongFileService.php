@@ -16,13 +16,14 @@ class SongFileService
 {
     public function __construct(private readonly PdfConversionService $pdfConversionService) {}
 
-    public function storeUploads(Song $song, array $uploads): array
+    public function storeUploads(Song $song, array $uploads, ?int $toneId = null): array
     {
         $created = [];
         $paths = [];
         $warnings = [];
+        $resolvedToneId = $song->resolveToneId($toneId);
         try {
-            DB::transaction(function () use ($song, $uploads, &$created, &$paths, &$warnings): void {
+            DB::transaction(function () use ($song, $uploads, $resolvedToneId, &$created, &$paths, &$warnings): void {
                 $sortOrder = ((int) $song->files()->max('sort_order')) + 1;
                 foreach ($uploads as $upload) {
                     if (! $upload instanceof UploadedFile) {
@@ -30,7 +31,7 @@ class SongFileService
                     }
                     $mime = (string) $upload->getMimeType();
                     if ($mime === 'application/pdf') {
-                        [$records, $storedPaths, $warning] = $this->storePdf($song, $upload, $sortOrder);
+                        [$records, $storedPaths, $warning] = $this->storePdf($song, $upload, $sortOrder, $resolvedToneId);
                         $created = [...$created, ...$records];
                         $paths = [...$paths, ...$storedPaths];
                         $sortOrder += count($records);
@@ -38,7 +39,7 @@ class SongFileService
                             $warnings[] = $warning;
                         }
                     } else {
-                        [$record, $storedPaths] = $this->storeImage($song, $upload, $sortOrder++);
+                        [$record, $storedPaths] = $this->storeImage($song, $upload, $sortOrder++, $resolvedToneId);
                         $created[] = $record;
                         $paths = [...$paths, ...$storedPaths];
                     }
@@ -58,7 +59,7 @@ class SongFileService
     {
         $song = $file->song;
         $position = $file->sort_order;
-        $result = $this->storeUploads($song, [$upload]);
+        $result = $this->storeUploads($song, [$upload], $file->song_tone_id ? (int) $file->song_tone_id : null);
         $replacement = collect($result['files'])->first();
         if ($replacement) {
             $replacement->update(['sort_order' => $position]);
@@ -112,7 +113,7 @@ class SongFileService
         }
     }
 
-    private function storeImage(Song $song, UploadedFile $upload, int $sortOrder): array
+    private function storeImage(Song $song, UploadedFile $upload, int $sortOrder, int $toneId): array
     {
         $extension = strtolower($upload->guessExtension() ?: $upload->extension());
         $storedName = Str::uuid().'.'.$extension;
@@ -121,19 +122,19 @@ class SongFileService
             throw new RuntimeException('No se pudo guardar la imagen.');
         }
         $previewPath = $this->createThumbnail($originalPath, $song->id, pathinfo($storedName, PATHINFO_FILENAME));
-        $file = $song->files()->create(['original_name' => $upload->getClientOriginalName(), 'stored_name' => $storedName, 'original_path' => $originalPath, 'preview_path' => $previewPath, 'mime_type' => (string) $upload->getMimeType(), 'extension' => $extension, 'file_type' => 'image', 'file_size' => $upload->getSize(), 'sort_order' => $sortOrder, 'is_generated' => false]);
+        $file = $song->files()->create(['song_tone_id' => $toneId, 'original_name' => $upload->getClientOriginalName(), 'stored_name' => $storedName, 'original_path' => $originalPath, 'preview_path' => $previewPath, 'mime_type' => (string) $upload->getMimeType(), 'extension' => $extension, 'file_type' => 'image', 'file_size' => $upload->getSize(), 'sort_order' => $sortOrder, 'is_generated' => false]);
 
         return [$file, array_filter([$originalPath, $previewPath])];
     }
 
-    private function storePdf(Song $song, UploadedFile $upload, int $sortOrder): array
+    private function storePdf(Song $song, UploadedFile $upload, int $sortOrder, int $toneId): array
     {
         $storedName = Str::uuid().'.pdf';
         $originalPath = $upload->storeAs("songs/{$song->id}/originals", $storedName, 'local');
         if (! $originalPath) {
             throw new RuntimeException('No se pudo guardar el PDF.');
         }
-        $pdf = $song->files()->create(['original_name' => $upload->getClientOriginalName(), 'stored_name' => $storedName, 'original_path' => $originalPath, 'mime_type' => 'application/pdf', 'extension' => 'pdf', 'file_type' => 'pdf', 'file_size' => $upload->getSize(), 'sort_order' => $sortOrder, 'is_generated' => false]);
+        $pdf = $song->files()->create(['song_tone_id' => $toneId, 'original_name' => $upload->getClientOriginalName(), 'stored_name' => $storedName, 'original_path' => $originalPath, 'mime_type' => 'application/pdf', 'extension' => 'pdf', 'file_type' => 'pdf', 'file_size' => $upload->getSize(), 'sort_order' => $sortOrder, 'is_generated' => false]);
         $records = [$pdf];
         $paths = [$originalPath];
         if (! $this->pdfConversionService->available()) {
@@ -152,7 +153,7 @@ class SongFileService
             $pagePath = "songs/{$song->id}/pages/{$page['stored_name']}";
             $thumbName = pathinfo($page['stored_name'], PATHINFO_FILENAME).'-thumb.webp';
             $thumbPath = "songs/{$song->id}/thumbnails/{$thumbName}";
-            $records[] = $song->files()->create(['original_name' => $upload->getClientOriginalName().' · página '.$page['page_number'], 'stored_name' => $page['stored_name'], 'original_path' => $pagePath, 'preview_path' => $thumbPath, 'mime_type' => $page['mime_type'], 'extension' => $page['extension'], 'file_type' => 'generated_image', 'file_size' => $page['file_size'], 'page_number' => $page['page_number'], 'sort_order' => $sortOrder + $index + 1, 'is_generated' => true]);
+            $records[] = $song->files()->create(['song_tone_id' => $toneId, 'original_name' => $upload->getClientOriginalName().' · página '.$page['page_number'], 'stored_name' => $page['stored_name'], 'original_path' => $pagePath, 'preview_path' => $thumbPath, 'mime_type' => $page['mime_type'], 'extension' => $page['extension'], 'file_type' => 'generated_image', 'file_size' => $page['file_size'], 'page_number' => $page['page_number'], 'sort_order' => $sortOrder + $index + 1, 'is_generated' => true]);
             $paths[] = $pagePath;
             $paths[] = $thumbPath;
         }

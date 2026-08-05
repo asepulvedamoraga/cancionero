@@ -61,4 +61,26 @@ class RepertoirePageServiceTest extends TestCase
         $this->assertSame($active->id, $pages[0]['song_id']);
         $this->assertSame(1, $pages[0]['song_count']);
     }
+
+    public function test_it_prefers_files_from_the_selected_song_tone(): void
+    {
+        $repertoire = Repertoire::factory()->create();
+        $song = Song::factory()->create(['musical_key' => 'Do']);
+        $defaultTone = $song->tones()->where('is_default', true)->firstOrFail();
+        $altTone = $song->tones()->create(['name' => 'Re', 'is_default' => false]);
+
+        $defaultFile = SongFile::factory()->create(['song_id' => $song->id, 'song_tone_id' => $defaultTone->id, 'sort_order' => 1]);
+        $altFile = SongFile::factory()->create(['song_id' => $song->id, 'song_tone_id' => $altTone->id, 'sort_order' => 2]);
+
+        $repertoire->songs()->attach($song->id, ['sort_order' => 1, 'song_tone_id' => $altTone->id]);
+
+        $pages = app(RepertoirePageService::class)->pages($repertoire);
+
+        $this->assertCount(1, $pages);
+        $selectedFileIds = collect($pages)
+            ->map(fn ($page) => (int) basename($page['image_url']))
+            ->all();
+
+        $this->assertSame([$altFile->id], $selectedFileIds);
+    }
 }

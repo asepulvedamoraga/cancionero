@@ -9,11 +9,28 @@ class RepertoirePageService
 {
     public function pages(Repertoire $repertoire, bool $public = false): array
     {
-        $repertoire->loadMissing('songs.files');
+        $repertoire->loadMissing('songs.files', 'songs.tones');
 
         $groups = $repertoire->songs
             ->where('is_active', true)
-            ->map(fn ($song) => ['song' => $song, 'files' => $this->displayableFiles($song->files)])
+            ->map(function ($song) {
+                $requestedToneId = (int) ($song->pivot->song_tone_id ?? 0);
+                $defaultToneId = (int) optional($song->tones->firstWhere('is_default', true))->id;
+                $toneId = $requestedToneId > 0 ? $requestedToneId : $defaultToneId;
+
+                $files = $song->files;
+                if ($toneId > 0) {
+                    $toneFiles = $files->where('song_tone_id', $toneId);
+                    if ($toneFiles->isNotEmpty()) {
+                        $files = $toneFiles;
+                    }
+                }
+
+                return [
+                    'song' => $song,
+                    'files' => $this->displayableFiles($files->values()),
+                ];
+            })
             ->filter(fn ($group) => $group['files']->isNotEmpty())
             ->values();
 
