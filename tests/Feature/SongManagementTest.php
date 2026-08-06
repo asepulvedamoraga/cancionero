@@ -117,6 +117,26 @@ class SongManagementTest extends TestCase
         Storage::disk('local')->assertExists($file->original_path);
     }
 
+    public function test_image_files_are_served_with_no_cache_headers(): void
+    {
+        Storage::fake('local');
+        $song = Song::factory()->create();
+        $file = SongFile::factory()->create([
+            'song_id' => $song->id,
+            'original_path' => 'songs/test.jpg',
+            'mime_type' => 'image/jpeg',
+            'file_type' => 'image',
+        ]);
+        Storage::disk('local')->put($file->original_path, 'image-content');
+
+        $this->actingAs($this->admin)
+            ->get(route('songs.files.show', [$song, $file]))
+            ->assertOk()
+            ->assertHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+            ->assertHeader('Pragma', 'no-cache')
+            ->assertHeader('Expires', '0');
+    }
+
     public function test_invalid_executable_file_is_rejected(): void
     {
         Storage::fake('local');

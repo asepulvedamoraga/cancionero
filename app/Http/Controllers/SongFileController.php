@@ -24,7 +24,9 @@ class SongFileController extends Controller
         $this->belongs($song, $file);
         abort_unless(Storage::disk('local')->exists($file->original_path), 404);
 
-        return Storage::disk('local')->response($file->original_path, $file->original_name, ['Content-Type' => $file->mime_type, 'Content-Disposition' => 'inline; filename="'.addslashes($file->original_name).'"']);
+        $response = Storage::disk('local')->response($file->original_path, $file->original_name, ['Content-Type' => $file->mime_type, 'Content-Disposition' => 'inline; filename="'.addslashes($file->original_name).'"']);
+
+        return $this->withNoCacheHeaders($response);
     }
 
     public function preview(Song $song, SongFile $file): StreamedResponse
@@ -34,7 +36,7 @@ class SongFileController extends Controller
         $path = $file->preview_path ?: $file->original_path;
         abort_unless(Storage::disk('local')->exists($path), 404);
 
-        return Storage::disk('local')->response($path);
+        return $this->withNoCacheHeaders(Storage::disk('local')->response($path));
     }
 
     public function download(Song $song, SongFile $file): StreamedResponse
@@ -101,6 +103,15 @@ class SongFileController extends Controller
     private function belongs(Song $song, SongFile $file): void
     {
         abort_unless($file->song_id === $song->id, 404);
+    }
+
+    private function withNoCacheHeaders(StreamedResponse $response): StreamedResponse
+    {
+        $response->headers->set('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+        $response->headers->set('Pragma', 'no-cache');
+        $response->headers->set('Expires', '0');
+
+        return $response;
     }
 
     private function songUsedInRepertoires(Song $song): bool

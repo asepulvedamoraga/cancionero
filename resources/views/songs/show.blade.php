@@ -94,19 +94,20 @@
 <h2 class="h4 mb-3">Páginas y documentos</h2>
 <div class="song-pages">
     @forelse($displayFiles as $file)
+        @php($fileUrl = route('songs.files.show', [$song, $file, 'v' => $file->updated_at?->timestamp ?? $file->id]))
         <article class="card song-page">
             <div class="card-body">
                 @if($file->file_type === 'pdf')
                     <div class="pdf-placeholder large"><i class="bi bi-file-earmark-pdf"></i><span>{{ $file->original_name }}</span></div>
                 @else
-                    <a href="{{ route('songs.files.show', [$song, $file]) }}" target="_blank">
-                        <img src="{{ route('songs.files.show', [$song, $file]) }}" alt="{{ $file->original_name }}">
+                    <a href="{{ $fileUrl }}" target="_blank">
+                        <img src="{{ $fileUrl }}" alt="{{ $file->original_name }}">
                     </a>
                 @endif
 
                 <div class="d-flex flex-wrap gap-2 mt-3">
-                    <a class="btn btn-sm btn-outline-primary" target="_blank" href="{{ route('songs.files.show', [$song, $file]) }}">Abrir</a>
-                    <a class="btn btn-sm btn-outline-secondary" href="{{ route('songs.files.download', [$song, $file]) }}">Descargar original</a>
+                    <a class="btn btn-sm btn-outline-primary" target="_blank" href="{{ $fileUrl }}">Abrir</a>
+                    <a class="btn btn-sm btn-outline-secondary" href="{{ route('songs.files.download', [$song, $file, 'v' => $file->updated_at?->timestamp ?? $file->id]) }}">Descargar original</a>
                 </div>
             </div>
         </article>
