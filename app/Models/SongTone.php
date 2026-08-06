@@ -11,7 +11,7 @@ class SongTone extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['song_id', 'name', 'is_default'];
+    protected $fillable = ['song_id', 'tone_catalog_id', 'name', 'is_default'];
 
     protected function casts(): array
     {
@@ -21,6 +21,11 @@ class SongTone extends Model
     public function song(): BelongsTo
     {
         return $this->belongsTo(Song::class);
+    }
+
+    public function catalog(): BelongsTo
+    {
+        return $this->belongsTo(ToneCatalog::class, 'tone_catalog_id');
     }
 
     public function files(): HasMany

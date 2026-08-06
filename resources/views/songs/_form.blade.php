@@ -1,20 +1,117 @@
-@php($editing=isset($song))
+@php($editing = isset($song))
+
 <div class="row g-3">
-<div class="col-md-8" @unless($editing)data-song-duplicate-check data-suggestions-url="{{ route('songs.suggestions') }}"@endunless><label class="form-label" for="title">Título *</label><input class="form-control" id="title" name="title" required maxlength="255" value="{{ old('title',$song->title ?? '') }}" autocomplete="off">@unless($editing)<div class="song-duplicate-results mt-2" data-song-duplicate-results hidden aria-live="polite"></div>@endunless</div>
-<div class="col-md-4"><label class="form-label" for="slug">Slug</label><input class="form-control" id="slug" name="slug" maxlength="255" value="{{ old('slug',$song->slug ?? '') }}"><div class="form-text">Déjalo vacío para generarlo desde el título.</div></div>
-<div class="col-md-6"><label class="form-label" for="author">Autor</label><input class="form-control" id="author" name="author" value="{{ old('author',$song->author ?? '') }}"></div>
-<div class="col-md-4"><label class="form-label" for="performer">Intérprete</label><input class="form-control" id="performer" name="performer" value="{{ old('performer',$song->performer ?? '') }}"></div>
-<div class="col-md-2"><label class="form-label" for="musical_key">Tonalidad base</label><input class="form-control" id="musical_key" name="musical_key" maxlength="30" value="{{ old('musical_key',$song->musical_key ?? '') }}"><div class="form-text">Se usa como tonalidad inicial al crear la cancion.</div></div>
-<div class="col-md-6"><label class="form-label" for="category_id">Categoría</label><select class="form-select" id="category_id" name="category_id"><option value="">Sin categoría</option>@foreach($categories as $item)<option value="{{ $item->id }}" @selected(old('category_id',$song->category_id ?? '')==$item->id)>{{ $item->name }}</option>@endforeach</select></div>
-<div class="col-md-6"><label class="form-label" for="liturgical_moment_id">Momento litúrgico principal</label><select class="form-select" id="liturgical_moment_id" name="liturgical_moment_id"><option value="">Sin momento</option>@foreach($moments as $item)<option value="{{ $item->id }}" @selected(old('liturgical_moment_id',$song->liturgical_moment_id ?? '')==$item->id)>{{ $item->name }}</option>@endforeach</select></div>
-<div class="col-12"><label class="form-label">Tiempos litúrgicos</label><div class="d-flex flex-wrap gap-3">@php($selected=old('liturgical_seasons',$editing ? $song->liturgicalSeasons->pluck('id')->all() : []))@foreach($seasons as $item)<div class="form-check"><input class="form-check-input" type="checkbox" name="liturgical_seasons[]" id="season-{{ $item->id }}" value="{{ $item->id }}" @checked(in_array($item->id,$selected))><label class="form-check-label" for="season-{{ $item->id }}">{{ $item->name }}</label></div>@endforeach</div></div>
-<div class="col-md-6"><label class="form-label" for="source">Fuente</label><input class="form-control" id="source" name="source" value="{{ old('source',$song->source ?? '') }}"></div>
-<div class="col-md-6"><label class="form-label" for="video_url">Video de apoyo de YouTube</label><input class="form-control" id="video_url" name="video_url" type="url" placeholder="https://www.youtube.com/watch?v=..." value="{{ old('video_url',$song->video_url ?? '') }}"></div>
-@if($editing)
-<div class="col-md-8"><label class="form-label" for="song_tone_id">Archivos nuevos: asociar a tonalidad</label><select class="form-select form-select-sm" id="song_tone_id" name="song_tone_id">@foreach($song->tones as $tone)<option value="{{ $tone->id }}" @selected(old('song_tone_id', $selectedTone->id)===$tone->id)>{{ $tone->name }}{{ $tone->is_default ? ' · Predeterminada' : '' }}</option>@endforeach</select><div class="form-text">Ajuste opcional para esta edicion. No cambia la tonalidad base de la cancion.</div></div>
-@endif
-<div class="col-md-6 d-flex align-items-end"><div class="form-check form-switch mb-2"><input type="hidden" name="is_active" value="0"><input class="form-check-input" type="checkbox" id="is_active" name="is_active" value="1" @checked(old('is_active',$song->is_active ?? true))><label class="form-check-label" for="is_active">Canción activa</label></div></div>
-<div class="col-12"><label class="form-label" for="notes">Observaciones</label><textarea class="form-control" id="notes" name="notes" rows="4">{{ old('notes',$song->notes ?? '') }}</textarea></div>
-<div class="col-12"><label class="form-label" for="files">{{ $editing ? 'Agregar archivos' : 'Archivos' }}</label><input class="form-control" id="files" name="files[]" type="file" multiple accept="image/jpeg,image/png,image/webp,application/pdf" data-file-preview><div class="form-text">JPG, PNG, WebP o un PDF. Máximo {{ config('cancionero.upload_max_mb') }} MB por archivo. @unless($imagickAvailable)La conversión automática de PDF está desactivada: se conservará el archivo original.@endunless</div><div class="file-preview-grid mt-3" data-file-preview-list></div></div>
+	<div class="col-md-8"
+		 @unless($editing)
+			 data-song-duplicate-check
+			 data-suggestions-url="{{ route('songs.suggestions') }}"
+		 @endunless>
+		<label class="form-label" for="title">Título *</label>
+		<input class="form-control" id="title" name="title" required maxlength="255" value="{{ old('title', $song->title ?? '') }}" autocomplete="off">
+		@unless($editing)
+			<div class="song-duplicate-results mt-2" data-song-duplicate-results hidden aria-live="polite"></div>
+		@endunless
+	</div>
+
+	<div class="col-md-4">
+		<label class="form-label" for="slug">Slug</label>
+		<input class="form-control" id="slug" name="slug" maxlength="255" value="{{ old('slug', $song->slug ?? '') }}">
+		<div class="form-text">Déjalo vacío para generarlo desde el título.</div>
+	</div>
+
+	<div class="col-md-6">
+		<label class="form-label" for="author">Autor</label>
+		<input class="form-control" id="author" name="author" value="{{ old('author', $song->author ?? '') }}">
+	</div>
+
+	<div class="col-md-4">
+		<label class="form-label" for="performer">Intérprete</label>
+		<input class="form-control" id="performer" name="performer" value="{{ old('performer', $song->performer ?? '') }}">
+	</div>
+
+	<div class="col-md-2">
+		<label class="form-label" for="musical_key">Tonalidad base</label>
+		<select class="form-select" id="musical_key" name="musical_key">
+			@php($selectedToneName = old('musical_key', $song->musical_key ?? 'Original'))
+			@foreach($toneCatalogs as $toneOption)
+				<option value="{{ $toneOption->name }}" @selected($selectedToneName === $toneOption->name)>{{ $toneOption->name }}</option>
+			@endforeach
+		</select>
+		<div class="form-text">Se usa como tonalidad inicial al crear la canción.</div>
+	</div>
+
+	<div class="col-md-6">
+		<label class="form-label" for="category_id">Categoría</label>
+		<select class="form-select" id="category_id" name="category_id">
+			<option value="">Sin categoría</option>
+			@foreach($categories as $item)
+				<option value="{{ $item->id }}" @selected(old('category_id', $song->category_id ?? '') == $item->id)>{{ $item->name }}</option>
+			@endforeach
+		</select>
+	</div>
+
+	<div class="col-md-6">
+		<label class="form-label" for="liturgical_moment_id">Momento litúrgico principal</label>
+		<select class="form-select" id="liturgical_moment_id" name="liturgical_moment_id">
+			<option value="">Sin momento</option>
+			@foreach($moments as $item)
+				<option value="{{ $item->id }}" @selected(old('liturgical_moment_id', $song->liturgical_moment_id ?? '') == $item->id)>{{ $item->name }}</option>
+			@endforeach
+		</select>
+	</div>
+
+	<div class="col-12">
+		<label class="form-label">Tiempos litúrgicos</label>
+		<div class="d-flex flex-wrap gap-3">
+			@php($selected = old('liturgical_seasons', $editing ? $song->liturgicalSeasons->pluck('id')->all() : []))
+			@foreach($seasons as $item)
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" name="liturgical_seasons[]" id="season-{{ $item->id }}" value="{{ $item->id }}" @checked(in_array($item->id, $selected))>
+					<label class="form-check-label" for="season-{{ $item->id }}">{{ $item->name }}</label>
+				</div>
+			@endforeach
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<label class="form-label" for="source">Fuente</label>
+		<input class="form-control" id="source" name="source" value="{{ old('source', $song->source ?? '') }}">
+	</div>
+
+	<div class="col-md-6">
+		<label class="form-label" for="video_url">Video de apoyo de YouTube</label>
+		<input class="form-control" id="video_url" name="video_url" type="url" placeholder="https://www.youtube.com/watch?v=..." value="{{ old('video_url', $song->video_url ?? '') }}">
+	</div>
+
+	<div class="col-md-6 d-flex align-items-end">
+		<div class="form-check form-switch mb-2">
+			<input type="hidden" name="is_active" value="0">
+			<input class="form-check-input" type="checkbox" id="is_active" name="is_active" value="1" @checked(old('is_active', $song->is_active ?? true))>
+			<label class="form-check-label" for="is_active">Canción activa</label>
+		</div>
+	</div>
+
+	<div class="col-12">
+		<label class="form-label" for="notes">Observaciones</label>
+		<textarea class="form-control" id="notes" name="notes" rows="4">{{ old('notes', $song->notes ?? '') }}</textarea>
+	</div>
+
+	@unless($editing)
+		<div class="col-12">
+			<label class="form-label" for="files">Archivos</label>
+			<input class="form-control" id="files" name="files[]" type="file" multiple accept="image/jpeg,image/png,image/webp,application/pdf" data-file-preview>
+			<div class="form-text">
+				JPG, PNG, WebP o un PDF. Máximo {{ config('cancionero.upload_max_mb') }} MB por archivo.
+				@unless($imagickAvailable)
+					La conversión automática de PDF está desactivada: se conservará el archivo original.
+				@endunless
+			</div>
+			<div class="file-preview-grid mt-3" data-file-preview-list></div>
+		</div>
+	@endunless
 </div>
-<div class="d-flex gap-2 mt-4"><button class="btn btn-primary"><i class="bi bi-check-lg"></i>{{ $editing ? 'Guardar cambios' : 'Crear canción' }}</button><a class="btn btn-outline-secondary" href="{{ route('songs.index') }}">Cancelar</a></div>
+
+<div class="d-flex gap-2 mt-4">
+	<button class="btn btn-primary"><i class="bi bi-check-lg"></i>{{ $editing ? 'Guardar cambios' : 'Crear canción' }}</button>
+	<a class="btn btn-outline-secondary" href="{{ route('songs.index') }}">Cancelar</a>
+</div>

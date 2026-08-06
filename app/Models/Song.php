@@ -67,18 +67,31 @@ class Song extends Model
     {
         $default = $this->tones()->where('is_default', true)->first();
         if ($default) {
+            if (! $default->tone_catalog_id) {
+                $catalog = ToneCatalog::resolveFromLabel($default->name);
+                $default->update(['tone_catalog_id' => $catalog->id, 'name' => $catalog->name]);
+            }
+
             return $default;
         }
 
         $first = $this->tones()->first();
         if ($first) {
+            if (! $first->tone_catalog_id) {
+                $catalog = ToneCatalog::resolveFromLabel($first->name);
+                $first->update(['tone_catalog_id' => $catalog->id, 'name' => $catalog->name]);
+            }
+
             $first->update(['is_default' => true]);
 
             return $first;
         }
 
+        $catalog = ToneCatalog::resolveFromLabel($this->defaultToneName());
+
         return $this->tones()->create([
-            'name' => $this->defaultToneName(),
+            'tone_catalog_id' => $catalog->id,
+            'name' => $catalog->name,
             'is_default' => true,
         ]);
     }
@@ -102,9 +115,8 @@ class Song extends Model
     public function filesForTone(int $toneId): Collection
     {
         $files = $this->files;
-        $toneFiles = $files->where('song_tone_id', $toneId);
 
-        return $toneFiles->isNotEmpty() ? $toneFiles->values() : $files->values();
+        return $files->where('song_tone_id', $toneId)->values();
     }
 
     private function defaultToneName(): string

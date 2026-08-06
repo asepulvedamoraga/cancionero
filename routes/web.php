@@ -75,6 +75,7 @@ Route::middleware(['auth', 'active'])->group(function () {
         Route::put('/songs/{song}/files/{file}/replace', [SongFileController::class, 'replace'])->name('songs.files.replace');
         Route::delete('/songs/{song}/files/{file}', [SongFileController::class, 'destroy'])->name('songs.files.destroy');
         Route::put('/songs/{song}/files/reorder', [SongFileController::class, 'reorder'])->name('songs.files.reorder');
+        Route::post('/songs/{song}/tones/{tone}/files', [SongFileController::class, 'storeForTone'])->name('songs.tones.files.store');
         Route::post('/songs/{song}/tones', [SongToneController::class, 'store'])->name('songs.tones.store');
         Route::put('/songs/{song}/tones/{tone}/default', [SongToneController::class, 'makeDefault'])->name('songs.tones.default');
         Route::delete('/songs/{song}/tones/{tone}', [SongToneController::class, 'destroy'])->name('songs.tones.destroy');

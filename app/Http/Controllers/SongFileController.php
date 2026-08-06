@@ -6,9 +6,12 @@ use App\Http\Requests\ReorderSongFilesRequest;
 use App\Http\Requests\ReplaceSongFileRequest;
 use App\Models\Song;
 use App\Models\SongFile;
+use App\Models\SongTone;
 use App\Services\SongFileService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -47,6 +50,13 @@ class SongFileController extends Controller
     {
         Gate::authorize('update', $song);
         $this->belongs($song, $file);
+
+        if ($this->songUsedInRepertoires($song)) {
+            return back()->withErrors([
+                'files' => 'No puedes eliminar archivos porque la canción está siendo utilizada en uno o más repertorios.',
+            ]);
+        }
+
         $service->delete($file);
 
         return back()->with('status', 'Archivo eliminado correctamente.');
@@ -69,8 +79,32 @@ class SongFileController extends Controller
         return response()->json(['message' => 'Orden guardado.']);
     }
 
+    public function storeForTone(Request $request, Song $song, SongTone $tone, SongFileService $service): RedirectResponse
+    {
+        Gate::authorize('update', $song);
+        abort_unless($tone->song_id === $song->id, 404);
+
+        $max = (int) config('cancionero.upload_max_mb', 20) * 1024;
+        $validated = $request->validate([
+            'files' => ['required', 'array', 'min:1', 'max:30'],
+            'files.*' => ['file', "max:{$max}", 'mimetypes:image/jpeg,image/png,image/webp,application/pdf', 'extensions:jpg,jpeg,png,webp,pdf'],
+        ]);
+
+        $result = $service->storeUploads($song, $validated['files'], (int) $tone->id);
+
+        return redirect()
+            ->route('songs.edit', ['song' => $song, 'tone' => $tone->id])
+            ->with('status', 'Archivos agregados a la tonalidad seleccionada.')
+            ->with('warnings', $result['warnings']);
+    }
+
     private function belongs(Song $song, SongFile $file): void
     {
         abort_unless($file->song_id === $song->id, 404);
+    }
+
+    private function songUsedInRepertoires(Song $song): bool
+    {
+        return DB::table('repertoire_song')->where('song_id', $song->id)->exists();
     }
 }

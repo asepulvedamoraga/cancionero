@@ -13,7 +13,10 @@
 <body>
 <a class="app-skip-link" href="#main-content">Saltar al contenido</a>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm app-navbar"><div class="container">
-    <a class="navbar-brand fw-semibold" href="{{ auth()->user()->hasVerifiedEmail() ? route('dashboard') : route('verification.notice') }}"><i class="bi bi-music-note-beamed me-1"></i>{{ config('cancionero.name') }}</a>
+    <a class="navbar-brand fw-semibold" href="{{ auth()->user()->hasVerifiedEmail() ? route('dashboard') : route('verification.notice') }}">
+        <img class="app-navbar-logo" src="{{ asset('images/logo-cancionero.png') }}" alt="Logo {{ config('cancionero.name') }}" width="50" height="50" style="width:96px;height:96px;object-fit:contain;display:block;">
+        <span>{{ config('cancionero.name') }}</span>
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Abrir navegación"><span class="navbar-toggler-icon"></span></button>
     <div class="collapse navbar-collapse" id="mainNav"><ul class="navbar-nav me-auto gap-lg-1">
         @if(auth()->user()->hasVerifiedEmail())

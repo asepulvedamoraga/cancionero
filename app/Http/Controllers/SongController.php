@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\LiturgicalMoment;
 use App\Models\LiturgicalSeason;
 use App\Models\Song;
+use App\Models\ToneCatalog;
 use App\Services\PdfConversionService;
 use App\Services\SongFileService;
 use Illuminate\Database\Eloquent\Builder;
@@ -48,6 +49,7 @@ class SongController extends Controller
         $query = Song::onlyTrashed()
             ->when(! $request->user()->is_admin, fn ($query) => $query->where('user_id', $request->user()->id))
             ->with(['owner', 'category'])
+            ->withExists('repertoires as used_in_repertoires')
             ->when($request->filled('q'), fn ($query) => $query->where(fn ($search) => $search->where('title', 'like', '%'.$request->string('q').'%')->orWhere('author', 'like', '%'.$request->string('q').'%')))
             ->latest('deleted_at');
 
@@ -86,15 +88,15 @@ class SongController extends Controller
     public function store(StoreSongRequest $request, SongFileService $files): RedirectResponse
     {
         $validated = $request->validated();
+        $validated['musical_key'] = ToneCatalog::resolveFromLabel($validated['musical_key'] ?? null)->name;
         $validated['user_id'] = $request->user()->id;
         $uploads = $request->file('files', []);
-        $selectedToneId = $request->integer('song_tone_id') ?: null;
         unset($validated['files'], $validated['liturgical_seasons']);
         $validated['slug'] = $this->uniqueSlug($validated['slug'] ?? null, $validated['title']);
-        $result = DB::transaction(function () use ($validated, $request, $uploads, $files, $selectedToneId) {
+        $result = DB::transaction(function () use ($validated, $request, $uploads, $files) {
             $song = Song::create($validated);
             $song->liturgicalSeasons()->sync($request->input('liturgical_seasons', []));
-            $stored = $files->storeUploads($song, $uploads, $selectedToneId);
+            $stored = $files->storeUploads($song, $uploads, null);
 
             return [$song, $stored];
         });
@@ -113,8 +115,14 @@ class SongController extends Controller
             $song->setRelation('tones', collect([$selectedTone]));
         }
         $displayFiles = $song->filesForTone($selectedTone->id);
+        $songUsedInRepertoires = $this->songUsedInRepertoires($song);
 
-        return view('songs.show', ['song' => $song, 'selectedTone' => $selectedTone, 'displayFiles' => $displayFiles]);
+        return view('songs.show', [
+            'song' => $song,
+            'selectedTone' => $selectedTone,
+            'displayFiles' => $displayFiles,
+            'songUsedInRepertoires' => $songUsedInRepertoires,
+        ]);
     }
 
     public function read(Request $request, Song $song): View
@@ -142,25 +150,32 @@ class SongController extends Controller
             $song->setRelation('tones', collect([$selectedTone]));
         }
 
-        return view('songs.edit', ['song' => $song, 'selectedTone' => $selectedTone, ...$this->catalogs(), 'imagickAvailable' => app(PdfConversionService::class)->available()]);
+        return view('songs.edit', [
+            'song' => $song,
+            'selectedTone' => $selectedTone,
+            'songUsedInRepertoires' => $this->songUsedInRepertoires($song),
+            ...$this->catalogs(),
+            'imagickAvailable' => app(PdfConversionService::class)->available(),
+        ]);
     }
 
     public function update(UpdateSongRequest $request, Song $song, SongFileService $files): RedirectResponse
     {
         Gate::authorize('update', $song);
         $validated = $request->validated();
+        $validated['musical_key'] = ToneCatalog::resolveFromLabel($validated['musical_key'] ?? null)->name;
         $uploads = $request->file('files', []);
-        $selectedToneId = $request->integer('song_tone_id') ?: null;
+        $activeToneId = $request->integer('tone') ?: null;
         unset($validated['files'], $validated['liturgical_seasons']);
         $validated['slug'] = $this->uniqueSlug($validated['slug'] ?? null, $validated['title'], $song->id);
-        $stored = DB::transaction(function () use ($song, $validated, $request, $uploads, $files, $selectedToneId) {
+        $stored = DB::transaction(function () use ($song, $validated, $request, $uploads, $files, $activeToneId) {
             $song->update($validated);
             $song->liturgicalSeasons()->sync($request->input('liturgical_seasons', []));
 
-            return $files->storeUploads($song, $uploads, $selectedToneId);
+            return $files->storeUploads($song, $uploads, $activeToneId);
         });
 
-        $tone = $song->resolveToneId($selectedToneId);
+        $tone = $song->resolveToneId($activeToneId);
 
         return redirect()->route('songs.edit', ['song' => $song, 'tone' => $tone])->with('status', 'Canción actualizada correctamente.')->with('warnings', $stored['warnings']);
     }
@@ -168,6 +183,13 @@ class SongController extends Controller
     public function destroy(Song $song): RedirectResponse
     {
         Gate::authorize('delete', $song);
+
+        if ($this->songUsedInRepertoires($song)) {
+            return back()->withErrors([
+                'songs' => 'No puedes eliminar esta canción porque está siendo utilizada en uno o más repertorios.',
+            ]);
+        }
+
         $song->delete();
 
         return redirect()->route('songs.index', ['scope' => 'mine'])->with('status', 'Canción archivada correctamente. Sus archivos se conservaron.');
@@ -186,6 +208,13 @@ class SongController extends Controller
     {
         $archivedSong = Song::onlyTrashed()->findOrFail($song);
         Gate::authorize('delete', $archivedSong);
+
+        if ($this->songUsedInRepertoires($archivedSong)) {
+            return back()->withErrors([
+                'songs' => 'No puedes eliminar definitivamente esta canción porque está siendo utilizada en uno o más repertorios.',
+            ]);
+        }
+
         $files->purgeSong($archivedSong);
 
         return redirect()->route('songs.archived')->with('status', 'Canción eliminada definitivamente junto con sus archivos.');
@@ -212,7 +241,12 @@ class SongController extends Controller
 
     private function catalogs(): array
     {
-        return ['categories' => Category::where('is_active', true)->orderBy('sort_order')->get(), 'moments' => LiturgicalMoment::where('is_active', true)->orderBy('sort_order')->get(), 'seasons' => LiturgicalSeason::where('is_active', true)->orderBy('sort_order')->get()];
+        return [
+            'categories' => Category::where('is_active', true)->orderBy('sort_order')->get(),
+            'moments' => LiturgicalMoment::where('is_active', true)->orderBy('sort_order')->get(),
+            'seasons' => LiturgicalSeason::where('is_active', true)->orderBy('sort_order')->get(),
+            'toneCatalogs' => ToneCatalog::query()->active()->orderBy('sort_order')->orderBy('name')->get(),
+        ];
     }
 
     private function uniqueSlug(?string $slug, string $title, ?int $ignore = null): string
@@ -225,5 +259,10 @@ class SongController extends Controller
         }
 
         return $candidate;
+    }
+
+    private function songUsedInRepertoires(Song $song): bool
+    {
+        return DB::table('repertoire_song')->where('song_id', $song->id)->exists();
     }
 }
