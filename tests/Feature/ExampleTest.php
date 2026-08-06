@@ -6,8 +6,11 @@ use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
-    public function test_the_application_is_private(): void
+    public function test_the_public_landing_is_available(): void
     {
-        $this->get('/')->assertRedirect('/login');
+        $this->withoutVite();
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('Comunidad abierta');
     }
 }

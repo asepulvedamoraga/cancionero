@@ -10,9 +10,13 @@ class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_guest_is_redirected_to_login(): void
+    public function test_guest_can_open_public_landing(): void
     {
-        $this->get('/')->assertRedirect('/login');
+        $this->withoutVite();
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('Canciones y repertorios públicos listos para usar')
+            ->assertSee('Iniciar sesión');
     }
 
     public function test_admin_can_login_and_open_dashboard(): void
@@ -20,7 +24,8 @@ class AuthenticationTest extends TestCase
         $this->withoutVite();
         $user = User::factory()->create(['is_admin' => true, 'password' => 'Secret123!']);
         $this->post('/login', ['email' => $user->email, 'password' => 'Secret123!'])->assertRedirect(route('dashboard'));
-        $this->actingAs($user)->get('/')->assertOk()->assertSee('Resumen de tu biblioteca musical');
+        $this->actingAs($user)->get('/')->assertRedirect(route('dashboard'));
+        $this->actingAs($user)->get(route('dashboard'))->assertOk()->assertSee('Resumen de tu biblioteca musical');
     }
 
     public function test_regular_user_can_login_and_open_dashboard(): void
@@ -29,6 +34,7 @@ class AuthenticationTest extends TestCase
         $user = User::factory()->create(['is_admin' => false, 'password' => 'Secret123!']);
         $this->post('/login', ['email' => $user->email, 'password' => 'Secret123!'])->assertRedirect(route('dashboard'));
         $this->assertAuthenticatedAs($user);
-        $this->get('/')->assertOk();
+        $this->actingAs($user)->get('/')->assertRedirect(route('dashboard'));
+        $this->actingAs($user)->get(route('dashboard'))->assertOk();
     }
 }

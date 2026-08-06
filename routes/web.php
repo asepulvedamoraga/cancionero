@@ -14,6 +14,9 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PresentationController;
 use App\Http\Controllers\PublicSite\PublicPresentationController;
+use App\Http\Controllers\PublicSite\PublicLandingController;
+use App\Http\Controllers\PublicSite\PublicSongController;
+use App\Http\Controllers\PublicSite\PublicSongFileController;
 use App\Http\Controllers\PublicSite\PublicRepertoireController;
 use App\Http\Controllers\PublicSite\PublicRepertoireDownloadController;
 use App\Http\Controllers\PublicSite\PublicRepertoireFileController;
@@ -31,6 +34,15 @@ Route::prefix('r')->name('public.repertoires.')->group(function () {
     Route::get('/{repertoire:slug}/files/{song}/{file}', PublicRepertoireFileController::class)->name('files.show');
     Route::get('/{repertoire:slug}/download', PublicRepertoireDownloadController::class)->middleware('throttle:10,1')->name('download');
 });
+
+Route::prefix('c')->name('public.songs.')->group(function () {
+    Route::get('/{song:slug}', [PublicSongController::class, 'show'])->name('show');
+    Route::get('/{song:slug}/read', [PublicSongController::class, 'read'])->name('read');
+    Route::get('/{song:slug}/files/{file}', [PublicSongFileController::class, 'show'])->name('files.show');
+});
+
+Route::get('/', PublicLandingController::class)->name('public.home');
+
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
     Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
@@ -62,7 +74,7 @@ Route::middleware(['auth', 'active'])->group(function () {
     });
 
     Route::middleware('verified')->group(function () {
-        Route::get('/', DashboardController::class)->name('dashboard');
+        Route::get('/dashboard', DashboardController::class)->name('dashboard');
         Route::get('/songs/archived', [SongController::class, 'archived'])->name('songs.archived');
         Route::get('/songs/suggestions', [SongController::class, 'suggestions'])->middleware('throttle:60,1')->name('songs.suggestions');
         Route::put('/songs/{song}/restore', [SongController::class, 'restore'])->name('songs.restore');
