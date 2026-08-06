@@ -148,11 +148,11 @@ class SongFileService
         } if (! is_dir($thumbsDir)) {
             mkdir($thumbsDir, 0775, true);
         }
-        $converted = $this->pdfConversionService->convert($disk->path($originalPath), $pagesDir, $thumbsDir);
+        $filePrefix = pathinfo($storedName, PATHINFO_FILENAME).'-tone-'.$toneId;
+        $converted = $this->pdfConversionService->convert($disk->path($originalPath), $pagesDir, $thumbsDir, $filePrefix);
         foreach ($converted as $index => $page) {
-            $pagePath = "songs/{$song->id}/pages/{$page['stored_name']}";
-            $thumbName = pathinfo($page['stored_name'], PATHINFO_FILENAME).'-thumb.webp';
-            $thumbPath = "songs/{$song->id}/thumbnails/{$thumbName}";
+            $pagePath = "songs/{$song->id}/pages/".basename((string) $page['page_path']);
+            $thumbPath = "songs/{$song->id}/thumbnails/".basename((string) $page['thumbnail_path']);
             $records[] = $song->files()->create(['song_tone_id' => $toneId, 'original_name' => $upload->getClientOriginalName().' · página '.$page['page_number'], 'stored_name' => $page['stored_name'], 'original_path' => $pagePath, 'preview_path' => $thumbPath, 'mime_type' => $page['mime_type'], 'extension' => $page['extension'], 'file_type' => 'generated_image', 'file_size' => $page['file_size'], 'page_number' => $page['page_number'], 'sort_order' => $sortOrder + $index + 1, 'is_generated' => true]);
             $paths[] = $pagePath;
             $paths[] = $thumbPath;
