@@ -12,9 +12,9 @@
 </head>
 <body>
 <a class="app-skip-link" href="#main-content">Saltar al contenido</a>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm app-navbar"><div class="container">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm app-navbar py-1"><div class="container">
     <a class="navbar-brand fw-semibold" href="{{ auth()->user()->hasVerifiedEmail() ? route('dashboard') : route('verification.notice') }}">
-        <img class="app-navbar-logo" src="{{ asset('images/logo-cancionero.png') }}" alt="Logo {{ config('cancionero.name') }}" width="96" height="96" style="width:96px !important;height:96px !important;max-width:none;max-height:none;object-fit:contain;display:block;">
+        <img class="app-navbar-logo" src="{{ asset('images/logo-cancionero.png') }}" alt="Logo {{ config('cancionero.name') }}" width="58" height="58">
         <span>{{ config('cancionero.name') }}</span>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Abrir navegación"><span class="navbar-toggler-icon"></span></button>
