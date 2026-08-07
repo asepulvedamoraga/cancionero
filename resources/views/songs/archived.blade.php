@@ -10,7 +10,7 @@
     </div>
 </div>
 
-<form class="card card-body app-filter-card" method="GET" role="search">
+<form class="card card-body app-filter-card app-form-shell" method="GET" role="search">
     <div class="row g-2">
         <div class="col-md-7">
             <label class="visually-hidden" for="archived-q">Buscar canción archivada</label>
@@ -84,7 +84,10 @@
             <div class="app-empty-state">
                 <i class="bi bi-archive"></i>
                 <h2 class="h4">No hay canciones archivadas</h2>
-                <p class="mb-0">Las canciones que archives aparecerán aquí.</p>
+                <p>Las canciones que archives aparecerán aquí.</p>
+                <div class="app-empty-state__actions">
+                    <a class="btn btn-outline-primary btn-sm" href="{{ route('songs.index', ['scope' => 'mine']) }}"><i class="bi bi-arrow-left"></i>Volver a mis canciones</a>
+                </div>
             </div>
         @endforelse
     </div>

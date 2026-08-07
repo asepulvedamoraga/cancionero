@@ -1,13 +1,6 @@
 @extends('layouts.app')
 @section('title', $song->title)
 
-@push('styles')
-<style>
-.song-video-card { max-width: 860px; margin-left: auto; margin-right: auto; }
-.song-video-frame { max-height: 420px; }
-</style>
-@endpush
-
 @section('content')
 <div class="app-page-header align-items-start">
     <div>
@@ -35,7 +28,7 @@
     </div>
 @endif
 
-<div class="card card-body mb-4">
+<div class="card card-body app-form-shell mb-4">
     <div class="d-flex flex-wrap gap-2 align-items-center">
         <strong>Tonalidad</strong>
         @foreach($song->tones as $tone)
@@ -49,7 +42,7 @@
 
 <div class="row g-4 mb-4">
     <div class="col-lg-8">
-        <div class="card card-body">
+        <div class="card card-body app-form-shell app-detail-card h-100">
             <dl class="row mb-0">
                 <dt class="col-sm-4">Intérprete</dt>
                 <dd class="col-sm-8">{{ $song->performer ?: '—' }}</dd>
@@ -72,13 +65,13 @@
                     @endif
                 </dd>
                 <dt class="col-sm-4">Observaciones</dt>
-                <dd class="col-sm-8" style="white-space: pre-line;">{{ $song->notes ?: '—' }}</dd>
+                <dd class="col-sm-8 app-preline">{{ $song->notes ?: '—' }}</dd>
             </dl>
         </div>
     </div>
 
     <div class="col-lg-4">
-        <div class="card card-body">
+        <div class="card card-body app-form-shell app-detail-card app-sticky-card">
             <strong>Estado</strong>
             <span class="mt-2 badge {{ $song->is_active ? 'text-bg-success' : 'text-bg-secondary' }}">
                 {{ $song->is_active ? 'Activa' : 'Inactiva' }}
@@ -91,7 +84,9 @@
     </div>
 </div>
 
-<h2 class="h4 mb-3">Páginas y documentos</h2>
+<div class="app-section-header mb-3">
+    <h2 class="h4 mb-0">Páginas y documentos</h2>
+</div>
 <div class="song-pages">
     @forelse($displayFiles as $file)
         @php($fileUrl = route('songs.files.show', [$song, $file, 'v' => $file->updated_at?->timestamp ?? $file->id]))
@@ -117,9 +112,9 @@
 </div>
 
 @if($song->youtubeEmbedUrl())
-    <div class="card card-body mb-4 song-video-card">
+    <div class="card card-body app-form-shell app-video-card mb-4">
         <strong class="mb-2 d-block">Video de apoyo</strong>
-        <div class="ratio ratio-16x9 song-video-frame">
+        <div class="ratio ratio-16x9 app-video-frame">
             <iframe src="{{ $song->youtubeEmbedUrl() }}"
                     title="Video de apoyo de {{ $song->title }}"
                     loading="lazy"

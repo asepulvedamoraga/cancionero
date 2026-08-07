@@ -2,50 +2,57 @@
 <html lang="es">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>{{ $song->title }} · Lectura</title>
-    <style>
-        html,body{margin:0;background:#111;color:#fff;font-family:system-ui}
-        header{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:.7rem 1rem;background:rgba(0,0,0,.88)}
-        a{color:#fff}
-        .tone-switch{display:flex;gap:.4rem;flex-wrap:wrap;padding:.6rem 1rem}
-        .tone-switch a{font-size:.85rem;padding:.2rem .55rem;border:1px solid rgba(255,255,255,.25);border-radius:.45rem;text-decoration:none}
-        .tone-switch a.active{background:#fff;color:#111;border-color:#fff}
-        .pages{display:grid;gap:1rem;padding:1rem}
-        .page{display:flex;justify-content:center}
-        .page img{display:block;max-width:100%;max-height:calc(100vh - 5rem);object-fit:contain;user-select:none;-webkit-user-drag:none}
-        .empty{text-align:center;padding:4rem;color:#bbb}
-        .video-support{margin:1rem auto 1.5rem;padding:1rem;border:1px solid rgba(255,255,255,.14);border-radius:.85rem;background:rgba(255,255,255,.04);max-width:860px;width:calc(100% - 2rem)}
-        .video-support h2{margin:0 0 .35rem;font-size:1.05rem}
-        .video-frame{position:relative;padding-top:56.25%;border-radius:.7rem;overflow:hidden;background:#000;max-height:360px}
-        .video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ $song->title }} - Lectura publica</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    @vite(['resources/css/app.css'])
 </head>
-<body>
-<header>
-    <strong>{{ $song->title }} · {{ $selectedTone->name }}</strong>
-    <a href="{{ route('public.songs.show', ['song' => $song->slug, 'tone' => $selectedTone->id]) }}">Salir</a>
+<body class="read-mode read-mode--public">
+<header class="read-mode__header">
+    <div class="read-mode__title-wrap">
+        <p class="read-mode__eyebrow">Lectura publica</p>
+        <strong>{{ $song->title }}</strong>
+        <span>{{ $selectedTone->name }}</span>
+    </div>
+    <a class="read-mode__exit" href="{{ route('public.songs.show', ['song' => $song, 'tone' => $selectedTone->id]) }}">
+        <i class="bi bi-arrow-left"></i> Volver al detalle
+    </a>
 </header>
-<nav class="tone-switch">
+
+<nav class="read-mode__tones" aria-label="Cambiar tonalidad">
     @foreach($song->tones as $tone)
-        <a class="{{ $tone->id === $selectedTone->id ? 'active' : '' }}" href="{{ route('public.songs.read', ['song' => $song->slug, 'tone' => $tone->id]) }}">{{ $tone->name }}</a>
+        <a class="{{ $tone->id === $selectedTone->id ? 'active' : '' }}" href="{{ route('public.songs.read', ['song' => $song, 'tone' => $tone->id]) }}">{{ $tone->name }}</a>
     @endforeach
 </nav>
-<main class="pages">
+
+<main class="read-mode__pages">
     @forelse($displayFiles as $file)
-        @php($fileUrl = route('public.songs.files.show', ['song' => $song->slug, 'file' => $file, 'v' => $file->updated_at?->timestamp ?? $file->id]))
-        <div class="page">
-            <img src="{{ $fileUrl }}" alt="Página {{ $loop->iteration }}">
-        </div>
+        @php($fileUrl = route('songs.files.show', [$song, $file, 'v' => $file->updated_at?->timestamp ?? $file->id]))
+        <article class="read-mode__page">
+            <img src="{{ $fileUrl }}" alt="Pagina {{ $loop->iteration }}">
+        </article>
     @empty
-        <div class="empty">Esta tonalidad no tiene páginas disponibles.</div>
+        <section class="read-mode__empty">
+            <i class="bi bi-file-earmark-x"></i>
+            <h2>Sin paginas para esta tonalidad</h2>
+            <p>Prueba con otra tonalidad para continuar la lectura.</p>
+        </section>
     @endforelse
 </main>
+
 @if($song->youtubeEmbedUrl())
-    <section class="video-support">
-        <h2>Video de apoyo</h2>
-        <div class="video-frame">
-            <iframe src="{{ $song->youtubeEmbedUrl() }}" title="Video de apoyo de {{ $song->title }}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <section class="read-mode__video">
+        <h2><i class="bi bi-play-circle"></i> Video de apoyo</h2>
+        <div class="read-mode__frame">
+            <iframe
+                src="{{ $song->youtubeEmbedUrl() }}"
+                title="Video de apoyo de {{ $song->title }}"
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+            ></iframe>
         </div>
     </section>
 @endif

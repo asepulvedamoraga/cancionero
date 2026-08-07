@@ -1,0 +1,1188 @@
+{
+  "communities": {
+    "0": [
+      "app_http_controllers_repertoirecontroller",
+      "app_http_controllers_repertoirecontroller_repertoirecontroller_edit",
+      "app_http_requests_updaterepertoirerequest",
+      "app_http_requests_updaterepertoirerequest_updaterepertoirerequest",
+      "app_http_requests_updaterepertoirerequest_updaterepertoirerequest_authorize",
+      "app_http_requests_updaterepertoirerequest_updaterepertoirerequest_rules",
+      "app_models_category",
+      "app_models_category_category",
+      "app_models_category_category_casts",
+      "app_models_category_category_songs",
+      "app_models_liturgicalmoment",
+      "app_models_liturgicalmoment_liturgicalmoment",
+      "app_models_liturgicalmoment_liturgicalmoment_casts",
+      "app_models_liturgicalmoment_liturgicalmoment_songs",
+      "app_models_liturgicalseason",
+      "app_models_liturgicalseason_liturgicalseason",
+      "app_models_liturgicalseason_liturgicalseason_casts",
+      "app_models_liturgicalseason_liturgicalseason_songs",
+      "app_models_repertoire",
+      "app_models_repertoire_repertoire_songs",
+      "app_models_song",
+      "app_models_song_song_files",
+      "app_models_song_song_liturgicalseasons",
+      "app_models_song_song_repertoires",
+      "app_models_songfile",
+      "app_models_songtone",
+      "app_models_songtone_songtone_files",
+      "app_models_tonecatalog",
+      "app_models_user",
+      "app_models_user_user_repertoires",
+      "app_models_user_user_songs",
+      "app_services_catalogmanagementservice",
+      "app_services_catalogmanagementservice_catalogmanagementservice",
+      "app_services_catalogmanagementservice_catalogmanagementservice_create",
+      "app_services_catalogmanagementservice_catalogmanagementservice_definition",
+      "app_services_catalogmanagementservice_catalogmanagementservice_find",
+      "app_services_catalogmanagementservice_catalogmanagementservice_items",
+      "app_services_catalogmanagementservice_catalogmanagementservice_update",
+      "artisan",
+      "database_factories_songfactory",
+      "database_factories_songfactory_songfactory",
+      "database_factories_songfactory_songfactory_definition",
+      "illuminate_contracts_pagination_lengthawarepaginator",
+      "illuminate_database_eloquent_factories_hasfactory",
+      "illuminate_database_eloquent_model",
+      "illuminate_database_eloquent_relations_belongstomany",
+      "illuminate_database_eloquent_relations_hasmany",
+      "illuminate_database_eloquent_softdeletes",
+      "illuminate_foundation_testing_refreshdatabase",
+      "illuminate_foundation_testing_testcase",
+      "tests_feature_accountmanagementtest",
+      "tests_feature_authenticationtest",
+      "tests_feature_authenticationtest_authenticationtest",
+      "tests_feature_authenticationtest_authenticationtest_test_admin_can_login_and_open_dashboard",
+      "tests_feature_authenticationtest_authenticationtest_test_guest_can_open_public_landing",
+      "tests_feature_authenticationtest_authenticationtest_test_regular_user_can_login_and_open_dashboard",
+      "tests_feature_catalogmanagementtest",
+      "tests_feature_catalogmanagementtest_catalogmanagementtest",
+      "tests_feature_catalogmanagementtest_catalogmanagementtest_setup",
+      "tests_feature_catalogmanagementtest_catalogmanagementtest_test_admin_can_create_a_catalog_item_with_generated_slug",
+      "tests_feature_catalogmanagementtest_catalogmanagementtest_test_admin_can_deactivate_an_unused_item_but_not_an_item_in_use",
+      "tests_feature_catalogmanagementtest_catalogmanagementtest_test_catalog_items_are_presented_in_configured_order",
+      "tests_feature_catalogmanagementtest_catalogmanagementtest_test_catalog_list_can_be_searched_filtered_and_paginated",
+      "tests_feature_catalogmanagementtest_catalogmanagementtest_test_regular_user_cannot_access_catalog_management",
+      "tests_feature_catalogmanagementtest_catalogmanagementtest_test_slug_must_be_unique_within_its_catalog",
+      "tests_feature_catalogmanagementtest_catalogmanagementtest_test_used_liturgical_season_cannot_be_deactivated",
+      "tests_feature_databaseseedertest",
+      "tests_feature_databaseseedertest_databaseseedertest",
+      "tests_feature_exampletest",
+      "tests_feature_exampletest_exampletest",
+      "tests_feature_exampletest_exampletest_test_the_public_landing_is_available",
+      "tests_feature_listingpaginationtest",
+      "tests_feature_ownershipauthorizationtest",
+      "tests_feature_productionreadinesstest",
+      "tests_feature_productionreadinesstest_productionreadinesstest",
+      "tests_feature_productionreadinesstest_productionreadinesstest_test_export_cleanup_is_registered_in_the_scheduler",
+      "tests_feature_productionreadinesstest_productionreadinesstest_test_production_check_fails_safely_for_a_testing_environment",
+      "tests_feature_publicrepertoiretest",
+      "tests_feature_repertoireexporttest",
+      "tests_feature_repertoiremanagementtest",
+      "tests_feature_repertoirerecoverytest",
+      "tests_feature_sharedsonglibrarytest",
+      "tests_feature_songmanagementtest",
+      "tests_feature_songmanagementtest_songmanagementtest_test_admin_can_create_and_update_a_song_with_relations",
+      "tests_testcase",
+      "tests_testcase_testcase",
+      "tests_unit_modelrelationshipstest",
+      "tests_unit_modelrelationshipstest_modelrelationshipstest",
+      "tests_unit_modelrelationshipstest_modelrelationshipstest_test_domain_relationships_are_declared",
+      "tests_unit_repertoirepageservicetest"
+    ],
+    "1": [
+      "app_http_controllers_publicsite_publicrepertoirefilecontroller",
+      "app_http_controllers_publicsite_publicrepertoirefilecontroller_publicrepertoirefilecontroller",
+      "app_http_controllers_publicsite_publicrepertoirefilecontroller_publicrepertoirefilecontroller_invoke",
+      "app_http_controllers_publicsite_publicsongfilecontroller_publicsongfilecontroller_show",
+      "app_http_controllers_songfilecontroller_songfilecontroller",
+      "app_http_controllers_songfilecontroller_songfilecontroller_belongs",
+      "app_http_controllers_songfilecontroller_songfilecontroller_destroy",
+      "app_http_controllers_songfilecontroller_songfilecontroller_download",
+      "app_http_controllers_songfilecontroller_songfilecontroller_preview",
+      "app_http_controllers_songfilecontroller_songfilecontroller_replace",
+      "app_http_controllers_songfilecontroller_songfilecontroller_show",
+      "app_http_controllers_songfilecontroller_songfilecontroller_songusedinrepertoires",
+      "app_http_controllers_songfilecontroller_songfilecontroller_storefortone",
+      "app_http_controllers_songfilecontroller_songfilecontroller_withnocacheheaders",
+      "app_models_songfile_songfile",
+      "app_models_songfile_songfile_casts",
+      "app_services_pdfconversionservice",
+      "app_services_pdfconversionservice_pdfconversionservice",
+      "app_services_pdfconversionservice_pdfconversionservice_available",
+      "app_services_pdfconversionservice_pdfconversionservice_convert",
+      "app_services_publicrepertoireaccessservice",
+      "app_services_publicrepertoireaccessservice_publicrepertoireaccessservice",
+      "app_services_publicrepertoireaccessservice_publicrepertoireaccessservice_ensurefileispublic",
+      "app_services_publicrepertoireaccessservice_publicrepertoireaccessservice_ensurepublic",
+      "app_services_songfileservice",
+      "app_services_songfileservice_songfileservice",
+      "app_services_songfileservice_songfileservice_construct",
+      "app_services_songfileservice_songfileservice_createthumbnail",
+      "app_services_songfileservice_songfileservice_delete",
+      "app_services_songfileservice_songfileservice_purgesong",
+      "app_services_songfileservice_songfileservice_reorder",
+      "app_services_songfileservice_songfileservice_replace",
+      "app_services_songfileservice_songfileservice_storeimage",
+      "app_services_songfileservice_songfileservice_storepdf",
+      "app_services_songfileservice_songfileservice_storeuploads",
+      "illuminate_http_uploadedfile",
+      "symfony_component_httpfoundation_streamedresponse",
+      "tests_feature_songmanagementtest_songmanagementtest",
+      "tests_feature_songmanagementtest_songmanagementtest_setup",
+      "tests_feature_songmanagementtest_songmanagementtest_test_admin_can_manage_song_tones_and_upload_into_selected_tone",
+      "tests_feature_songmanagementtest_songmanagementtest_test_admin_can_reorder_and_delete_song_files",
+      "tests_feature_songmanagementtest_songmanagementtest_test_admin_can_replace_a_file_and_open_read_mode",
+      "tests_feature_songmanagementtest_songmanagementtest_test_admin_can_store_optional_youtube_video_and_see_it_in_song_view",
+      "tests_feature_songmanagementtest_songmanagementtest_test_admin_can_upload_valid_image_and_private_file_is_recorded",
+      "tests_feature_songmanagementtest_songmanagementtest_test_file_from_another_song_cannot_be_accessed",
+      "tests_feature_songmanagementtest_songmanagementtest_test_guest_cannot_access_songs",
+      "tests_feature_songmanagementtest_songmanagementtest_test_image_files_are_served_with_no_cache_headers",
+      "tests_feature_songmanagementtest_songmanagementtest_test_invalid_executable_file_is_rejected",
+      "tests_feature_songmanagementtest_songmanagementtest_test_non_youtube_video_url_is_rejected",
+      "tests_feature_songmanagementtest_songmanagementtest_test_pdf_is_kept_when_conversion_is_disabled",
+      "tests_feature_songmanagementtest_songmanagementtest_test_read_mode_filters_pages_by_selected_tone"
+    ],
+    "2": [
+      "app_http_controllers_repertoiresongcontroller",
+      "app_http_controllers_repertoiresongcontroller_repertoiresongcontroller",
+      "app_http_controllers_repertoiresongcontroller_repertoiresongcontroller_destroy",
+      "app_http_controllers_repertoiresongcontroller_repertoiresongcontroller_ensureattached",
+      "app_http_controllers_repertoiresongcontroller_repertoiresongcontroller_normalizeorder",
+      "app_http_controllers_repertoiresongcontroller_repertoiresongcontroller_reorder",
+      "app_http_controllers_repertoiresongcontroller_repertoiresongcontroller_store",
+      "app_http_controllers_repertoiresongcontroller_repertoiresongcontroller_update",
+      "app_http_controllers_songfilecontroller_songfilecontroller_reorder",
+      "app_http_requests_addrepertoiresongsrequest",
+      "app_http_requests_addrepertoiresongsrequest_addrepertoiresongsrequest",
+      "app_http_requests_addrepertoiresongsrequest_addrepertoiresongsrequest_after",
+      "app_http_requests_addrepertoiresongsrequest_addrepertoiresongsrequest_authorize",
+      "app_http_requests_addrepertoiresongsrequest_addrepertoiresongsrequest_messages",
+      "app_http_requests_addrepertoiresongsrequest_addrepertoiresongsrequest_rules",
+      "app_http_requests_auth_loginrequest",
+      "app_http_requests_auth_loginrequest_loginrequest",
+      "app_http_requests_auth_loginrequest_loginrequest_authenticate",
+      "app_http_requests_auth_loginrequest_loginrequest_authorize",
+      "app_http_requests_auth_loginrequest_loginrequest_ensureisnotratelimited",
+      "app_http_requests_auth_loginrequest_loginrequest_rules",
+      "app_http_requests_auth_loginrequest_loginrequest_throttlekey",
+      "app_http_requests_reorderrepertoiresongsrequest",
+      "app_http_requests_reorderrepertoiresongsrequest_reorderrepertoiresongsrequest",
+      "app_http_requests_reorderrepertoiresongsrequest_reorderrepertoiresongsrequest_authorize",
+      "app_http_requests_reorderrepertoiresongsrequest_reorderrepertoiresongsrequest_rules",
+      "app_http_requests_reordersongfilesrequest",
+      "app_http_requests_reordersongfilesrequest_reordersongfilesrequest",
+      "app_http_requests_reordersongfilesrequest_reordersongfilesrequest_authorize",
+      "app_http_requests_reordersongfilesrequest_reordersongfilesrequest_rules",
+      "app_http_requests_replacesongfilerequest",
+      "app_http_requests_replacesongfilerequest_replacesongfilerequest",
+      "app_http_requests_replacesongfilerequest_replacesongfilerequest_authorize",
+      "app_http_requests_replacesongfilerequest_replacesongfilerequest_rules",
+      "app_http_requests_storerepertoirerequest",
+      "app_http_requests_storerepertoirerequest_storerepertoirerequest",
+      "app_http_requests_storerepertoirerequest_storerepertoirerequest_authorize",
+      "app_http_requests_storerepertoirerequest_storerepertoirerequest_prepareforvalidation",
+      "app_http_requests_storerepertoirerequest_storerepertoirerequest_rules",
+      "app_http_requests_updaterepertoiresongrequest",
+      "app_http_requests_updaterepertoiresongrequest_updaterepertoiresongrequest",
+      "app_http_requests_updaterepertoiresongrequest_updaterepertoiresongrequest_authorize",
+      "app_http_requests_updaterepertoiresongrequest_updaterepertoiresongrequest_rules",
+      "app_services_repertoireservice",
+      "app_services_repertoireservice_repertoireservice",
+      "app_services_repertoireservice_repertoireservice_addsongs",
+      "app_services_repertoireservice_repertoireservice_duplicate",
+      "app_services_repertoireservice_repertoireservice_reorder",
+      "config_auth",
+      "illuminate_foundation_http_formrequest"
+    ],
+    "3": [
+      "app_models_user_user",
+      "app_models_user_user_casts",
+      "app_models_user_user_sendemailverificationnotification",
+      "app_policies_songpolicy",
+      "app_policies_songpolicy_songpolicy",
+      "app_policies_songpolicy_songpolicy_before",
+      "app_policies_songpolicy_songpolicy_create",
+      "app_policies_songpolicy_songpolicy_delete",
+      "app_policies_songpolicy_songpolicy_restore",
+      "app_policies_songpolicy_songpolicy_update",
+      "app_policies_songpolicy_songpolicy_view",
+      "app_policies_songpolicy_songpolicy_viewany",
+      "illuminate_contracts_auth_mustverifyemail",
+      "illuminate_foundation_auth_user",
+      "illuminate_notifications_notifiable",
+      "tests_feature_accountmanagementtest_accountmanagementtest",
+      "tests_feature_accountmanagementtest_accountmanagementtest_setup",
+      "tests_feature_accountmanagementtest_accountmanagementtest_test_admin_can_deactivate_another_account_but_not_their_own",
+      "tests_feature_accountmanagementtest_accountmanagementtest_test_guest_can_register_and_verification_is_required",
+      "tests_feature_accountmanagementtest_accountmanagementtest_test_inactive_user_cannot_login_or_keep_using_a_session",
+      "tests_feature_accountmanagementtest_accountmanagementtest_test_registration_rejects_duplicate_email_and_weak_password",
+      "tests_feature_accountmanagementtest_accountmanagementtest_test_regular_user_cannot_manage_accounts",
+      "tests_feature_accountmanagementtest_accountmanagementtest_test_user_can_request_and_complete_password_reset",
+      "tests_feature_accountmanagementtest_accountmanagementtest_test_user_can_update_profile_and_password",
+      "tests_feature_accountmanagementtest_accountmanagementtest_test_user_can_verify_email_with_signed_link",
+      "tests_feature_databaseseedertest_databaseseedertest_test_seeder_creates_catalogs_and_admin_from_configuration",
+      "tests_feature_ownershipauthorizationtest_ownershipauthorizationtest",
+      "tests_feature_ownershipauthorizationtest_ownershipauthorizationtest_setup",
+      "tests_feature_ownershipauthorizationtest_ownershipauthorizationtest_test_administrator_can_manage_content_from_any_owner",
+      "tests_feature_ownershipauthorizationtest_ownershipauthorizationtest_test_inactive_song_is_private_to_owner_and_administrator",
+      "tests_feature_ownershipauthorizationtest_ownershipauthorizationtest_test_owner_can_add_another_users_active_song_to_own_repertoire",
+      "tests_feature_ownershipauthorizationtest_ownershipauthorizationtest_test_regular_user_creates_content_owned_by_their_account",
+      "tests_feature_ownershipauthorizationtest_ownershipauthorizationtest_test_repertoire_list_accepts_only_supported_page_sizes",
+      "tests_feature_ownershipauthorizationtest_ownershipauthorizationtest_test_user_can_view_active_shared_song_but_cannot_modify_it_or_its_files",
+      "tests_feature_ownershipauthorizationtest_ownershipauthorizationtest_test_user_cannot_modify_another_users_repertoire_composition",
+      "tests_feature_ownershipauthorizationtest_ownershipauthorizationtest_test_user_sees_public_repertoire_but_cannot_manage_or_export_it",
+      "tests_feature_repertoiremanagementtest_repertoiremanagementtest_setup"
+    ],
+    "4": [
+      "app_http_controllers_songcontroller_songcontroller_store",
+      "app_http_controllers_songcontroller_songcontroller_uniqueslug",
+      "app_http_controllers_songcontroller_songcontroller_update",
+      "app_http_controllers_songtonecontroller_songtonecontroller_store",
+      "app_http_middleware_ensureuserisactive",
+      "app_http_middleware_ensureuserisactive_ensureuserisactive",
+      "app_http_middleware_ensureuserisactive_ensureuserisactive_handle",
+      "app_http_middleware_ensureuserisadmin",
+      "app_http_middleware_ensureuserisadmin_ensureuserisadmin",
+      "app_http_middleware_ensureuserisadmin_ensureuserisadmin_handle",
+      "app_http_requests_storesongrequest",
+      "app_http_requests_storesongrequest_storesongrequest",
+      "app_http_requests_storesongrequest_storesongrequest_after",
+      "app_http_requests_storesongrequest_storesongrequest_authorize",
+      "app_http_requests_storesongrequest_storesongrequest_isyoutubeurl",
+      "app_http_requests_storesongrequest_storesongrequest_prepareforvalidation",
+      "app_http_requests_storesongrequest_storesongrequest_rules",
+      "app_http_requests_updatesongrequest",
+      "app_http_requests_updatesongrequest_updatesongrequest",
+      "app_http_requests_updatesongrequest_updatesongrequest_authorize",
+      "app_http_requests_updatesongrequest_updatesongrequest_rules",
+      "app_models_tonecatalog_tonecatalog",
+      "app_models_tonecatalog_tonecatalog_casts",
+      "app_models_tonecatalog_tonecatalog_normalize",
+      "app_models_tonecatalog_tonecatalog_resolvefromlabel",
+      "app_models_tonecatalog_tonecatalog_scopeactive",
+      "bootstrap_app",
+      "closure",
+      "self",
+      "symfony_component_httpfoundation_response"
+    ],
+    "5": [
+      "app_http_controllers_admin_settingscontroller",
+      "app_http_controllers_admin_settingscontroller_settingscontroller",
+      "app_http_controllers_admin_settingscontroller_settingscontroller_invoke",
+      "app_http_controllers_auth_emailverificationnotificationcontroller",
+      "app_http_controllers_auth_emailverificationnotificationcontroller_emailverificationnotificationcontroller",
+      "app_http_controllers_auth_emailverificationnotificationcontroller_emailverificationnotificationcontroller_invoke",
+      "app_http_controllers_auth_emailverificationpromptcontroller",
+      "app_http_controllers_auth_emailverificationpromptcontroller_emailverificationpromptcontroller",
+      "app_http_controllers_auth_emailverificationpromptcontroller_emailverificationpromptcontroller_invoke",
+      "app_http_controllers_auth_passwordresetlinkcontroller",
+      "app_http_controllers_auth_passwordresetlinkcontroller_passwordresetlinkcontroller",
+      "app_http_controllers_auth_passwordresetlinkcontroller_passwordresetlinkcontroller_create",
+      "app_http_controllers_auth_passwordresetlinkcontroller_passwordresetlinkcontroller_store",
+      "app_http_controllers_auth_registeredusercontroller",
+      "app_http_controllers_auth_registeredusercontroller_registeredusercontroller",
+      "app_http_controllers_auth_registeredusercontroller_registeredusercontroller_create",
+      "app_http_controllers_auth_registeredusercontroller_registeredusercontroller_store",
+      "app_http_controllers_auth_verifyemailcontroller",
+      "app_http_controllers_auth_verifyemailcontroller_verifyemailcontroller",
+      "app_http_controllers_auth_verifyemailcontroller_verifyemailcontroller_invoke",
+      "app_http_controllers_controller",
+      "app_http_controllers_controller_controller",
+      "app_http_controllers_publicsite_publicrepertoiredownloadcontroller",
+      "app_http_controllers_publicsite_publicrepertoiredownloadcontroller_publicrepertoiredownloadcontroller",
+      "app_http_controllers_publicsite_publicsongfilecontroller",
+      "app_http_controllers_publicsite_publicsongfilecontroller_publicsongfilecontroller",
+      "illuminate_foundation_auth_emailverificationrequest",
+      "routes_web"
+    ],
+    "6": [
+      "app_models_repertoire_repertoire",
+      "app_models_repertoire_repertoire_casts",
+      "tests_feature_repertoiremanagementtest_repertoiremanagementtest",
+      "tests_feature_repertoiremanagementtest_repertoiremanagementtest_test_admin_can_add_multiple_songs_in_the_submitted_order",
+      "tests_feature_repertoiremanagementtest_repertoiremanagementtest_test_admin_can_add_song_and_duplicate_is_rejected",
+      "tests_feature_repertoiremanagementtest_repertoiremanagementtest_test_admin_can_add_song_with_selected_tone",
+      "tests_feature_repertoiremanagementtest_repertoiremanagementtest_test_admin_can_create_and_update_a_repertoire",
+      "tests_feature_repertoiremanagementtest_repertoiremanagementtest_test_admin_can_open_repertoire_presentation",
+      "tests_feature_repertoiremanagementtest_repertoiremanagementtest_test_admin_can_reorder_update_notes_and_remove_songs",
+      "tests_feature_repertoiremanagementtest_repertoiremanagementtest_test_duplicate_copies_songs_order_and_notes_as_draft",
+      "tests_feature_repertoiremanagementtest_repertoiremanagementtest_test_edit_shows_page_count_and_warns_when_song_has_no_pages",
+      "tests_feature_repertoiremanagementtest_repertoiremanagementtest_test_guest_cannot_access_repertoires",
+      "tests_feature_repertoiremanagementtest_repertoiremanagementtest_test_guest_cannot_open_repertoire_presentation",
+      "tests_feature_repertoiremanagementtest_repertoiremanagementtest_test_inactive_song_cannot_be_added",
+      "tests_feature_repertoiremanagementtest_repertoiremanagementtest_test_reorder_must_contain_exactly_attached_songs",
+      "tests_feature_repertoiremanagementtest_repertoiremanagementtest_test_search_finds_all_terms_in_title_author_or_performer_and_excludes_selected",
+      "tests_feature_repertoiremanagementtest_repertoiremanagementtest_test_song_selector_applies_catalog_filters",
+      "tests_feature_repertoirerecoverytest_repertoirerecoverytest",
+      "tests_feature_repertoirerecoverytest_repertoirerecoverytest_setup",
+      "tests_feature_repertoirerecoverytest_repertoirerecoverytest_test_admin_can_see_and_restore_any_trashed_repertoire",
+      "tests_feature_repertoirerecoverytest_repertoirerecoverytest_test_deleting_public_repertoire_revokes_public_access_and_restores_it_as_private",
+      "tests_feature_repertoirerecoverytest_repertoirerecoverytest_test_owner_can_move_repertoire_to_trash_and_restore_its_composition",
+      "tests_feature_repertoirerecoverytest_repertoirerecoverytest_test_owner_can_permanently_delete_trashed_repertoire",
+      "tests_feature_repertoirerecoverytest_repertoirerecoverytest_test_user_cannot_see_or_restore_another_users_trashed_repertoire"
+    ],
+    "7": [
+      "app_models_song_song_booted",
+      "database_factories_categoryfactory",
+      "database_factories_categoryfactory_categoryfactory",
+      "database_factories_categoryfactory_categoryfactory_definition",
+      "database_factories_liturgicalmomentfactory",
+      "database_factories_liturgicalmomentfactory_liturgicalmomentfactory",
+      "database_factories_liturgicalmomentfactory_liturgicalmomentfactory_definition",
+      "database_factories_liturgicalseasonfactory",
+      "database_factories_liturgicalseasonfactory_liturgicalseasonfactory",
+      "database_factories_liturgicalseasonfactory_liturgicalseasonfactory_definition",
+      "database_factories_repertoirefactory",
+      "database_factories_repertoirefactory_repertoirefactory",
+      "database_factories_repertoirefactory_repertoirefactory_definition",
+      "database_factories_songfilefactory",
+      "database_factories_songfilefactory_songfilefactory",
+      "database_factories_songfilefactory_songfilefactory_definition",
+      "database_factories_userfactory",
+      "database_factories_userfactory_userfactory",
+      "database_factories_userfactory_userfactory_definition",
+      "database_factories_userfactory_userfactory_unverified",
+      "illuminate_database_eloquent_factories_factory",
+      "static"
+    ],
+    "8": [
+      "app_http_controllers_songtonecontroller",
+      "app_http_controllers_songtonecontroller_songtonecontroller",
+      "app_http_controllers_songtonecontroller_songtonecontroller_destroy",
+      "app_http_controllers_songtonecontroller_songtonecontroller_ensurebelongs",
+      "app_http_controllers_songtonecontroller_songtonecontroller_makedefault",
+      "app_models_repertoire_repertoire_owner",
+      "app_models_song_song_category",
+      "app_models_song_song_defaulttonename",
+      "app_models_song_song_ensuredefaulttone",
+      "app_models_song_song_liturgicalmoment",
+      "app_models_song_song_owner",
+      "app_models_song_song_resolvetoneid",
+      "app_models_song_song_selectedtone",
+      "app_models_song_song_tones",
+      "app_models_songfile_songfile_song",
+      "app_models_songfile_songfile_tone",
+      "app_models_songtone_songtone",
+      "app_models_songtone_songtone_casts",
+      "app_models_songtone_songtone_catalog",
+      "app_models_songtone_songtone_song",
+      "illuminate_database_eloquent_relations_belongsto"
+    ],
+    "9": [
+      "resources_js_app",
+      "resources_js_app_initpublicheader",
+      "resources_js_bootstrap",
+      "resources_js_modules_copy_buttons",
+      "resources_js_modules_copy_buttons_initcopybuttons",
+      "resources_js_modules_file_preview",
+      "resources_js_modules_file_preview_initfilepreview",
+      "resources_js_modules_repertoire_selector",
+      "resources_js_modules_repertoire_selector_initrepertoireselector",
+      "resources_js_modules_repertoire_sorter",
+      "resources_js_modules_repertoire_sorter_initrepertoiresorter",
+      "resources_js_modules_repertoire_sorter_saveorder",
+      "resources_js_modules_song_duplicate_check",
+      "resources_js_modules_song_duplicate_check_initsongduplicatecheck",
+      "resources_js_modules_song_files_sorter",
+      "resources_js_modules_song_files_sorter_initsongfilesorter",
+      "resources_js_modules_song_files_sorter_saveorder",
+      "resources_js_modules_song_upload_feedback",
+      "resources_js_modules_song_upload_feedback_buildoverlay",
+      "resources_js_modules_song_upload_feedback_initsonguploadfeedback",
+      "resources_js_modules_song_upload_feedback_pdfselected"
+    ],
+    "10": [
+      "app_models_song_song",
+      "app_models_song_song_casts",
+      "app_models_song_song_youtubeembedurl",
+      "tests_feature_sharedsonglibrarytest_sharedsonglibrarytest",
+      "tests_feature_sharedsonglibrarytest_sharedsonglibrarytest_setup",
+      "tests_feature_sharedsonglibrarytest_sharedsonglibrarytest_test_administrator_can_view_and_restore_any_archived_song",
+      "tests_feature_sharedsonglibrarytest_sharedsonglibrarytest_test_duplicate_title_is_advisory_and_does_not_block_a_new_version",
+      "tests_feature_sharedsonglibrarytest_sharedsonglibrarytest_test_library_accepts_only_supported_page_sizes",
+      "tests_feature_sharedsonglibrarytest_sharedsonglibrarytest_test_library_can_filter_by_ownership",
+      "tests_feature_sharedsonglibrarytest_sharedsonglibrarytest_test_library_shows_active_shared_songs_and_hides_inactive_songs",
+      "tests_feature_sharedsonglibrarytest_sharedsonglibrarytest_test_my_songs_scope_only_shows_current_users_active_and_inactive_songs",
+      "tests_feature_sharedsonglibrarytest_sharedsonglibrarytest_test_owner_can_permanently_delete_archived_song_and_its_files",
+      "tests_feature_sharedsonglibrarytest_sharedsonglibrarytest_test_owner_can_restore_archived_song_and_other_user_cannot",
+      "tests_feature_sharedsonglibrarytest_sharedsonglibrarytest_test_suggestions_require_at_least_three_characters",
+      "tests_feature_sharedsonglibrarytest_sharedsonglibrarytest_test_suggestions_return_only_active_matches_without_private_account_data",
+      "tests_unit_repertoirepageservicetest_repertoirepageservicetest",
+      "tests_unit_repertoirepageservicetest_repertoirepageservicetest_test_it_flattens_pages_in_repertoire_and_song_order",
+      "tests_unit_repertoirepageservicetest_repertoirepageservicetest_test_it_omits_inactive_songs_and_songs_without_files",
+      "tests_unit_repertoirepageservicetest_repertoirepageservicetest_test_it_prefers_files_from_the_selected_song_tone",
+      "tests_unit_repertoirepageservicetest_repertoirepageservicetest_test_pdf_is_used_without_generated_pages_and_not_duplicated_with_generated_pages"
+    ],
+    "11": [
+      "app_http_controllers_auth_authenticatedsessioncontroller",
+      "app_http_controllers_auth_authenticatedsessioncontroller_authenticatedsessioncontroller",
+      "app_http_controllers_auth_authenticatedsessioncontroller_authenticatedsessioncontroller_create",
+      "app_http_controllers_auth_authenticatedsessioncontroller_authenticatedsessioncontroller_destroy",
+      "app_http_controllers_auth_authenticatedsessioncontroller_authenticatedsessioncontroller_store",
+      "app_http_controllers_repertoirecontroller_repertoirecontroller",
+      "app_http_controllers_repertoirecontroller_repertoirecontroller_create",
+      "app_http_controllers_repertoirecontroller_repertoirecontroller_destroy",
+      "app_http_controllers_repertoirecontroller_repertoirecontroller_duplicate",
+      "app_http_controllers_repertoirecontroller_repertoirecontroller_forcedestroy",
+      "app_http_controllers_repertoirecontroller_repertoirecontroller_index",
+      "app_http_controllers_repertoirecontroller_repertoirecontroller_perpage",
+      "app_http_controllers_repertoirecontroller_repertoirecontroller_restore",
+      "app_http_controllers_repertoirecontroller_repertoirecontroller_store",
+      "app_http_controllers_repertoirecontroller_repertoirecontroller_trashed",
+      "app_http_controllers_repertoirecontroller_repertoirecontroller_uniqueslug",
+      "app_http_controllers_repertoirecontroller_repertoirecontroller_update",
+      "app_http_controllers_songcontroller_songcontroller_restore",
+      "illuminate_http_redirectresponse"
+    ],
+    "12": [
+      "app_http_controllers_dashboardcontroller",
+      "app_http_controllers_dashboardcontroller_dashboardcontroller",
+      "app_http_controllers_dashboardcontroller_dashboardcontroller_invoke",
+      "app_http_controllers_songcontroller",
+      "app_http_controllers_songcontroller_songcontroller",
+      "app_http_controllers_songcontroller_songcontroller_applyfilters",
+      "app_http_controllers_songcontroller_songcontroller_archived",
+      "app_http_controllers_songcontroller_songcontroller_catalogs",
+      "app_http_controllers_songcontroller_songcontroller_create",
+      "app_http_controllers_songcontroller_songcontroller_destroy",
+      "app_http_controllers_songcontroller_songcontroller_edit",
+      "app_http_controllers_songcontroller_songcontroller_forcedestroy",
+      "app_http_controllers_songcontroller_songcontroller_index",
+      "app_http_controllers_songcontroller_songcontroller_perpage",
+      "app_http_controllers_songcontroller_songcontroller_read",
+      "app_http_controllers_songcontroller_songcontroller_show",
+      "app_http_controllers_songcontroller_songcontroller_songusedinrepertoires",
+      "illuminate_database_eloquent_builder",
+      "illuminate_view_view"
+    ],
+    "13": [
+      "app_http_controllers_account_profilecontroller",
+      "app_http_controllers_account_profilecontroller_profilecontroller",
+      "app_http_controllers_account_profilecontroller_profilecontroller_edit",
+      "app_http_controllers_account_profilecontroller_profilecontroller_update",
+      "app_http_controllers_account_profilecontroller_profilecontroller_updatepassword",
+      "app_http_controllers_admin_usercontroller",
+      "app_http_controllers_admin_usercontroller_usercontroller",
+      "app_http_controllers_admin_usercontroller_usercontroller_index",
+      "app_http_controllers_admin_usercontroller_usercontroller_perpage",
+      "app_http_controllers_admin_usercontroller_usercontroller_update",
+      "app_http_controllers_auth_newpasswordcontroller",
+      "app_http_controllers_auth_newpasswordcontroller_newpasswordcontroller",
+      "app_http_controllers_auth_newpasswordcontroller_newpasswordcontroller_create",
+      "app_http_controllers_auth_newpasswordcontroller_newpasswordcontroller_store",
+      "app_http_controllers_songcontroller_songcontroller_suggestions",
+      "app_http_controllers_songfilecontroller",
+      "illuminate_http_jsonresponse",
+      "illuminate_http_request"
+    ],
+    "14": [
+      "database_seeders_adminuserseeder",
+      "database_seeders_adminuserseeder_adminuserseeder",
+      "database_seeders_adminuserseeder_adminuserseeder_isstrong",
+      "database_seeders_adminuserseeder_adminuserseeder_run",
+      "database_seeders_categoryseeder",
+      "database_seeders_categoryseeder_categoryseeder",
+      "database_seeders_categoryseeder_categoryseeder_run",
+      "database_seeders_databaseseeder",
+      "database_seeders_databaseseeder_databaseseeder",
+      "database_seeders_databaseseeder_databaseseeder_run",
+      "database_seeders_liturgicalmomentseeder",
+      "database_seeders_liturgicalmomentseeder_liturgicalmomentseeder",
+      "database_seeders_liturgicalmomentseeder_liturgicalmomentseeder_run",
+      "database_seeders_liturgicalseasonseeder",
+      "database_seeders_liturgicalseasonseeder_liturgicalseasonseeder",
+      "database_seeders_liturgicalseasonseeder_liturgicalseasonseeder_run",
+      "illuminate_database_seeder"
+    ],
+    "15": [
+      "app_http_controllers_publicsite_publicrepertoiredownloadcontroller_publicrepertoiredownloadcontroller_invoke",
+      "app_http_controllers_repertoireexportcontroller",
+      "app_http_controllers_repertoireexportcontroller_repertoireexportcontroller",
+      "app_http_controllers_repertoireexportcontroller_repertoireexportcontroller_invoke",
+      "app_services_repertoireexportservice",
+      "app_services_repertoireexportservice_repertoireexportservice",
+      "app_services_repertoireexportservice_repertoireexportservice_addcover",
+      "app_services_repertoireexportservice_repertoireexportservice_addindex",
+      "app_services_repertoireexportservice_repertoireexportservice_appendimage",
+      "app_services_repertoireexportservice_repertoireexportservice_appendpdf",
+      "app_services_repertoireexportservice_repertoireexportservice_convertwebp",
+      "app_services_repertoireexportservice_repertoireexportservice_existingpath",
+      "app_services_repertoireexportservice_repertoireexportservice_generate",
+      "app_services_repertoireexportservice_repertoireexportservice_pdftext",
+      "setasign_fpdi_fpdi",
+      "symfony_component_httpfoundation_binaryfileresponse"
+    ],
+    "16": [
+      "axios",
+      "laravel_vite_plugin",
+      "package",
+      "package_allowscripts",
+      "package_allowscripts_fsevents_2_3_3",
+      "package_devdependencies",
+      "package_devdependencies_axios",
+      "package_devdependencies_laravel_vite_plugin",
+      "package_devdependencies_vite",
+      "package_private",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_dev",
+      "package_type",
+      "vite"
+    ],
+    "17": [
+      "app_console_commands_checkproductionreadiness",
+      "app_console_commands_checkproductionreadiness_checkproductionreadiness",
+      "app_console_commands_checkproductionreadiness_checkproductionreadiness_check",
+      "app_console_commands_checkproductionreadiness_checkproductionreadiness_databasecheck",
+      "app_console_commands_checkproductionreadiness_checkproductionreadiness_handle",
+      "app_console_commands_checkproductionreadiness_checkproductionreadiness_hasproductionmailer",
+      "app_console_commands_checkproductionreadiness_checkproductionreadiness_hasrequiredextensions",
+      "app_console_commands_checkproductionreadiness_checkproductionreadiness_hassecurepublicurl",
+      "app_console_commands_checkproductionreadiness_checkproductionreadiness_privatestorageisoutsidepublic",
+      "app_console_commands_cleanuprepertoireexports",
+      "app_console_commands_cleanuprepertoireexports_cleanuprepertoireexports",
+      "app_console_commands_cleanuprepertoireexports_cleanuprepertoireexports_handle",
+      "illuminate_console_command"
+    ],
+    "18": [
+      "app_http_controllers_presentationcontroller",
+      "app_http_controllers_presentationcontroller_presentationcontroller",
+      "app_http_controllers_presentationcontroller_presentationcontroller_invoke",
+      "app_http_controllers_publicsite_publicpresentationcontroller",
+      "app_http_controllers_publicsite_publicpresentationcontroller_publicpresentationcontroller",
+      "app_http_controllers_publicsite_publicpresentationcontroller_publicpresentationcontroller_invoke",
+      "app_http_controllers_publicsite_publicrepertoirecontroller",
+      "app_http_controllers_publicsite_publicrepertoirecontroller_publicrepertoirecontroller",
+      "app_http_controllers_publicsite_publicrepertoirecontroller_publicrepertoirecontroller_invoke",
+      "app_http_controllers_repertoirecontroller_repertoirecontroller_show",
+      "app_services_repertoirepageservice_repertoirepageservice",
+      "app_services_repertoirepageservice_repertoirepageservice_displayablefiles",
+      "app_services_repertoirepageservice_repertoirepageservice_pages"
+    ],
+    "19": [
+      "composer_scripts",
+      "composer_scripts_post_autoload_dump",
+      "composer_scripts_post_create_project_cmd",
+      "composer_scripts_post_root_package_install",
+      "composer_scripts_post_update_cmd",
+      "ref_illuminate_foundation_composerscripts_postautoloaddump",
+      "ref_php_artisan_key_generate_ansi",
+      "ref_php_artisan_migrate_ansi",
+      "ref_php_artisan_package_discover_ansi",
+      "ref_php_artisan_vendor_publish_tag_laravel_assets_ansi_force",
+      "ref_php_r_file_exists_database_database_sqlite_touch_database_database_sqlite",
+      "ref_php_r_file_exists_env_copy_env_example_env"
+    ],
+    "20": [
+      "database_migrations_2026_08_06_000100_create_tone_catalogs_and_link_song_tones",
+      "database_migrations_2026_08_06_000100_create_tone_catalogs_and_link_song_tones_backfillsongtones",
+      "database_migrations_2026_08_06_000100_create_tone_catalogs_and_link_song_tones_definitions",
+      "database_migrations_2026_08_06_000100_create_tone_catalogs_and_link_song_tones_down",
+      "database_migrations_2026_08_06_000100_create_tone_catalogs_and_link_song_tones_dropsongtonenameuniqueindex",
+      "database_migrations_2026_08_06_000100_create_tone_catalogs_and_link_song_tones_mergeduplicatetones",
+      "database_migrations_2026_08_06_000100_create_tone_catalogs_and_link_song_tones_normalize",
+      "database_migrations_2026_08_06_000100_create_tone_catalogs_and_link_song_tones_resolvecatalog",
+      "database_migrations_2026_08_06_000100_create_tone_catalogs_and_link_song_tones_seedcatalog",
+      "database_migrations_2026_08_06_000100_create_tone_catalogs_and_link_song_tones_syncsongsmusicalkey",
+      "database_migrations_2026_08_06_000100_create_tone_catalogs_and_link_song_tones_uniquenormalizedname",
+      "database_migrations_2026_08_06_000100_create_tone_catalogs_and_link_song_tones_up"
+    ],
+    "21": [
+      "app_policies_repertoirepolicy",
+      "app_policies_repertoirepolicy_repertoirepolicy",
+      "app_policies_repertoirepolicy_repertoirepolicy_before",
+      "app_policies_repertoirepolicy_repertoirepolicy_create",
+      "app_policies_repertoirepolicy_repertoirepolicy_delete",
+      "app_policies_repertoirepolicy_repertoirepolicy_duplicate",
+      "app_policies_repertoirepolicy_repertoirepolicy_export",
+      "app_policies_repertoirepolicy_repertoirepolicy_restore",
+      "app_policies_repertoirepolicy_repertoirepolicy_update",
+      "app_policies_repertoirepolicy_repertoirepolicy_view",
+      "app_policies_repertoirepolicy_repertoirepolicy_viewany"
+    ],
+    "22": [
+      "composer",
+      "composer_description",
+      "composer_keywords",
+      "composer_license",
+      "composer_minimum_stability",
+      "composer_name",
+      "composer_prefer_stable",
+      "composer_type",
+      "ref_framework",
+      "ref_laravel"
+    ],
+    "23": [
+      "composer_require_dev",
+      "composer_require_dev_fakerphp_faker",
+      "composer_require_dev_laravel_boost",
+      "composer_require_dev_laravel_pint",
+      "composer_require_dev_laravel_sail",
+      "composer_require_dev_mockery_mockery",
+      "composer_require_dev_nunomaduro_collision",
+      "composer_require_dev_phpunit_phpunit",
+      "composer_require_dev_spatie_guidelines_skills",
+      "composer_require_dev_spatie_laravel_ignition"
+    ],
+    "24": [
+      "tests_feature_publicrepertoiretest_publicrepertoiretest",
+      "tests_feature_publicrepertoiretest_publicrepertoiretest_publicroute",
+      "tests_feature_publicrepertoiretest_publicrepertoiretest_setup",
+      "tests_feature_publicrepertoiretest_publicrepertoiretest_test_changing_repertoire_to_private_immediately_revokes_public_file_access",
+      "tests_feature_publicrepertoiretest_publicrepertoiretest_test_guest_can_view_public_repertoire_without_internal_notes_or_actions",
+      "tests_feature_publicrepertoiretest_publicrepertoiretest_test_private_repertoire_and_its_public_endpoints_return_not_found",
+      "tests_feature_publicrepertoiretest_publicrepertoiretest_test_public_file_endpoint_rejects_unattached_inactive_and_mismatched_files",
+      "tests_feature_publicrepertoiretest_publicrepertoiretest_test_public_pdf_download_requires_explicit_permission",
+      "tests_feature_publicrepertoiretest_publicrepertoiretest_test_public_presentation_uses_validated_public_file_endpoint"
+    ],
+    "25": [
+      "app_http_controllers_admin_catalogcontroller",
+      "app_http_controllers_admin_catalogcontroller_catalogcontroller",
+      "app_http_controllers_admin_catalogcontroller_catalogcontroller_construct",
+      "app_http_controllers_admin_catalogcontroller_catalogcontroller_index",
+      "app_http_controllers_admin_catalogcontroller_catalogcontroller_perpage",
+      "app_http_controllers_admin_catalogcontroller_catalogcontroller_store",
+      "app_http_controllers_admin_catalogcontroller_catalogcontroller_update",
+      "app_http_controllers_admin_catalogcontroller_catalogcontroller_validated"
+    ],
+    "26": [
+      "app_http_controllers_publicsite_publiclandingcontroller",
+      "app_http_controllers_publicsite_publiclandingcontroller_publiclandingcontroller",
+      "app_http_controllers_publicsite_publiclandingcontroller_publiclandingcontroller_contributorsfrom",
+      "app_http_controllers_publicsite_publiclandingcontroller_publiclandingcontroller_invoke",
+      "app_http_controllers_publicsite_publiclandingcontroller_publiclandingcontroller_mappublicsong",
+      "app_models_song_song_filesfortone",
+      "app_services_repertoirepageservice",
+      "illuminate_support_collection"
+    ],
+    "27": [
+      "composer_allow_plugins_pestphp_pest_plugin",
+      "composer_allow_plugins_php_http_discovery",
+      "composer_config",
+      "composer_config_allow_plugins",
+      "composer_config_optimize_autoloader",
+      "composer_config_preferred_install",
+      "composer_config_sort_packages"
+    ],
+    "28": [
+      "app_notifications_verifyemailnotification",
+      "app_notifications_verifyemailnotification_verifyemailnotification",
+      "app_notifications_verifyemailnotification_verifyemailnotification_construct",
+      "app_notifications_verifyemailnotification_verifyemailnotification_tomail",
+      "illuminate_auth_notifications_verifyemail",
+      "illuminate_notifications_messages_mailmessage"
+    ],
+    "29": [
+      "app_providers_appserviceprovider",
+      "app_providers_appserviceprovider_appserviceprovider",
+      "app_providers_appserviceprovider_appserviceprovider_boot",
+      "app_providers_appserviceprovider_appserviceprovider_register",
+      "bootstrap_providers",
+      "illuminate_support_serviceprovider"
+    ],
+    "30": [
+      "composer_require",
+      "composer_require_laravel_framework",
+      "composer_require_laravel_tinker",
+      "composer_require_php",
+      "composer_require_setasign_fpdf",
+      "composer_require_setasign_fpdi"
+    ],
+    "31": [
+      "tests_feature_repertoireexporttest_repertoireexporttest",
+      "tests_feature_repertoireexporttest_repertoireexporttest_setup",
+      "tests_feature_repertoireexporttest_repertoireexporttest_test_admin_can_download_export_and_guest_cannot",
+      "tests_feature_repertoireexporttest_repertoireexporttest_test_cleanup_command_removes_only_expired_exports",
+      "tests_feature_repertoireexporttest_repertoireexporttest_test_export_without_pages_returns_a_clear_validation_error",
+      "tests_feature_repertoireexporttest_repertoireexporttest_test_it_generates_a_pdf_from_images_and_original_pdfs_in_order"
+    ],
+    "32": [
+      "app_http_controllers_publicsite_publicsongcontroller",
+      "app_http_controllers_publicsite_publicsongcontroller_publicsongcontroller",
+      "app_http_controllers_publicsite_publicsongcontroller_publicsongcontroller_ensuresongispubliclyavailable",
+      "app_http_controllers_publicsite_publicsongcontroller_publicsongcontroller_read",
+      "app_http_controllers_publicsite_publicsongcontroller_publicsongcontroller_show"
+    ],
+    "33": [
+      "composer_autoload",
+      "composer_autoload_psr_4",
+      "composer_psr_4_app",
+      "composer_psr_4_database_factories",
+      "composer_psr_4_database_seeders"
+    ],
+    "34": [
+      "composer_branch_alias_dev_master",
+      "composer_extra",
+      "composer_extra_branch_alias",
+      "composer_extra_laravel",
+      "composer_laravel_dont_discover"
+    ],
+    "35": [
+      "database_migrations_2026_08_05_000003_repair_song_tone_assignments",
+      "database_migrations_2026_08_05_000003_repair_song_tone_assignments_down",
+      "database_migrations_2026_08_05_000003_repair_song_tone_assignments_repairrepertoirepivotforsong",
+      "database_migrations_2026_08_05_000003_repair_song_tone_assignments_repairsongfilesforsong",
+      "database_migrations_2026_08_05_000003_repair_song_tone_assignments_up"
+    ],
+    "36": [
+      "phpunit_framework_testcase",
+      "tests_unit_exampletest",
+      "tests_unit_exampletest_exampletest",
+      "tests_unit_exampletest_exampletest_test_that_true_is_true"
+    ],
+    "37": [
+      "tests_feature_listingpaginationtest_listingpaginationtest",
+      "tests_feature_listingpaginationtest_listingpaginationtest_setup",
+      "tests_feature_listingpaginationtest_listingpaginationtest_test_administration_and_recovery_lists_use_supported_page_sizes",
+      "tests_feature_listingpaginationtest_listingpaginationtest_test_public_landing_lists_public_songs_with_search_and_pagination"
+    ],
+    "38": [
+      "composer_autoload_dev",
+      "composer_autoload_dev_psr_4",
+      "composer_psr_4_tests"
+    ],
+    "39": [
+      "cursor_mcp",
+      "cursor_mcp_mcp_server_laravel_boost",
+      "mcp_command_php"
+    ],
+    "40": [
+      "database_migrations_0001_01_01_000000_create_users_table",
+      "database_migrations_0001_01_01_000000_create_users_table_down",
+      "database_migrations_0001_01_01_000000_create_users_table_up"
+    ],
+    "41": [
+      "database_migrations_0001_01_01_000001_create_cache_table",
+      "database_migrations_0001_01_01_000001_create_cache_table_down",
+      "database_migrations_0001_01_01_000001_create_cache_table_up"
+    ],
+    "42": [
+      "database_migrations_0001_01_01_000002_create_jobs_table",
+      "database_migrations_0001_01_01_000002_create_jobs_table_down",
+      "database_migrations_0001_01_01_000002_create_jobs_table_up"
+    ],
+    "43": [
+      "database_migrations_2026_08_03_021601_create_categories_table",
+      "database_migrations_2026_08_03_021601_create_categories_table_down",
+      "database_migrations_2026_08_03_021601_create_categories_table_up"
+    ],
+    "44": [
+      "database_migrations_2026_08_03_021601_create_liturgical_moments_table",
+      "database_migrations_2026_08_03_021601_create_liturgical_moments_table_down",
+      "database_migrations_2026_08_03_021601_create_liturgical_moments_table_up"
+    ],
+    "45": [
+      "database_migrations_2026_08_03_021601_create_liturgical_seasons_table",
+      "database_migrations_2026_08_03_021601_create_liturgical_seasons_table_down",
+      "database_migrations_2026_08_03_021601_create_liturgical_seasons_table_up"
+    ],
+    "46": [
+      "database_migrations_2026_08_03_021602_create_songs_table",
+      "database_migrations_2026_08_03_021602_create_songs_table_down",
+      "database_migrations_2026_08_03_021602_create_songs_table_up"
+    ],
+    "47": [
+      "database_migrations_2026_08_03_021603_create_song_files_table",
+      "database_migrations_2026_08_03_021603_create_song_files_table_down",
+      "database_migrations_2026_08_03_021603_create_song_files_table_up"
+    ],
+    "48": [
+      "database_migrations_2026_08_03_021604_create_repertoires_table",
+      "database_migrations_2026_08_03_021604_create_repertoires_table_down",
+      "database_migrations_2026_08_03_021604_create_repertoires_table_up"
+    ],
+    "49": [
+      "database_migrations_2026_08_03_150000_add_ownership_and_visibility",
+      "database_migrations_2026_08_03_150000_add_ownership_and_visibility_down",
+      "database_migrations_2026_08_03_150000_add_ownership_and_visibility_up"
+    ],
+    "50": [
+      "database_migrations_2026_08_03_160000_add_account_status_to_users",
+      "database_migrations_2026_08_03_160000_add_account_status_to_users_down",
+      "database_migrations_2026_08_03_160000_add_account_status_to_users_up"
+    ],
+    "51": [
+      "database_migrations_2026_08_05_000001_add_video_url_to_songs_table",
+      "database_migrations_2026_08_05_000001_add_video_url_to_songs_table_down",
+      "database_migrations_2026_08_05_000001_add_video_url_to_songs_table_up"
+    ],
+    "52": [
+      "database_migrations_2026_08_05_000002_create_song_tones_and_link_pivots",
+      "database_migrations_2026_08_05_000002_create_song_tones_and_link_pivots_down",
+      "database_migrations_2026_08_05_000002_create_song_tones_and_link_pivots_up"
+    ],
+    "53": [
+      "resources_js_presentation",
+      "resources_js_presentation_root"
+    ],
+    "54": [
+      "resources_views_repertoires_create_blade",
+      "resources_views_repertoires_create_blade_php_repertoires_form"
+    ],
+    "55": [
+      "resources_views_repertoires_edit_blade",
+      "resources_views_repertoires_edit_blade_php_repertoires_form"
+    ],
+    "56": [
+      "resources_views_songs_create_blade",
+      "resources_views_songs_create_blade_php_songs_form"
+    ],
+    "57": [
+      "resources_views_songs_edit_blade",
+      "resources_views_songs_edit_blade_php_songs_form"
+    ],
+    "58": [
+      "config_app"
+    ],
+    "59": [
+      "config_cache"
+    ],
+    "60": [
+      "config_cancionero"
+    ],
+    "61": [
+      "config_database"
+    ],
+    "62": [
+      "config_filesystems"
+    ],
+    "63": [
+      "config_logging"
+    ],
+    "64": [
+      "config_mail"
+    ],
+    "65": [
+      "config_queue"
+    ],
+    "66": [
+      "config_services"
+    ],
+    "67": [
+      "config_session"
+    ],
+    "68": [
+      "resources_views_account_profile_blade"
+    ],
+    "69": [
+      "resources_views_admin_catalogs_index_blade"
+    ],
+    "70": [
+      "resources_views_admin_settings_index_blade"
+    ],
+    "71": [
+      "resources_views_admin_users_index_blade"
+    ],
+    "72": [
+      "resources_views_auth_forgot_password_blade"
+    ],
+    "73": [
+      "resources_views_auth_login_blade"
+    ],
+    "74": [
+      "resources_views_auth_register_blade"
+    ],
+    "75": [
+      "resources_views_auth_reset_password_blade"
+    ],
+    "76": [
+      "resources_views_auth_verify_email_blade"
+    ],
+    "77": [
+      "resources_views_dashboard_blade"
+    ],
+    "78": [
+      "resources_views_layouts_app_blade"
+    ],
+    "79": [
+      "resources_views_layouts_guest_blade"
+    ],
+    "80": [
+      "resources_views_layouts_public_blade"
+    ],
+    "81": [
+      "resources_views_repertoires_form_blade"
+    ],
+    "82": [
+      "resources_views_repertoires_index_blade"
+    ],
+    "83": [
+      "resources_views_repertoires_presentation_blade"
+    ],
+    "84": [
+      "resources_views_repertoires_show_blade"
+    ],
+    "85": [
+      "resources_views_repertoires_trashed_blade"
+    ],
+    "86": [
+      "resources_views_songs_archived_blade"
+    ],
+    "87": [
+      "resources_views_songs_form_blade"
+    ],
+    "88": [
+      "resources_views_songs_index_blade"
+    ],
+    "89": [
+      "resources_views_songs_read_blade"
+    ],
+    "90": [
+      "resources_views_songs_show_blade"
+    ],
+    "91": [
+      "resources_views_welcome_blade"
+    ],
+    "92": [
+      "routes_console"
+    ],
+    "93": [
+      "vite_config"
+    ]
+  },
+  "cohesion": {
+    "0": 0.052434456928838954,
+    "1": 0.07686274509803921,
+    "2": 0.0563265306122449,
+    "3": 0.08558558558558559,
+    "4": 0.08735632183908046,
+    "5": 0.11375661375661375,
+    "6": 0.14130434782608695,
+    "7": 0.12121212121212122,
+    "8": 0.14285714285714285,
+    "9": 0.14761904761904762,
+    "10": 0.1631578947368421,
+    "11": 0.18128654970760233,
+    "12": 0.21637426900584794,
+    "13": 0.1830065359477124,
+    "14": 0.16176470588235295,
+    "15": 0.26666666666666666,
+    "16": 0.13333333333333333,
+    "17": 0.2692307692307692,
+    "18": 0.20512820512820512,
+    "19": 0.16666666666666666,
+    "20": 0.3181818181818182,
+    "21": 0.21818181818181817,
+    "22": 0.2,
+    "23": 0.2,
+    "24": 0.3333333333333333,
+    "25": 0.35714285714285715,
+    "26": 0.35714285714285715,
+    "27": 0.2857142857142857,
+    "28": 0.4666666666666667,
+    "29": 0.4,
+    "30": 0.3333333333333333,
+    "31": 0.3333333333333333,
+    "32": 0.6,
+    "33": 0.4,
+    "34": 0.4,
+    "35": 0.6,
+    "36": 0.6666666666666666,
+    "37": 0.5,
+    "38": 0.6666666666666666,
+    "39": 0.6666666666666666,
+    "40": 0.6666666666666666,
+    "41": 0.6666666666666666,
+    "42": 0.6666666666666666,
+    "43": 0.6666666666666666,
+    "44": 0.6666666666666666,
+    "45": 0.6666666666666666,
+    "46": 0.6666666666666666,
+    "47": 0.6666666666666666,
+    "48": 0.6666666666666666,
+    "49": 0.6666666666666666,
+    "50": 0.6666666666666666,
+    "51": 0.6666666666666666,
+    "52": 0.6666666666666666,
+    "53": 1.0,
+    "54": 1.0,
+    "55": 1.0,
+    "56": 1.0,
+    "57": 1.0,
+    "58": 1.0,
+    "59": 1.0,
+    "60": 1.0,
+    "61": 1.0,
+    "62": 1.0,
+    "63": 1.0,
+    "64": 1.0,
+    "65": 1.0,
+    "66": 1.0,
+    "67": 1.0,
+    "68": 1.0,
+    "69": 1.0,
+    "70": 1.0,
+    "71": 1.0,
+    "72": 1.0,
+    "73": 1.0,
+    "74": 1.0,
+    "75": 1.0,
+    "76": 1.0,
+    "77": 1.0,
+    "78": 1.0,
+    "79": 1.0,
+    "80": 1.0,
+    "81": 1.0,
+    "82": 1.0,
+    "83": 1.0,
+    "84": 1.0,
+    "85": 1.0,
+    "86": 1.0,
+    "87": 1.0,
+    "88": 1.0,
+    "89": 1.0,
+    "90": 1.0,
+    "91": 1.0,
+    "92": 1.0,
+    "93": 1.0
+  },
+  "gods": [
+    {
+      "id": "app_models_song_song",
+      "label": "Song",
+      "degree": 133
+    },
+    {
+      "id": "app_models_repertoire_repertoire",
+      "label": "Repertoire",
+      "degree": 100
+    },
+    {
+      "id": "app_models_user_user",
+      "label": "User",
+      "degree": 87
+    },
+    {
+      "id": "app_models_songfile_songfile",
+      "label": "SongFile",
+      "degree": 50
+    },
+    {
+      "id": "app_http_controllers_controller_controller",
+      "label": "Controller",
+      "degree": 45
+    },
+    {
+      "id": "tests_testcase_testcase",
+      "label": "TestCase",
+      "degree": 34
+    },
+    {
+      "id": "app_services_songfileservice_songfileservice",
+      "label": "SongFileService",
+      "degree": 23
+    },
+    {
+      "id": "app_http_controllers_songcontroller_songcontroller",
+      "label": "SongController",
+      "degree": 19
+    },
+    {
+      "id": "tests_feature_repertoiremanagementtest_repertoiremanagementtest",
+      "label": "RepertoireManagementTest",
+      "degree": 19
+    },
+    {
+      "id": "tests_feature_songmanagementtest_songmanagementtest",
+      "label": "SongManagementTest",
+      "degree": 18
+    }
+  ],
+  "surprises": [
+    {
+      "source": "RepertoireExportTest",
+      "target": "User",
+      "source_files": [
+        "tests/Feature/RepertoireExportTest.php",
+        "app/Models/User.php"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "connects across different repos/directories; bridges separate communities"
+    },
+    {
+      "source": "RepertoireManagementTest",
+      "target": "User",
+      "source_files": [
+        "tests/Feature/RepertoireManagementTest.php",
+        "app/Models/User.php"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "connects across different repos/directories; bridges separate communities"
+    },
+    {
+      "source": "SongManagementTest",
+      "target": "User",
+      "source_files": [
+        "tests/Feature/SongManagementTest.php",
+        "app/Models/User.php"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "connects across different repos/directories; bridges separate communities"
+    },
+    {
+      "source": "ProfileController",
+      "target": "Controller",
+      "source_files": [
+        "app/Http/Controllers/Account/ProfileController.php",
+        "app/Http/Controllers/Controller.php"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "inherits",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "CatalogController",
+      "target": "Controller",
+      "source_files": [
+        "app/Http/Controllers/Admin/CatalogController.php",
+        "app/Http/Controllers/Controller.php"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "inherits",
+      "why": "bridges separate communities"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `Song` connect `Song` to `PublicSongController.php`, `SongFile`, `TestCase`, `Illuminate\\Foundation\\Http\\FormRequest`, `ToneCatalog`, `Controller`, `User`, `Illuminate\\Database\\Eloquent\\Factories\\Factory`, `SongTone`, `ListingPaginationTest`, `Repertoire`, `Illuminate\\Http\\RedirectResponse`, `Illuminate\\View\\View`, `Illuminate\\Http\\Request`, `PublicRepertoireTest`, `PublicLandingController.php`, `RepertoireExportTest`?",
+      "why": "High betweenness centrality (0.143) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `Repertoire` connect `Repertoire` to `TestCase`, `SongFile`, `Illuminate\\Foundation\\Http\\FormRequest`, `User`, `Controller`, `ListingPaginationTest`, `SongTone`, `Song`, `Illuminate\\Http\\RedirectResponse`, `Illuminate\\View\\View`, `RepertoireExportService`, `RepertoirePageService`, `RepertoirePolicy`, `PublicRepertoireTest`, `PublicLandingController.php`, `RepertoireExportTest`?",
+      "why": "High betweenness centrality (0.089) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `User` connect `User` to `TestCase`, `SongFile`, `Controller`, `ListingPaginationTest`, `Illuminate\\Database\\Eloquent\\Factories\\Factory`, `Repertoire`, `Song`, `Illuminate\\Http\\Request`, `Illuminate\\Database\\Seeder`, `RepertoirePolicy`, `PublicRepertoireTest`, `RepertoireExportTest`?",
+      "why": "High betweenness centrality (0.089) - this node is a cross-community bridge."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 56 inferred relationships involving `Song` (e.g. with `.__invoke()` and `.edit()`) actually correct?",
+      "why": "`Song` has 56 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 34 inferred relationships involving `Repertoire` (e.g. with `.__invoke()` and `.__invoke()`) actually correct?",
+      "why": "`Repertoire` has 34 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 48 inferred relationships involving `User` (e.g. with `.store()` and `.definition()`) actually correct?",
+      "why": "`User` has 48 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `php`, `name`, `type` to the rest of the system?",
+      "why": "54 weakly-connected nodes found - possible documentation gaps or missing edges."
+    }
+  ]
+}

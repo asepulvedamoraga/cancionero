@@ -10,30 +10,40 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
-<body class="bg-slate-50 text-slate-800">
-    <header class="sticky top-0 z-50 border-b border-white/15 bg-gradient-to-r from-slate-900 via-cyan-900 to-teal-800 shadow-lg">
-        <nav class="container flex min-h-14 items-center justify-between gap-3 py-1.5">
-            <a class="flex items-center gap-3 text-white no-underline" href="{{ url('/') }}">
+<body class="public-body bg-slate-50 text-slate-800">
+    <a class="public-skip-link" href="#public-main-content">Saltar al contenido</a>
+
+    <header class="public-header" data-public-header>
+        <nav class="container public-header__inner" aria-label="Navegacion principal">
+            <a class="public-brand no-underline" href="{{ url('/') }}">
                 <img
                     src="{{ asset('images/logo-cancionero.png') }}"
                     alt="Logo {{ config('cancionero.name') }}"
                     width="50"
                     height="50"
-                    class="h-12 w-12 rounded-md object-contain sm:h-[3.25rem] sm:w-[3.25rem]"
+                    class="public-brand__logo"
                 >
-                <span class="max-w-[10rem] truncate text-sm font-semibold sm:max-w-none sm:text-base">{{ config('cancionero.name') }}</span>
+                <span class="public-brand__name">{{ config('cancionero.name') }}</span>
             </a>
 
-            <a
-                class="inline-flex items-center justify-center rounded-lg border border-white/45 px-3 py-2 text-xs font-semibold text-white no-underline transition hover:bg-white/15 sm:px-4 sm:text-sm"
-                href="{{ route('login') }}"
-            >
-                Ingresar
-            </a>
+            <div class="public-header__actions">
+                <a
+                    class="public-btn public-btn--ghost no-underline"
+                    href="{{ route('login') }}"
+                >
+                    Ingresar
+                </a>
+                <a
+                    class="public-btn public-btn--primary no-underline"
+                    href="{{ route('register') }}"
+                >
+                    Crear cuenta
+                </a>
+            </div>
         </nav>
     </header>
 
-    <main class="container app-main app-main--compact py-4 sm:py-5">
+    <main id="public-main-content" class="container app-main app-main--compact public-main" tabindex="-1">
         @if($errors->any())
             <div class="alert alert-danger">{{ $errors->first() }}</div>
         @endif

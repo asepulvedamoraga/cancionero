@@ -29,7 +29,6 @@ class PublicLandingController extends Controller
             ->get();
 
         $publicSongsQuery = Song::query()
-            ->where('is_active', true)
             ->with([
                 'owner:id,name',
                 'tones:id,song_id,is_default',
@@ -45,7 +44,7 @@ class PublicLandingController extends Controller
                         ->orWhere('author', 'like', "%{$search}%")
                         ->orWhere('performer', 'like', "%{$search}%")
                         ->orWhere('notes', 'like', "%{$search}%")
-                        ->orWhere('source', 'like', "%{$search}%" );
+                        ->orWhere('source', 'like', "%{$search}%");
                 });
             });
 

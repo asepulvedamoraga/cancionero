@@ -6,8 +6,12 @@
     <a class="btn btn-outline-primary" href="{{ route('repertoires.show',$repertoire) }}"><i class="bi bi-eye"></i>Ver repertorio</a>
 </div>
 
-<form class="card card-body mb-4" method="POST" action="{{ route('repertoires.update',$repertoire) }}">
-    @csrf @method('PUT') @include('repertoires._form')
+<form class="card app-form-shell mb-4" method="POST" action="{{ route('repertoires.update',$repertoire) }}">
+    @csrf
+    @method('PUT')
+    <div class="card-body">
+        @include('repertoires._form')
+    </div>
 </form>
 
 <section class="card mb-4" id="song-selector" data-song-selector>

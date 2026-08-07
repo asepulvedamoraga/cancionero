@@ -1,0 +1,345 @@
+# Copilot Project Rules
+
+Siempre que analices este proyecto o respondas preguntas complejas, sigue estas reglas.
+
+## Análisis del proyecto
+
+1. No intentes leer todos los archivos PHP individuales para entender la arquitectura.
+2. Consulta primero `graphify-out/GRAPH_REPORT.md` para ubicar módulos, responsabilidades y dependencias.
+3. Si necesitas detalles de relaciones entre clases, consulta `graphify-out/graph.json`.
+4. Utiliza el grafo de conocimiento local como fuente principal antes de inspeccionar archivos.
+5. Lee únicamente los archivos estrictamente necesarios para resolver la tarea solicitada.
+6. Evita recorrer el proyecto completo cuando la información ya exista en Graphify.
+7. Cuando una tarea afecte solo una funcionalidad, limita el análisis al módulo correspondiente.
+8. No inspecciones otros módulos salvo que exista una dependencia directa demostrable.
+9. Antes de abrir nuevos archivos, utiliza Graphify para localizar exactamente cuáles son relevantes.
+
+## Arquitectura
+
+1. Mantén siempre la arquitectura existente del proyecto.
+2. No propongas cambios estructurales importantes salvo que sean solicitados explícitamente.
+3. Respeta:
+
+   * estructura de carpetas;
+   * namespaces;
+   * convenciones de nombres;
+   * organización de rutas;
+   * organización de vistas;
+   * servicios existentes;
+   * componentes Blade existentes;
+   * convenciones de CSS;
+   * convenciones de JavaScript.
+4. No reemplaces patrones existentes por otros distintos.
+
+## Componentes reutilizables
+
+Antes de crear:
+
+* vistas;
+* componentes;
+* helpers;
+* servicios;
+* módulos JavaScript;
+* estilos;
+
+verifica si ya existe una implementación reutilizable.
+
+Reutiliza antes de duplicar.
+
+## Blade
+
+Siempre que sea posible:
+
+* reutiliza layouts;
+* reutiliza componentes Blade;
+* reutiliza partials;
+* evita duplicar HTML.
+
+## CSS
+
+Antes de agregar estilos:
+
+* verifica si ya existe una clase reutilizable;
+* evita CSS inline;
+* evita duplicar reglas;
+* reutiliza variables existentes;
+* mantén consistencia visual.
+
+## JavaScript
+
+* Mantén JavaScript modular.
+* No escribas JavaScript inline.
+* Reutiliza módulos existentes.
+
+## Formularios
+
+Toda nueva vista o formulario debe seguir el mismo sistema de diseño del proyecto.
+
+Mantener consistencia en:
+
+* espaciados;
+* tamaños;
+* tarjetas;
+* botones;
+* validaciones;
+* mensajes;
+* componentes reutilizables.
+
+Buscar siempre una apariencia moderna tipo SaaS.
+
+## Laravel
+
+Seguir siempre las mejores prácticas de Laravel.
+
+Mantener:
+
+* controladores delgados;
+* lógica de negocio en servicios;
+* Form Requests para validaciones;
+* Eloquent correctamente relacionado;
+* consultas eficientes;
+* Route Model Binding cuando corresponda.
+
+Evitar lógica compleja dentro de Blade.
+
+## Base de datos
+
+Antes de crear una nueva tabla:
+
+* verifica si ya existe una estructura similar;
+* reutiliza relaciones cuando tenga sentido.
+
+Crear:
+
+* migraciones;
+* modelos;
+* factories;
+* seeders;
+
+cuando corresponda.
+
+## Rendimiento
+
+* Minimiza consultas innecesarias.
+* Evita problemas N+1.
+* Usa eager loading cuando corresponda.
+* No cargues colecciones completas si solo se necesitan algunos registros.
+
+## Seguridad
+
+Validar siempre:
+
+* entradas del usuario;
+* archivos subidos;
+* permisos;
+* autorización.
+
+Nunca confiar en datos provenientes del cliente.
+
+## Accesibilidad
+
+Las vistas nuevas deben considerar:
+
+* navegación por teclado;
+* contraste adecuado;
+* etiquetas accesibles;
+* diseño responsive.
+
+## Antes de modificar código
+
+Antes de realizar cambios:
+
+1. Analiza la solución existente.
+2. Explica brevemente el problema detectado.
+3. Propón la solución.
+4. Luego implementa.
+
+## Después de modificar código
+
+Siempre informa:
+
+* archivos modificados;
+* archivos creados;
+* motivo de cada cambio;
+* posibles impactos;
+* pruebas recomendadas.
+
+## Optimización de contexto
+
+Para ahorrar tokens:
+
+* no vuelvas a analizar archivos ya revisados durante la conversación;
+* reutiliza la información obtenida anteriormente;
+* evita volver a leer archivos que no hayan cambiado;
+* utiliza Graphify como fuente principal para localizar código;
+* resume internamente la arquitectura en lugar de volver a describirla.
+
+## Minimizar cambios
+
+Si una tarea puede resolverse modificando un único archivo, no propongas una refactorización completa.
+
+Realiza el menor número de cambios posible para resolver el problema.
+
+No reestructures el proyecto ni sustituyas implementaciones existentes salvo que el usuario lo solicite explícitamente.
+
+## Respuestas
+
+* Entrega respuestas concretas.
+* No expliques conceptos básicos salvo que sean solicitados.
+* Prioriza soluciones prácticas.
+* Cuando existan varias alternativas, recomienda una indicando brevemente por qué.
+* No generes código innecesario.
+* No reescribas archivos completos si solo es necesario modificar una parte.
+* Antes de crear código nuevo, verifica si existe una implementación reutilizable.
+
+## Diseño e Interfaces (Skill SH)
+
+Para cualquier tarea relacionada con:
+
+* Landing Pages
+* Dashboard
+* Formularios
+* CRUD
+* Componentes Blade
+* Paneles administrativos
+* Navegación
+* Responsive
+* Experiencia de usuario (UX)
+* Diseño visual (UI)
+
+utiliza siempre el **Skill SH** como referencia principal para el diseño de interfaces.
+
+Antes de crear o modificar una interfaz:
+
+1. Analiza el diseño existente.
+2. Identifica problemas de UX y UI.
+3. Aplica las mejores prácticas del Skill SH.
+4. Mantén consistencia con el resto de la aplicación.
+
+### Estilo visual
+
+Todas las interfaces nuevas o modificadas deben seguir un estilo **SaaS moderno**.
+
+Priorizar:
+
+* simplicidad;
+* claridad visual;
+* excelente jerarquía tipográfica;
+* espaciados consistentes;
+* diseño limpio;
+* apariencia profesional;
+* responsive;
+* accesibilidad;
+* buena experiencia de usuario.
+
+Buscar una apariencia similar a aplicaciones modernas como:
+
+* Notion
+* Linear
+* Vercel
+* GitHub
+* Figma
+* Supabase
+
+No copiar ningún diseño en particular; utilizar únicamente sus principios de diseño.
+
+### Componentes
+
+Siempre que sea posible:
+
+* reutiliza componentes Blade;
+* reutiliza layouts;
+* reutiliza partials;
+* reutiliza estilos existentes;
+* reutiliza componentes del sistema de diseño.
+
+No crear componentes nuevos si uno existente puede reutilizarse.
+
+### Formularios
+
+Cuando un formulario tenga muchos campos:
+
+* agrupar por secciones;
+* utilizar tarjetas (cards);
+* utilizar múltiples columnas en escritorio cuando sea apropiado;
+* utilizar una sola columna en dispositivos móviles;
+* mantener una jerarquía visual clara;
+* facilitar la lectura y la edición de la información.
+
+Todos los formularios deben compartir:
+
+* mismos estilos;
+* mismos espaciados;
+* mismos botones;
+* mismos mensajes;
+* misma jerarquía visual.
+
+### Landing Pages
+
+Optimizar siempre:
+
+* contenido visible "above the fold";
+* altura del Hero;
+* jerarquía visual;
+* llamada principal a la acción;
+* velocidad de comprensión del producto;
+* equilibrio entre contenido y espacios en blanco.
+
+### Responsive
+
+Toda interfaz debe funcionar correctamente en:
+
+* móvil;
+* tablet;
+* notebook;
+* escritorio.
+
+No limitarse únicamente a reducir tamaños.
+
+Adaptar la distribución para cada dispositivo.
+
+### Accesibilidad
+
+Verificar siempre:
+
+* contraste;
+* foco de navegación;
+* tamaños mínimos;
+* navegación mediante teclado;
+* áreas táctiles adecuadas.
+
+### Optimización
+
+Evitar:
+
+* bloques demasiado altos;
+* exceso de espacio en blanco;
+* formularios excesivamente largos;
+* botones inconsistentes;
+* colores sin propósito;
+* estilos duplicados;
+* componentes redundantes.
+
+### Flujo de trabajo
+
+Antes de implementar cambios visuales importantes:
+
+* explica brevemente los problemas detectados;
+* propone la solución;
+* luego implementa.
+
+Después de implementar:
+
+* informa los componentes modificados;
+* explica las mejoras de UX obtenidas;
+* indica posibles mejoras futuras.
+
+### Autonomía en decisiones de diseño
+
+Cuando existan varias alternativas de diseño que no afecten la lógica del sistema:
+
+* selecciona automáticamente la opción que mejor se alinee con las recomendaciones del Skill SH;
+* evita solicitar confirmación para decisiones puramente visuales;
+* solicita confirmación únicamente cuando un cambio pueda afectar la funcionalidad, el flujo de negocio o la arquitectura del proyecto.
+
+El objetivo es mantener un proceso de trabajo fluido, consistente y con el menor número posible de iteraciones.

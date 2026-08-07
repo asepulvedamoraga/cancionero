@@ -29,12 +29,14 @@
     </a>
 </div>
 
-<form class="card card-body mb-4"
+<form class="card app-form-shell mb-4"
       method="POST"
     action="{{ route('songs.update', ['song' => $song, 'tone' => $activeTone?->id]) }}">
     @csrf
     @method('PUT')
-    @include('songs._form', ['selectedTone' => $activeTone])
+    <div class="card-body">
+        @include('songs._form', ['selectedTone' => $activeTone])
+    </div>
 </form>
 
 <section class="card mb-4 tone-workspace">

@@ -1,0 +1,837 @@
+{
+  ".cursor/mcp.json": {
+    "mtime": 1786107191.492207,
+    "ast_hash": "ee8f920cd448a8a5036dda43d44c1d64",
+    "semantic_hash": "ee8f920cd448a8a5036dda43d44c1d64"
+  },
+  "app/Console/Commands/CheckProductionReadiness.php": {
+    "mtime": 1785785685.0705347,
+    "ast_hash": "bc7f44520798aa3030a1b4866abc5622",
+    "semantic_hash": "bc7f44520798aa3030a1b4866abc5622"
+  },
+  "app/Console/Commands/CleanupRepertoireExports.php": {
+    "mtime": 1785771404.1084936,
+    "ast_hash": "355b3344140ca82db2bc1a8a2c0e9208",
+    "semantic_hash": "355b3344140ca82db2bc1a8a2c0e9208"
+  },
+  "app/Http/Controllers/Account/ProfileController.php": {
+    "mtime": 1785782658.5618985,
+    "ast_hash": "273bf122ef873d6af5589aa4d50679fe",
+    "semantic_hash": "273bf122ef873d6af5589aa4d50679fe"
+  },
+  "app/Http/Controllers/Admin/CatalogController.php": {
+    "mtime": 1785881776.1581008,
+    "ast_hash": "d76da1cfd0a48d776926712d3aa0320c",
+    "semantic_hash": "d76da1cfd0a48d776926712d3aa0320c"
+  },
+  "app/Http/Controllers/Admin/SettingsController.php": {
+    "mtime": 1785784258.572768,
+    "ast_hash": "038735aabfd07e3ca30c148425d553bb",
+    "semantic_hash": "038735aabfd07e3ca30c148425d553bb"
+  },
+  "app/Http/Controllers/Admin/UserController.php": {
+    "mtime": 1785881776.2056482,
+    "ast_hash": "33a396d2c6f812b7f36cf792749101fa",
+    "semantic_hash": "33a396d2c6f812b7f36cf792749101fa"
+  },
+  "app/Http/Controllers/Auth/AuthenticatedSessionController.php": {
+    "mtime": 1785781520.58466,
+    "ast_hash": "ffb525a208ff48e33338cd5d0b2e974c",
+    "semantic_hash": "ffb525a208ff48e33338cd5d0b2e974c"
+  },
+  "app/Http/Controllers/Auth/EmailVerificationNotificationController.php": {
+    "mtime": 1785782658.59242,
+    "ast_hash": "78878c65b3ac184f5a1214956213f91e",
+    "semantic_hash": "78878c65b3ac184f5a1214956213f91e"
+  },
+  "app/Http/Controllers/Auth/EmailVerificationPromptController.php": {
+    "mtime": 1785782658.6004193,
+    "ast_hash": "2d180a784358985d48c6cccefd76a6f3",
+    "semantic_hash": "2d180a784358985d48c6cccefd76a6f3"
+  },
+  "app/Http/Controllers/Auth/NewPasswordController.php": {
+    "mtime": 1785782658.62442,
+    "ast_hash": "3d53c6c80a74d33906c12887d2ea0784",
+    "semantic_hash": "3d53c6c80a74d33906c12887d2ea0784"
+  },
+  "app/Http/Controllers/Auth/PasswordResetLinkController.php": {
+    "mtime": 1785782658.6354656,
+    "ast_hash": "f94bf768f97a7908cd1eeea5ea14363d",
+    "semantic_hash": "f94bf768f97a7908cd1eeea5ea14363d"
+  },
+  "app/Http/Controllers/Auth/RegisteredUserController.php": {
+    "mtime": 1785782658.6524694,
+    "ast_hash": "7c6aa6724fa743f00f5b9a5186c93079",
+    "semantic_hash": "7c6aa6724fa743f00f5b9a5186c93079"
+  },
+  "app/Http/Controllers/Auth/VerifyEmailController.php": {
+    "mtime": 1785782658.661529,
+    "ast_hash": "393dd379f0115e8fa49b155a079ca872",
+    "semantic_hash": "393dd379f0115e8fa49b155a079ca872"
+  },
+  "app/Http/Controllers/Controller.php": {
+    "mtime": 1785764600.2800148,
+    "ast_hash": "25a307335c0719bc9a91b3f7babd186d",
+    "semantic_hash": "25a307335c0719bc9a91b3f7babd186d"
+  },
+  "app/Http/Controllers/DashboardController.php": {
+    "mtime": 1785882722.945412,
+    "ast_hash": "b8224db9a56293e5a6f2c56316bc696d",
+    "semantic_hash": "b8224db9a56293e5a6f2c56316bc696d"
+  },
+  "app/Http/Controllers/PresentationController.php": {
+    "mtime": 1785783618.740977,
+    "ast_hash": "67671e00c052dea4b339330c33b4fad6",
+    "semantic_hash": "67671e00c052dea4b339330c33b4fad6"
+  },
+  "app/Http/Controllers/PublicSite/PublicLandingController.php": {
+    "mtime": 1786105588.9029355,
+    "ast_hash": "8022240cf1684522f129786e805c5b79",
+    "semantic_hash": "8022240cf1684522f129786e805c5b79"
+  },
+  "app/Http/Controllers/PublicSite/PublicPresentationController.php": {
+    "mtime": 1785783864.7343798,
+    "ast_hash": "5abafffbe26c29da08ade8e050d12d8a",
+    "semantic_hash": "5abafffbe26c29da08ade8e050d12d8a"
+  },
+  "app/Http/Controllers/PublicSite/PublicRepertoireController.php": {
+    "mtime": 1785783864.7473814,
+    "ast_hash": "91d823270d91caed829bc1dad8595d18",
+    "semantic_hash": "91d823270d91caed829bc1dad8595d18"
+  },
+  "app/Http/Controllers/PublicSite/PublicRepertoireDownloadController.php": {
+    "mtime": 1785783864.7623837,
+    "ast_hash": "0f15b51e72b712b5bdf0ddf5dee697ed",
+    "semantic_hash": "0f15b51e72b712b5bdf0ddf5dee697ed"
+  },
+  "app/Http/Controllers/PublicSite/PublicRepertoireFileController.php": {
+    "mtime": 1785783864.7763817,
+    "ast_hash": "8bd386e52fff8d16a1855b5c8a7065f1",
+    "semantic_hash": "8bd386e52fff8d16a1855b5c8a7065f1"
+  },
+  "app/Http/Controllers/PublicSite/PublicSongController.php": {
+    "mtime": 1786105588.9039364,
+    "ast_hash": "e825ce499ec6121f9b1df0e007e634ef",
+    "semantic_hash": "e825ce499ec6121f9b1df0e007e634ef"
+  },
+  "app/Http/Controllers/PublicSite/PublicSongFileController.php": {
+    "mtime": 1786105588.9049346,
+    "ast_hash": "ecb982ea40e6791f68bc9d41a424f898",
+    "semantic_hash": "ecb982ea40e6791f68bc9d41a424f898"
+  },
+  "app/Http/Controllers/RepertoireController.php": {
+    "mtime": 1785958944.9875574,
+    "ast_hash": "d52296711c4bcc5e80ae11d061392bea",
+    "semantic_hash": "d52296711c4bcc5e80ae11d061392bea"
+  },
+  "app/Http/Controllers/RepertoireExportController.php": {
+    "mtime": 1785782132.1468964,
+    "ast_hash": "5b73f96fa228bf3f15bf68232b761e9f",
+    "semantic_hash": "5b73f96fa228bf3f15bf68232b761e9f"
+  },
+  "app/Http/Controllers/RepertoireSongController.php": {
+    "mtime": 1785958944.9915583,
+    "ast_hash": "7bfd54b299f5a617cec4812ab9854ccf",
+    "semantic_hash": "7bfd54b299f5a617cec4812ab9854ccf"
+  },
+  "app/Http/Controllers/SongController.php": {
+    "mtime": 1786105588.9059367,
+    "ast_hash": "730eb05612e93d4ea90ec6221b3e6430",
+    "semantic_hash": "730eb05612e93d4ea90ec6221b3e6430"
+  },
+  "app/Http/Controllers/SongFileController.php": {
+    "mtime": 1786105588.9079363,
+    "ast_hash": "7ad51fdd3614b8b6914be0526a31343d",
+    "semantic_hash": "7ad51fdd3614b8b6914be0526a31343d"
+  },
+  "app/Http/Controllers/SongToneController.php": {
+    "mtime": 1786105588.9089372,
+    "ast_hash": "97789c1c47b1533ddc4083abc1e122f7",
+    "semantic_hash": "97789c1c47b1533ddc4083abc1e122f7"
+  },
+  "app/Http/Middleware/EnsureUserIsActive.php": {
+    "mtime": 1785782658.6724813,
+    "ast_hash": "551bf6fcc6eaf9fb6f33777c1b598ea8",
+    "semantic_hash": "551bf6fcc6eaf9fb6f33777c1b598ea8"
+  },
+  "app/Http/Middleware/EnsureUserIsAdmin.php": {
+    "mtime": 1785764600.2990088,
+    "ast_hash": "d0745fbc4ee469519ca51f525f54b80a",
+    "semantic_hash": "d0745fbc4ee469519ca51f525f54b80a"
+  },
+  "app/Http/Requests/AddRepertoireSongsRequest.php": {
+    "mtime": 1785958944.9915583,
+    "ast_hash": "8be5c82e046e070efae27f3d1a5c84a7",
+    "semantic_hash": "8be5c82e046e070efae27f3d1a5c84a7"
+  },
+  "app/Http/Requests/Auth/LoginRequest.php": {
+    "mtime": 1785782334.4206998,
+    "ast_hash": "972f9bb6a967509516378ebf81cee24f",
+    "semantic_hash": "972f9bb6a967509516378ebf81cee24f"
+  },
+  "app/Http/Requests/ReorderRepertoireSongsRequest.php": {
+    "mtime": 1785781520.59066,
+    "ast_hash": "77ba4173c1e15e278f31be42216248dc",
+    "semantic_hash": "77ba4173c1e15e278f31be42216248dc"
+  },
+  "app/Http/Requests/ReorderSongFilesRequest.php": {
+    "mtime": 1785781520.5916598,
+    "ast_hash": "47b78a2df667e73ca10de693df61bf6b",
+    "semantic_hash": "47b78a2df667e73ca10de693df61bf6b"
+  },
+  "app/Http/Requests/ReplaceSongFileRequest.php": {
+    "mtime": 1785781520.592666,
+    "ast_hash": "42f4f03e6d5ad06466123afe18775aef",
+    "semantic_hash": "42f4f03e6d5ad06466123afe18775aef"
+  },
+  "app/Http/Requests/StoreRepertoireRequest.php": {
+    "mtime": 1785782132.3618488,
+    "ast_hash": "112b889396d9dbdea7df524bfc75d84e",
+    "semantic_hash": "112b889396d9dbdea7df524bfc75d84e"
+  },
+  "app/Http/Requests/StoreSongRequest.php": {
+    "mtime": 1786105588.9099412,
+    "ast_hash": "91e51f389981d19fde6529bf04682dd0",
+    "semantic_hash": "91e51f389981d19fde6529bf04682dd0"
+  },
+  "app/Http/Requests/UpdateRepertoireRequest.php": {
+    "mtime": 1785782132.4013112,
+    "ast_hash": "e4272bc7925c5277d05967d965b8ac41",
+    "semantic_hash": "e4272bc7925c5277d05967d965b8ac41"
+  },
+  "app/Http/Requests/UpdateRepertoireSongRequest.php": {
+    "mtime": 1785958944.9915583,
+    "ast_hash": "0d74f67429d0cc247554ace2951d303a",
+    "semantic_hash": "0d74f67429d0cc247554ace2951d303a"
+  },
+  "app/Http/Requests/UpdateSongRequest.php": {
+    "mtime": 1785782132.4184494,
+    "ast_hash": "0930ac221b3acb190c81c3dc94ed304b",
+    "semantic_hash": "0930ac221b3acb190c81c3dc94ed304b"
+  },
+  "app/Models/Category.php": {
+    "mtime": 1785723764.476235,
+    "ast_hash": "0d030cb4ac4007a28b1de20c411e3c65",
+    "semantic_hash": "0d030cb4ac4007a28b1de20c411e3c65"
+  },
+  "app/Models/LiturgicalMoment.php": {
+    "mtime": 1785723764.4842322,
+    "ast_hash": "aa64af55d11794b9fbe4f27d5dcff70e",
+    "semantic_hash": "aa64af55d11794b9fbe4f27d5dcff70e"
+  },
+  "app/Models/LiturgicalSeason.php": {
+    "mtime": 1785764994.3201735,
+    "ast_hash": "b8a919443c2d823cf1998634ee1e72f7",
+    "semantic_hash": "b8a919443c2d823cf1998634ee1e72f7"
+  },
+  "app/Models/Repertoire.php": {
+    "mtime": 1785958944.9915583,
+    "ast_hash": "db297c16230fac3988505a941d00fa94",
+    "semantic_hash": "db297c16230fac3988505a941d00fa94"
+  },
+  "app/Models/Song.php": {
+    "mtime": 1786105588.9109452,
+    "ast_hash": "82cd2d1f610c6e101e3effe14da3c316",
+    "semantic_hash": "82cd2d1f610c6e101e3effe14da3c316"
+  },
+  "app/Models/SongFile.php": {
+    "mtime": 1785958944.9915583,
+    "ast_hash": "8792242d55e9b7e998f2ea0697cfe04a",
+    "semantic_hash": "8792242d55e9b7e998f2ea0697cfe04a"
+  },
+  "app/Models/SongTone.php": {
+    "mtime": 1786105588.9119363,
+    "ast_hash": "7e81ba0341f9cd4f7ffde1d7ce0e7986",
+    "semantic_hash": "7e81ba0341f9cd4f7ffde1d7ce0e7986"
+  },
+  "app/Models/ToneCatalog.php": {
+    "mtime": 1786105588.9129355,
+    "ast_hash": "08c4bee546915a001f7831e1e992acc5",
+    "semantic_hash": "08c4bee546915a001f7831e1e992acc5"
+  },
+  "app/Models/User.php": {
+    "mtime": 1785882689.752756,
+    "ast_hash": "b4c41e3b5a6ed18b51d6eb98d999456d",
+    "semantic_hash": "b4c41e3b5a6ed18b51d6eb98d999456d"
+  },
+  "app/Notifications/VerifyEmailNotification.php": {
+    "mtime": 1785882689.746359,
+    "ast_hash": "f46e2c1070aee8cd180ae6cd5162b230",
+    "semantic_hash": "f46e2c1070aee8cd180ae6cd5162b230"
+  },
+  "app/Policies/RepertoirePolicy.php": {
+    "mtime": 1785784990.2122786,
+    "ast_hash": "9f2254c8ec2530ba381e5137af6beddf",
+    "semantic_hash": "9f2254c8ec2530ba381e5137af6beddf"
+  },
+  "app/Policies/SongPolicy.php": {
+    "mtime": 1785783140.8358572,
+    "ast_hash": "7b660c0c6108c88f0a164bcb95b1eea8",
+    "semantic_hash": "7b660c0c6108c88f0a164bcb95b1eea8"
+  },
+  "app/Providers/AppServiceProvider.php": {
+    "mtime": 1785764925.073499,
+    "ast_hash": "13f2678ba155b977a9459eac7f74d9ad",
+    "semantic_hash": "13f2678ba155b977a9459eac7f74d9ad"
+  },
+  "app/Services/CatalogManagementService.php": {
+    "mtime": 1785881776.0980783,
+    "ast_hash": "144c7d930d5a4c780a52fdb8bb8c9062",
+    "semantic_hash": "144c7d930d5a4c780a52fdb8bb8c9062"
+  },
+  "app/Services/PdfConversionService.php": {
+    "mtime": 1786105588.913935,
+    "ast_hash": "8e82a1a713d5151c8867ff2ce467ca0a",
+    "semantic_hash": "8e82a1a713d5151c8867ff2ce467ca0a"
+  },
+  "app/Services/PublicRepertoireAccessService.php": {
+    "mtime": 1785958944.9985616,
+    "ast_hash": "2414df540e50df0b8abd18c433daa286",
+    "semantic_hash": "2414df540e50df0b8abd18c433daa286"
+  },
+  "app/Services/RepertoireExportService.php": {
+    "mtime": 1785771581.3839672,
+    "ast_hash": "fd70582c85c98027a338adabd22c1f0d",
+    "semantic_hash": "fd70582c85c98027a338adabd22c1f0d"
+  },
+  "app/Services/RepertoirePageService.php": {
+    "mtime": 1785958944.9915583,
+    "ast_hash": "a4876b3630659beaf734436112c948a5",
+    "semantic_hash": "a4876b3630659beaf734436112c948a5"
+  },
+  "app/Services/RepertoireService.php": {
+    "mtime": 1785958944.9915583,
+    "ast_hash": "c32a90178b568324b264784ea333754d",
+    "semantic_hash": "c32a90178b568324b264784ea333754d"
+  },
+  "app/Services/SongFileService.php": {
+    "mtime": 1786105588.9149375,
+    "ast_hash": "f8047accd5417045a171118e0fd8ec17",
+    "semantic_hash": "f8047accd5417045a171118e0fd8ec17"
+  },
+  "artisan": {
+    "mtime": 1710251563.0,
+    "ast_hash": "6db4e64ab2d4fa6230e6dad951a79530",
+    "semantic_hash": "6db4e64ab2d4fa6230e6dad951a79530"
+  },
+  "boost.json": {
+    "mtime": 1786107300.4548862,
+    "ast_hash": "a13af8619c001941bb296ce5a1891cde",
+    "semantic_hash": "a13af8619c001941bb296ce5a1891cde"
+  },
+  "bootstrap/app.php": {
+    "mtime": 1785782658.720052,
+    "ast_hash": "3425f90e1a485f0639cfdde2e3a8be7d",
+    "semantic_hash": "3425f90e1a485f0639cfdde2e3a8be7d"
+  },
+  "bootstrap/providers.php": {
+    "mtime": 1785723764.551865,
+    "ast_hash": "888c810b5a4720916f07aa05dd2c2dd3",
+    "semantic_hash": "888c810b5a4720916f07aa05dd2c2dd3"
+  },
+  "composer.json": {
+    "mtime": 1786107119.2999845,
+    "ast_hash": "ba41c6abab1b99e87cd6f1dbb054c6e7",
+    "semantic_hash": "ba41c6abab1b99e87cd6f1dbb054c6e7"
+  },
+  "config/app.php": {
+    "mtime": 1785723633.6670966,
+    "ast_hash": "04bad29c587cf3fe5f1c7b7f63262c19",
+    "semantic_hash": "04bad29c587cf3fe5f1c7b7f63262c19"
+  },
+  "config/auth.php": {
+    "mtime": 1785723764.5608633,
+    "ast_hash": "8389e7497407b27358026a2e7255a673",
+    "semantic_hash": "8389e7497407b27358026a2e7255a673"
+  },
+  "config/cache.php": {
+    "mtime": 1785723633.6681054,
+    "ast_hash": "f36ca33140ef03b1ddaba3120510fa39",
+    "semantic_hash": "f36ca33140ef03b1ddaba3120510fa39"
+  },
+  "config/cancionero.php": {
+    "mtime": 1785767699.7395117,
+    "ast_hash": "4577597908c89c6f606109dc0a63d346",
+    "semantic_hash": "4577597908c89c6f606109dc0a63d346"
+  },
+  "config/database.php": {
+    "mtime": 1786105588.9159348,
+    "ast_hash": "826675211c19f6e625b571889e1e8455",
+    "semantic_hash": "826675211c19f6e625b571889e1e8455"
+  },
+  "config/filesystems.php": {
+    "mtime": 1785723633.6690962,
+    "ast_hash": "4ab8bcb9575cea0402a60090e32ba4c7",
+    "semantic_hash": "4ab8bcb9575cea0402a60090e32ba4c7"
+  },
+  "config/logging.php": {
+    "mtime": 1785723633.6700988,
+    "ast_hash": "86499b34d6796473c22c084248c34d99",
+    "semantic_hash": "86499b34d6796473c22c084248c34d99"
+  },
+  "config/mail.php": {
+    "mtime": 1785723633.6700988,
+    "ast_hash": "bbed55a31898a44b32e33f9156b238c7",
+    "semantic_hash": "bbed55a31898a44b32e33f9156b238c7"
+  },
+  "config/queue.php": {
+    "mtime": 1785723633.6710978,
+    "ast_hash": "af789ebe9a917b17caec651d34b18e25",
+    "semantic_hash": "af789ebe9a917b17caec651d34b18e25"
+  },
+  "config/services.php": {
+    "mtime": 1785723633.6710978,
+    "ast_hash": "93b09ae49841a3dea9adaceee26f091b",
+    "semantic_hash": "93b09ae49841a3dea9adaceee26f091b"
+  },
+  "config/session.php": {
+    "mtime": 1785723633.6720934,
+    "ast_hash": "12fb3ed8af56811a623567a434fc045b",
+    "semantic_hash": "12fb3ed8af56811a623567a434fc045b"
+  },
+  "database/factories/CategoryFactory.php": {
+    "mtime": 1785723764.5768628,
+    "ast_hash": "ed6e12fb711b8ff6b3281c7c1dbdae2d",
+    "semantic_hash": "ed6e12fb711b8ff6b3281c7c1dbdae2d"
+  },
+  "database/factories/LiturgicalMomentFactory.php": {
+    "mtime": 1785723764.584177,
+    "ast_hash": "f52eb64b625661e0faa583668d79a105",
+    "semantic_hash": "f52eb64b625661e0faa583668d79a105"
+  },
+  "database/factories/LiturgicalSeasonFactory.php": {
+    "mtime": 1785723764.5921757,
+    "ast_hash": "4afeda1db7e91c371b1ca7e3baf941dc",
+    "semantic_hash": "4afeda1db7e91c371b1ca7e3baf941dc"
+  },
+  "database/factories/RepertoireFactory.php": {
+    "mtime": 1785782132.5475087,
+    "ast_hash": "106dcf865da18fb232859dda86060b47",
+    "semantic_hash": "106dcf865da18fb232859dda86060b47"
+  },
+  "database/factories/SongFactory.php": {
+    "mtime": 1785782132.5585,
+    "ast_hash": "35204a0b8b5c5fde7942e763bca5ab3a",
+    "semantic_hash": "35204a0b8b5c5fde7942e763bca5ab3a"
+  },
+  "database/factories/SongFileFactory.php": {
+    "mtime": 1785960087.0220294,
+    "ast_hash": "994cc68eec9025c0b28b11223fbacf67",
+    "semantic_hash": "994cc68eec9025c0b28b11223fbacf67"
+  },
+  "database/factories/UserFactory.php": {
+    "mtime": 1785782658.7500362,
+    "ast_hash": "f2ec47a8dad3dc5cd7a36dbb48b6f528",
+    "semantic_hash": "f2ec47a8dad3dc5cd7a36dbb48b6f528"
+  },
+  "database/migrations/0001_01_01_000000_create_users_table.php": {
+    "mtime": 1785723764.6437204,
+    "ast_hash": "7fcd55bd8eda31d13ece3f9ab27484b1",
+    "semantic_hash": "7fcd55bd8eda31d13ece3f9ab27484b1"
+  },
+  "database/migrations/0001_01_01_000001_create_cache_table.php": {
+    "mtime": 1785723633.677096,
+    "ast_hash": "6803c10a1aa695d40633ec8bea5576d5",
+    "semantic_hash": "6803c10a1aa695d40633ec8bea5576d5"
+  },
+  "database/migrations/0001_01_01_000002_create_jobs_table.php": {
+    "mtime": 1785723633.678095,
+    "ast_hash": "ead9cce2650b36345454f85e8c0214a0",
+    "semantic_hash": "ead9cce2650b36345454f85e8c0214a0"
+  },
+  "database/migrations/2026_08_03_021601_create_categories_table.php": {
+    "mtime": 1785723764.6527176,
+    "ast_hash": "c31c86fd4cbf2822a8d6fa85f092d906",
+    "semantic_hash": "c31c86fd4cbf2822a8d6fa85f092d906"
+  },
+  "database/migrations/2026_08_03_021601_create_liturgical_moments_table.php": {
+    "mtime": 1785723764.6607165,
+    "ast_hash": "752643b32d6c4673507f5ed5bf559e6a",
+    "semantic_hash": "752643b32d6c4673507f5ed5bf559e6a"
+  },
+  "database/migrations/2026_08_03_021601_create_liturgical_seasons_table.php": {
+    "mtime": 1785723764.6697266,
+    "ast_hash": "674c53d4265c58987f36eba61a34bba3",
+    "semantic_hash": "674c53d4265c58987f36eba61a34bba3"
+  },
+  "database/migrations/2026_08_03_021602_create_songs_table.php": {
+    "mtime": 1785723764.6857207,
+    "ast_hash": "87c264ea10a3a22c112f836046525ddd",
+    "semantic_hash": "87c264ea10a3a22c112f836046525ddd"
+  },
+  "database/migrations/2026_08_03_021603_create_song_files_table.php": {
+    "mtime": 1785723764.697723,
+    "ast_hash": "05e8b00f75459b28865d0c115975d781",
+    "semantic_hash": "05e8b00f75459b28865d0c115975d781"
+  },
+  "database/migrations/2026_08_03_021604_create_repertoires_table.php": {
+    "mtime": 1785723764.713732,
+    "ast_hash": "c3a2c3168c20b3adf4d852000ade4ebf",
+    "semantic_hash": "c3a2c3168c20b3adf4d852000ade4ebf"
+  },
+  "database/migrations/2026_08_03_150000_add_ownership_and_visibility.php": {
+    "mtime": 1785782132.5922153,
+    "ast_hash": "5b3541a6a72706aa234998f0e34e92a7",
+    "semantic_hash": "5b3541a6a72706aa234998f0e34e92a7"
+  },
+  "database/migrations/2026_08_03_160000_add_account_status_to_users.php": {
+    "mtime": 1785782658.762243,
+    "ast_hash": "68edd02158d6c896e41b8038793944be",
+    "semantic_hash": "68edd02158d6c896e41b8038793944be"
+  },
+  "database/migrations/2026_08_05_000001_add_video_url_to_songs_table.php": {
+    "mtime": 1785952698.9989254,
+    "ast_hash": "ff05383fdba820d69bc0c8fde8330b4c",
+    "semantic_hash": "ff05383fdba820d69bc0c8fde8330b4c"
+  },
+  "database/migrations/2026_08_05_000002_create_song_tones_and_link_pivots.php": {
+    "mtime": 1785958944.9915583,
+    "ast_hash": "1ab05be7fbe739d197392fea7d1a913c",
+    "semantic_hash": "1ab05be7fbe739d197392fea7d1a913c"
+  },
+  "database/migrations/2026_08_05_000003_repair_song_tone_assignments.php": {
+    "mtime": 1785961359.094139,
+    "ast_hash": "5e7db2594907120ba0e734c6321de362",
+    "semantic_hash": "5e7db2594907120ba0e734c6321de362"
+  },
+  "database/migrations/2026_08_06_000100_create_tone_catalogs_and_link_song_tones.php": {
+    "mtime": 1786105588.9169333,
+    "ast_hash": "100b5c014ea405f3ac7dbb7479b1e239",
+    "semantic_hash": "100b5c014ea405f3ac7dbb7479b1e239"
+  },
+  "database/seeders/AdminUserSeeder.php": {
+    "mtime": 1785723886.2187774,
+    "ast_hash": "6f880f18c76d6c74f2c156e283b934f6",
+    "semantic_hash": "6f880f18c76d6c74f2c156e283b934f6"
+  },
+  "database/seeders/CategorySeeder.php": {
+    "mtime": 1785723764.736263,
+    "ast_hash": "99dc40a5a2c0762505e5c229a8a6a3d1",
+    "semantic_hash": "99dc40a5a2c0762505e5c229a8a6a3d1"
+  },
+  "database/seeders/DatabaseSeeder.php": {
+    "mtime": 1785723764.74026,
+    "ast_hash": "e856ba08d679e5df270ec30e8e465791",
+    "semantic_hash": "e856ba08d679e5df270ec30e8e465791"
+  },
+  "database/seeders/LiturgicalMomentSeeder.php": {
+    "mtime": 1785723764.7482657,
+    "ast_hash": "9d14b92cdcb6b3930ee151c116a5f5af",
+    "semantic_hash": "9d14b92cdcb6b3930ee151c116a5f5af"
+  },
+  "database/seeders/LiturgicalSeasonSeeder.php": {
+    "mtime": 1785723764.755262,
+    "ast_hash": "9a5150d523c724b7926910862d13cc0a",
+    "semantic_hash": "9a5150d523c724b7926910862d13cc0a"
+  },
+  "lang/es.json": {
+    "mtime": 1785882689.752756,
+    "ast_hash": "123c81fa9067def1c7ce70fcc850867b",
+    "semantic_hash": "123c81fa9067def1c7ce70fcc850867b"
+  },
+  "package.json": {
+    "mtime": 1786105588.918934,
+    "ast_hash": "f0feef60f2c2f2073021286e55933ed2",
+    "semantic_hash": "f0feef60f2c2f2073021286e55933ed2"
+  },
+  "resources/js/app.js": {
+    "mtime": 1786107897.6807203,
+    "ast_hash": "df57fc24c0e72b27957e64a077f02355",
+    "semantic_hash": "df57fc24c0e72b27957e64a077f02355"
+  },
+  "resources/js/bootstrap.js": {
+    "mtime": 1785764822.5472178,
+    "ast_hash": "78f909acc19aea4717eddca5a87c1ba3",
+    "semantic_hash": "78f909acc19aea4717eddca5a87c1ba3"
+  },
+  "resources/js/modules/copy-buttons.js": {
+    "mtime": 1785783697.781032,
+    "ast_hash": "f871485a8ebcdf6f48bd5dd2ef64d533",
+    "semantic_hash": "f871485a8ebcdf6f48bd5dd2ef64d533"
+  },
+  "resources/js/modules/file-preview.js": {
+    "mtime": 1785764822.5472178,
+    "ast_hash": "6270f836b574c95101f667bb5dde123a",
+    "semantic_hash": "6270f836b574c95101f667bb5dde123a"
+  },
+  "resources/js/modules/repertoire-selector.js": {
+    "mtime": 1785958944.9915583,
+    "ast_hash": "bab2b1f72fbc5e8b33e703f90538fe61",
+    "semantic_hash": "bab2b1f72fbc5e8b33e703f90538fe61"
+  },
+  "resources/js/modules/repertoire-sorter.js": {
+    "mtime": 1785768735.5857577,
+    "ast_hash": "290700d0cad8fba1286749f54546b9a9",
+    "semantic_hash": "290700d0cad8fba1286749f54546b9a9"
+  },
+  "resources/js/modules/song-duplicate-check.js": {
+    "mtime": 1785782975.941452,
+    "ast_hash": "68746135be12cffedddfb02e9bb7c93d",
+    "semantic_hash": "68746135be12cffedddfb02e9bb7c93d"
+  },
+  "resources/js/modules/song-files-sorter.js": {
+    "mtime": 1785764869.006704,
+    "ast_hash": "42ef7e72b4a69593df609e8ac10ff440",
+    "semantic_hash": "42ef7e72b4a69593df609e8ac10ff440"
+  },
+  "resources/js/modules/song-upload-feedback.js": {
+    "mtime": 1785938069.1769924,
+    "ast_hash": "ed7adfb069520c5d4401f8f0a5226259",
+    "semantic_hash": "ed7adfb069520c5d4401f8f0a5226259"
+  },
+  "resources/js/presentation.js": {
+    "mtime": 1785936723.1176827,
+    "ast_hash": "8937460361c000eeb249c46143348566",
+    "semantic_hash": "8937460361c000eeb249c46143348566"
+  },
+  "resources/views/account/profile.blade.php": {
+    "mtime": 1785782533.779341,
+    "ast_hash": "1a26d3c92bb3a25961c1c3c9929a13e4",
+    "semantic_hash": "1a26d3c92bb3a25961c1c3c9929a13e4"
+  },
+  "resources/views/admin/catalogs/index.blade.php": {
+    "mtime": 1785881826.3552854,
+    "ast_hash": "9d5740dc724c7e55fc38c7eca533ae17",
+    "semantic_hash": "9d5740dc724c7e55fc38c7eca533ae17"
+  },
+  "resources/views/admin/settings/index.blade.php": {
+    "mtime": 1785784221.8731217,
+    "ast_hash": "a3b461b8c06bf210172c8ae5529ac07d",
+    "semantic_hash": "a3b461b8c06bf210172c8ae5529ac07d"
+  },
+  "resources/views/admin/users/index.blade.php": {
+    "mtime": 1785881889.1566696,
+    "ast_hash": "b41c88a72723ef091558bb50235f8039",
+    "semantic_hash": "b41c88a72723ef091558bb50235f8039"
+  },
+  "resources/views/auth/forgot-password.blade.php": {
+    "mtime": 1785782493.376502,
+    "ast_hash": "865bde2cb6e2d3f51b14253782bed772",
+    "semantic_hash": "865bde2cb6e2d3f51b14253782bed772"
+  },
+  "resources/views/auth/login.blade.php": {
+    "mtime": 1785782493.3725498,
+    "ast_hash": "162bb2f0616a86f43cbe1e02c102a086",
+    "semantic_hash": "162bb2f0616a86f43cbe1e02c102a086"
+  },
+  "resources/views/auth/register.blade.php": {
+    "mtime": 1785782493.3725498,
+    "ast_hash": "8ec9785cb21fd27d8474fbb8ad967f84",
+    "semantic_hash": "8ec9785cb21fd27d8474fbb8ad967f84"
+  },
+  "resources/views/auth/reset-password.blade.php": {
+    "mtime": 1785782493.3776162,
+    "ast_hash": "0cde5f682ec2b45147c308d24f95a13d",
+    "semantic_hash": "0cde5f682ec2b45147c308d24f95a13d"
+  },
+  "resources/views/auth/verify-email.blade.php": {
+    "mtime": 1785782533.779341,
+    "ast_hash": "42a06deb888e95be0aeff152bdfeec23",
+    "semantic_hash": "42a06deb888e95be0aeff152bdfeec23"
+  },
+  "resources/views/dashboard.blade.php": {
+    "mtime": 1785882722.9463942,
+    "ast_hash": "86bba16b587a21cb13f55a9ac426e14f",
+    "semantic_hash": "86bba16b587a21cb13f55a9ac426e14f"
+  },
+  "resources/views/layouts/app.blade.php": {
+    "mtime": 1786105588.9269364,
+    "ast_hash": "97987a5806c7c7382ae01374529967f3",
+    "semantic_hash": "97987a5806c7c7382ae01374529967f3"
+  },
+  "resources/views/layouts/guest.blade.php": {
+    "mtime": 1786105588.9279363,
+    "ast_hash": "bf82377d6c38ba949492a2955a0809dd",
+    "semantic_hash": "bf82377d6c38ba949492a2955a0809dd"
+  },
+  "resources/views/layouts/public.blade.php": {
+    "mtime": 1786107802.877625,
+    "ast_hash": "1fb2875d49442e45d1d61a157b7a8802",
+    "semantic_hash": "1fb2875d49442e45d1d61a157b7a8802"
+  },
+  "resources/views/repertoires/_form.blade.php": {
+    "mtime": 1785783697.778072,
+    "ast_hash": "ca6f13aa07c4f7262aa3452a9aab1163",
+    "semantic_hash": "ca6f13aa07c4f7262aa3452a9aab1163"
+  },
+  "resources/views/repertoires/create.blade.php": {
+    "mtime": 1785778597.831321,
+    "ast_hash": "277282c788f5ffde7273f5aeee119fd3",
+    "semantic_hash": "277282c788f5ffde7273f5aeee119fd3"
+  },
+  "resources/views/repertoires/edit.blade.php": {
+    "mtime": 1785958944.9915583,
+    "ast_hash": "cf9fd82896ecc7f0d2eadd03f75ffab7",
+    "semantic_hash": "cf9fd82896ecc7f0d2eadd03f75ffab7"
+  },
+  "resources/views/repertoires/index.blade.php": {
+    "mtime": 1785880953.6407743,
+    "ast_hash": "ca51c38e0566384b95fa7079a10d9eb7",
+    "semantic_hash": "ca51c38e0566384b95fa7079a10d9eb7"
+  },
+  "resources/views/repertoires/presentation.blade.php": {
+    "mtime": 1785783618.7429807,
+    "ast_hash": "6f2d410f2ec19c23cd16217aa63aeb9c",
+    "semantic_hash": "6f2d410f2ec19c23cd16217aa63aeb9c"
+  },
+  "resources/views/repertoires/show.blade.php": {
+    "mtime": 1785783732.6268525,
+    "ast_hash": "73db2c42ea010325394495f9951cb949",
+    "semantic_hash": "73db2c42ea010325394495f9951cb949"
+  },
+  "resources/views/repertoires/trashed.blade.php": {
+    "mtime": 1785944833.6007748,
+    "ast_hash": "25918d83551d46632bb4f8e68827face",
+    "semantic_hash": "25918d83551d46632bb4f8e68827face"
+  },
+  "resources/views/songs/_form.blade.php": {
+    "mtime": 1786105588.9329364,
+    "ast_hash": "c97cc46427b92d07d007681cf084cd7b",
+    "semantic_hash": "c97cc46427b92d07d007681cf084cd7b"
+  },
+  "resources/views/songs/archived.blade.php": {
+    "mtime": 1786105588.9339359,
+    "ast_hash": "77ad6271471fccb4c4037453dc82d119",
+    "semantic_hash": "77ad6271471fccb4c4037453dc82d119"
+  },
+  "resources/views/songs/create.blade.php": {
+    "mtime": 1785936723.1386766,
+    "ast_hash": "e93669d354ef3cf0e4a3037061787b5c",
+    "semantic_hash": "e93669d354ef3cf0e4a3037061787b5c"
+  },
+  "resources/views/songs/edit.blade.php": {
+    "mtime": 1786105588.9349344,
+    "ast_hash": "b410e5b6294aeef306b3cfe90d33b3ea",
+    "semantic_hash": "b410e5b6294aeef306b3cfe90d33b3ea"
+  },
+  "resources/views/songs/index.blade.php": {
+    "mtime": 1785880953.5922484,
+    "ast_hash": "b0e13c4155599dec3bcb48577380209f",
+    "semantic_hash": "b0e13c4155599dec3bcb48577380209f"
+  },
+  "resources/views/songs/read.blade.php": {
+    "mtime": 1786105588.9359367,
+    "ast_hash": "f2e116e76b3fd5c2faeed8c81b0979a1",
+    "semantic_hash": "f2e116e76b3fd5c2faeed8c81b0979a1"
+  },
+  "resources/views/songs/show.blade.php": {
+    "mtime": 1786105588.9359367,
+    "ast_hash": "72947cd74c8d291e7d1616632283d2a5",
+    "semantic_hash": "72947cd74c8d291e7d1616632283d2a5"
+  },
+  "resources/views/welcome.blade.php": {
+    "mtime": 1785764822.6142848,
+    "ast_hash": "748e6b0e52d47bf1e797f6976865cac6",
+    "semantic_hash": "748e6b0e52d47bf1e797f6976865cac6"
+  },
+  "routes/console.php": {
+    "mtime": 1785785722.5524542,
+    "ast_hash": "acede890b87d2e01764b03bdecbebd6f",
+    "semantic_hash": "acede890b87d2e01764b03bdecbebd6f"
+  },
+  "routes/web.php": {
+    "mtime": 1786105588.937935,
+    "ast_hash": "41f872924e236bb0762b3a05c2076048",
+    "semantic_hash": "41f872924e236bb0762b3a05c2076048"
+  },
+  "skills-lock.json": {
+    "mtime": 1786105588.937935,
+    "ast_hash": "284b14a2558c9f2bc33b42b4e8eb1d80",
+    "semantic_hash": "284b14a2558c9f2bc33b42b4e8eb1d80"
+  },
+  "tests/Feature/AccountManagementTest.php": {
+    "mtime": 1785882749.8801913,
+    "ast_hash": "b753237be69b714af6b497298268c53d",
+    "semantic_hash": "b753237be69b714af6b497298268c53d"
+  },
+  "tests/Feature/AuthenticationTest.php": {
+    "mtime": 1786105588.9389365,
+    "ast_hash": "3cb0cebde113d75a284db241e9eb402b",
+    "semantic_hash": "3cb0cebde113d75a284db241e9eb402b"
+  },
+  "tests/Feature/CatalogManagementTest.php": {
+    "mtime": 1785882027.7896383,
+    "ast_hash": "86609a2a08b3a8a2ec81e855f2ea0849",
+    "semantic_hash": "86609a2a08b3a8a2ec81e855f2ea0849"
+  },
+  "tests/Feature/DatabaseSeederTest.php": {
+    "mtime": 1785723764.785266,
+    "ast_hash": "d87688f8e6cba40951a567b49dcac482",
+    "semantic_hash": "d87688f8e6cba40951a567b49dcac482"
+  },
+  "tests/Feature/ExampleTest.php": {
+    "mtime": 1786105588.9399467,
+    "ast_hash": "c5c030b23cccbd0cd326c24e7852506a",
+    "semantic_hash": "c5c030b23cccbd0cd326c24e7852506a"
+  },
+  "tests/Feature/ListingPaginationTest.php": {
+    "mtime": 1786105588.9399467,
+    "ast_hash": "9e546a3a24b9a7da56d1758da365d158",
+    "semantic_hash": "9e546a3a24b9a7da56d1758da365d158"
+  },
+  "tests/Feature/OwnershipAuthorizationTest.php": {
+    "mtime": 1785881003.597608,
+    "ast_hash": "c140056b6970655ddd0dac91485383ea",
+    "semantic_hash": "c140056b6970655ddd0dac91485383ea"
+  },
+  "tests/Feature/ProductionReadinessTest.php": {
+    "mtime": 1785785685.1094854,
+    "ast_hash": "86e4801fc77ede0e82ea55e082611104",
+    "semantic_hash": "86e4801fc77ede0e82ea55e082611104"
+  },
+  "tests/Feature/PublicRepertoireTest.php": {
+    "mtime": 1785783864.9687185,
+    "ast_hash": "7516e90e2374b4e0db8f7700524031f7",
+    "semantic_hash": "7516e90e2374b4e0db8f7700524031f7"
+  },
+  "tests/Feature/RepertoireExportTest.php": {
+    "mtime": 1785771443.606615,
+    "ast_hash": "7db58a166fef68315624b8c21685b42d",
+    "semantic_hash": "7db58a166fef68315624b8c21685b42d"
+  },
+  "tests/Feature/RepertoireManagementTest.php": {
+    "mtime": 1785958944.9915583,
+    "ast_hash": "982edf0b8d0155460aee044fb64a5b14",
+    "semantic_hash": "982edf0b8d0155460aee044fb64a5b14"
+  },
+  "tests/Feature/RepertoireRecoveryTest.php": {
+    "mtime": 1785944833.6007748,
+    "ast_hash": "67d7b17d196c028e511ea69897a8afcc",
+    "semantic_hash": "67d7b17d196c028e511ea69897a8afcc"
+  },
+  "tests/Feature/SharedSongLibraryTest.php": {
+    "mtime": 1785944833.6007748,
+    "ast_hash": "a9fd1595df151fd80a8b4cd5c4a8c5c8",
+    "semantic_hash": "a9fd1595df151fd80a8b4cd5c4a8c5c8"
+  },
+  "tests/Feature/SongManagementTest.php": {
+    "mtime": 1786105588.9409387,
+    "ast_hash": "2a42f387a6c1878bc7b0bf5f3bf1beff",
+    "semantic_hash": "2a42f387a6c1878bc7b0bf5f3bf1beff"
+  },
+  "tests/TestCase.php": {
+    "mtime": 1785723633.933828,
+    "ast_hash": "7e567dc27e68d5b57bae16af07f68907",
+    "semantic_hash": "7e567dc27e68d5b57bae16af07f68907"
+  },
+  "tests/Unit/ExampleTest.php": {
+    "mtime": 1785723633.9388297,
+    "ast_hash": "3f679e9508c834f0ad95943455fcd836",
+    "semantic_hash": "3f679e9508c834f0ad95943455fcd836"
+  },
+  "tests/Unit/ModelRelationshipsTest.php": {
+    "mtime": 1785782132.732966,
+    "ast_hash": "0034fe3f05e41bfaed78be3a0500716b",
+    "semantic_hash": "0034fe3f05e41bfaed78be3a0500716b"
+  },
+  "tests/Unit/RepertoirePageServiceTest.php": {
+    "mtime": 1785958944.9985616,
+    "ast_hash": "ede8731262354e77aaf16b3fe862ecd1",
+    "semantic_hash": "ede8731262354e77aaf16b3fe862ecd1"
+  },
+  "vite.config.js": {
+    "mtime": 1785770446.2917626,
+    "ast_hash": "10fc986250ece13f9e1e71e8f351e687",
+    "semantic_hash": "10fc986250ece13f9e1e71e8f351e687"
+  }
+}
