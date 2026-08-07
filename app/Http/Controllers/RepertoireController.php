@@ -11,6 +11,7 @@ use App\Models\Repertoire;
 use App\Models\Song;
 use App\Services\RepertoirePageService;
 use App\Services\RepertoireService;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -78,23 +79,13 @@ class RepertoireController extends Controller
         Gate::authorize('update', $repertoire);
         $repertoire->load(['songs.owner', 'songs.category', 'songs.liturgicalMoment', 'songs.tones']);
         $repertoire->songs->loadCount(['files as page_count' => fn ($query) => $query->whereIn('file_type', ['image', 'generated_image', 'pdf'])]);
-
-        $searchTerms = preg_split('/\s+/', trim($request->string('song_q')->toString()), -1, PREG_SPLIT_NO_EMPTY) ?: [];
         $selectedSongIds = $repertoire->songs->modelKeys();
 
-        $songs = Song::query()->where('is_active', true)->whereNotIn('id', $selectedSongIds)
-            ->with(['owner', 'category', 'liturgicalMoment', 'tones'])->withCount(['files as page_count' => fn ($query) => $query->whereIn('file_type', ['image', 'generated_image', 'pdf'])])
-            ->when($searchTerms, function ($query) use ($searchTerms): void {
-                foreach ($searchTerms as $term) {
-                    $query->where(fn ($sub) => $sub->where('title', 'like', '%'.$term.'%')
-                        ->orWhere('author', 'like', '%'.$term.'%')
-                        ->orWhere('performer', 'like', '%'.$term.'%'));
-                }
-            })
-            ->when($request->integer('category_id'), fn ($q, $id) => $q->where('category_id', $id))
-            ->when($request->integer('liturgical_moment_id'), fn ($q, $id) => $q->where('liturgical_moment_id', $id))
-            ->when($request->integer('liturgical_season_id'), fn ($q, $id) => $q->whereHas('liturgicalSeasons', fn ($seasons) => $seasons->whereKey($id)))
-            ->orderBy('title')->paginate(12)->withQueryString();
+        $songs = $this->searchSelectableSongs($request, $selectedSongIds);
+
+        if ($request->boolean('selector_partial')) {
+            return view('repertoires.partials.song-selector-results', ['songs' => $songs]);
+        }
 
         return view('repertoires.edit', [
             'repertoire' => $repertoire,
@@ -190,5 +181,27 @@ class RepertoireController extends Controller
         }
 
         return $candidate;
+    }
+
+    private function searchSelectableSongs(Request $request, array $selectedSongIds): LengthAwarePaginator
+    {
+        $searchTerms = preg_split('/\s+/', trim($request->string('song_q')->toString()), -1, PREG_SPLIT_NO_EMPTY) ?: [];
+
+        return Song::query()->where('is_active', true)->whereNotIn('id', $selectedSongIds)
+            ->with(['owner', 'category', 'liturgicalMoment', 'tones'])
+            ->withCount(['files as page_count' => fn ($query) => $query->whereIn('file_type', ['image', 'generated_image', 'pdf'])])
+            ->when($searchTerms, function ($query) use ($searchTerms): void {
+                foreach ($searchTerms as $term) {
+                    $query->where(fn ($sub) => $sub->where('title', 'like', '%'.$term.'%')
+                        ->orWhere('author', 'like', '%'.$term.'%')
+                        ->orWhere('performer', 'like', '%'.$term.'%'));
+                }
+            })
+            ->when($request->integer('category_id'), fn ($q, $id) => $q->where('category_id', $id))
+            ->when($request->integer('liturgical_moment_id'), fn ($q, $id) => $q->where('liturgical_moment_id', $id))
+            ->when($request->integer('liturgical_season_id'), fn ($q, $id) => $q->whereHas('liturgicalSeasons', fn ($seasons) => $seasons->whereKey($id)))
+            ->orderBy('title')
+            ->paginate(12)
+            ->withQueryString();
     }
 }

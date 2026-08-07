@@ -68,6 +68,19 @@ class RepertoireManagementTest extends TestCase
         ]);
     }
 
+    public function test_submitting_duplicate_song_ids_is_normalized(): void
+    {
+        $repertoire = Repertoire::factory()->create();
+        [$first, $second] = Song::factory()->count(2)->create(['is_active' => true])->all();
+
+        $this->actingAs($this->admin)->post(route('repertoires.songs.store', $repertoire), [
+            'song_ids' => [$first->id, $first->id, $second->id, $second->id],
+        ])->assertSessionHasNoErrors();
+
+        $this->assertDatabaseHas('repertoire_song', ['repertoire_id' => $repertoire->id, 'song_id' => $first->id, 'sort_order' => 1]);
+        $this->assertDatabaseHas('repertoire_song', ['repertoire_id' => $repertoire->id, 'song_id' => $second->id, 'sort_order' => 2]);
+    }
+
     public function test_inactive_song_cannot_be_added(): void
     {
         $repertoire = Repertoire::factory()->create();
@@ -107,6 +120,23 @@ class RepertoireManagementTest extends TestCase
         ]));
 
         $response->assertOk()->assertSee($matching->title)->assertDontSee($other->title);
+    }
+
+    public function test_selector_partial_returns_only_song_results_fragment(): void
+    {
+        $repertoire = Repertoire::factory()->create();
+        $song = Song::factory()->create(['title' => 'Canto dinamico']);
+
+        $response = $this->actingAs($this->admin)->get(route('repertoires.edit', [
+            'repertoire' => $repertoire,
+            'selector_partial' => 1,
+            'song_q' => 'dinamico',
+        ]));
+
+        $response->assertOk();
+        $response->assertSee($song->title);
+        $response->assertDontSee('Editar repertorio');
+        $response->assertDontSee('<html', false);
     }
 
     public function test_admin_can_add_multiple_songs_in_the_submitted_order(): void

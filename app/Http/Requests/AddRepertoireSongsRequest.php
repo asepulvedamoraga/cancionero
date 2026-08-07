@@ -2,12 +2,28 @@
 
 namespace App\Http\Requests;
 
+use App\Models\SongTone;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
 
 class AddRepertoireSongsRequest extends FormRequest
 {
+    protected function prepareForValidation(): void
+    {
+        $songIds = collect((array) $this->input('song_ids', []))
+            ->map(fn (mixed $id): int => (int) $id)
+            ->filter(fn (int $id): bool => $id > 0)
+            ->unique()
+            ->values()
+            ->all();
+
+        $this->merge([
+            'song_ids' => $songIds,
+            'song_tones' => (array) $this->input('song_tones', []),
+        ]);
+    }
+
     public function authorize(): bool
     {
         return (bool) $this->user()?->can('update', $this->route('repertoire'));
@@ -17,7 +33,7 @@ class AddRepertoireSongsRequest extends FormRequest
     {
         return [
             'song_ids' => ['required', 'array', 'min:1', 'max:100'],
-            'song_ids.*' => ['required', 'integer', 'distinct', Rule::exists('songs', 'id')->where('is_active', true)],
+            'song_ids.*' => ['required', 'integer', Rule::exists('songs', 'id')->where('is_active', true)],
             'song_tones' => ['nullable', 'array'],
             'song_tones.*' => ['nullable', 'integer', Rule::exists('song_tones', 'id')],
         ];
@@ -39,7 +55,7 @@ class AddRepertoireSongsRequest extends FormRequest
                     continue;
                 }
 
-                $belongs = \App\Models\SongTone::query()->whereKey($toneId)->where('song_id', $songId)->exists();
+                $belongs = SongTone::query()->whereKey($toneId)->where('song_id', $songId)->exists();
                 if (! $belongs) {
                     $validator->errors()->add('song_tones.'.$songId, 'La tonalidad seleccionada no corresponde a la canción.');
                 }
