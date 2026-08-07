@@ -79,6 +79,13 @@
         @yield('content')
     </main>
 
+    <footer class="app-site-footer" role="contentinfo">
+        <div class="container">
+            Desarrollado por Adrián Sepúlveda, contacto:
+            <a href="tel:+5696132744">+5696132744</a>
+        </div>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     @stack('scripts')
 </body>

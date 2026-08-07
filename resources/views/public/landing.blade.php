@@ -7,17 +7,19 @@
         <div class="public-hero__mesh" aria-hidden="true"></div>
 
         <div class="public-hero__content">
-            <p class="public-hero__eyebrow">Biblioteca colaborativa</p>
+            <p class="public-hero__eyebrow">Plataforma colaborativa para músicos</p>
             <h1 id="public-hero-title" class="public-hero__title">
-                Encuentra canciones y repertorios listos para celebrar.
+                Organiza tu música
             </h1>
             <p class="public-hero__subtitle">
-                Cancionero Facil organiza letras, apoyos y repertorios publicos en una experiencia rapida y clara.
+                Reúne canciones, crea repertorios y ten todo listo para tocar en cualquier momento.
             </p>
+            <p class="public-hero__identity">Creado por músicos, para músicos.</p>
 
             <div class="public-hero__actions">
                 <a class="public-btn public-btn--primary" href="{{ route('register') }}">Empezar gratis</a>
                 <a class="public-btn public-btn--soft" href="{{ route('login') }}">Ingresar</a>
+                <a class="public-btn public-btn--ghost" href="{{ route('public.donations') }}">Apoyar proyecto</a>
             </div>
 
             <div class="public-hero__stats">
@@ -47,9 +49,9 @@
                 @endforeach
             </div>
 
-            <a class="public-preview__cta" href="{{ route('register') }}">
+            <a class="public-preview__cta" href="{{ route('public.donations') }}">
                 <i class="bi bi-lightning-charge" aria-hidden="true"></i>
-                Gestiona tus propios repertorios
+                Una comunidad que comparte música
             </a>
         </aside>
     </section>
@@ -177,13 +179,13 @@
 
     <section class="public-section public-section--cta" aria-labelledby="public-support-title">
         <div>
-            <p class="public-section__kicker">Proximamente</p>
+            <p class="public-section__kicker">Comunidad</p>
             <h2 id="public-support-title" class="public-section__title">Apoya el crecimiento del proyecto</h2>
             <p class="public-section__subtitle">
-                Estamos preparando el espacio de aportes para sostener mejoras continuas en la plataforma.
+                Este proyecto seguirá siendo gratuito. Si quieres, pronto podrás apoyarlo con donaciones voluntarias.
             </p>
         </div>
-        <a class="public-btn public-btn--primary" href="{{ route('register') }}">Quiero aportar</a>
+        <a class="public-btn public-btn--accent" href="{{ route('public.donations') }}">Más información</a>
     </section>
 </div>
 @endsection

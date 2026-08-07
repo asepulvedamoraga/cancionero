@@ -42,6 +42,7 @@ Route::prefix('c')->name('public.songs.')->group(function () {
 });
 
 Route::get('/', PublicLandingController::class)->name('public.home');
+Route::view('/apoya-este-proyecto', 'public.donations')->name('public.donations');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');

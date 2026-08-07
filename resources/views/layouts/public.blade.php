@@ -31,6 +31,12 @@
             <div class="public-header__actions">
                 <a
                     class="public-btn public-btn--ghost no-underline"
+                    href="{{ route('public.donations') }}"
+                >
+                    Donaciones
+                </a>
+                <a
+                    class="public-btn public-btn--ghost no-underline"
                     href="{{ route('login') }}"
                 >
                     Ingresar
@@ -52,5 +58,12 @@
 
         @yield('content')
     </main>
+
+    <footer class="app-site-footer" role="contentinfo">
+        <div class="container">
+            Desarrollado por Adrián Sepúlveda, contacto:
+            <a href="tel:+5696132744">+5696132744</a>
+        </div>
+    </footer>
 </body>
 </html>

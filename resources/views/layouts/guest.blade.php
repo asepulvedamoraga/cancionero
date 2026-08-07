@@ -42,5 +42,12 @@
             </div>
         </div>
     </div>
+
+    <footer class="app-site-footer" role="contentinfo">
+        <div class="container">
+            Desarrollado por Adrián Sepúlveda, contacto:
+            <a href="tel:+5696132744">+5696132744</a>
+        </div>
+    </footer>
 </body>
 </html>
