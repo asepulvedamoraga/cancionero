@@ -4,7 +4,7 @@
 <div class="app-page-header">
 	<div>
 		<h1 class="h2">Nueva canción</h1>
-		<p class="text-secondary">Registra metadatos, clasificación litúrgica y archivos de apoyo.</p>
+		<p class="text-secondary">Registra datos generales, metadatos litúrgicos cuando apliquen y archivos de apoyo.</p>
 	</div>
 </div>
 

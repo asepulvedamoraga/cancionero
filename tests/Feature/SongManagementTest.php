@@ -69,6 +69,58 @@ class SongManagementTest extends TestCase
         ])->assertSessionHasErrors('video_url');
     }
 
+    public function test_non_liturgical_category_ignores_liturgical_validation_fields(): void
+    {
+        $nonLiturgicalCategory = Category::factory()->create([
+            'slug' => 'musica-popular',
+            'is_active' => true,
+        ]);
+
+        $response = $this->actingAs($this->admin)->post(route('songs.store'), [
+            'title' => 'Cancion no liturgica',
+            'category_id' => $nonLiturgicalCategory->id,
+            'liturgical_moment_id' => 999999,
+            'liturgical_seasons' => [999998, 999999],
+            'is_active' => 1,
+        ]);
+
+        $song = Song::firstOrFail();
+        $response->assertRedirect(route('songs.show', $song));
+        $this->assertNull($song->liturgical_moment_id);
+        $this->assertCount(0, $song->liturgicalSeasons);
+    }
+
+    public function test_switching_to_non_liturgical_category_keeps_existing_liturgical_values(): void
+    {
+        $liturgicalCategory = Category::factory()->create([
+            'slug' => 'musica-liturgica',
+            'is_active' => true,
+        ]);
+        $nonLiturgicalCategory = Category::factory()->create([
+            'slug' => 'musica-folklorica',
+            'is_active' => true,
+        ]);
+        $moment = LiturgicalMoment::factory()->create();
+        $season = LiturgicalSeason::factory()->create();
+        $song = Song::factory()->create([
+            'category_id' => $liturgicalCategory->id,
+            'liturgical_moment_id' => $moment->id,
+            'is_active' => true,
+        ]);
+        $song->liturgicalSeasons()->sync([$season->id]);
+
+        $this->actingAs($this->admin)->put(route('songs.update', $song), [
+            'title' => $song->title,
+            'slug' => $song->slug,
+            'category_id' => $nonLiturgicalCategory->id,
+            'is_active' => 1,
+        ])->assertRedirect(route('songs.edit', ['song' => $song, 'tone' => $song->ensureDefaultTone()->id]));
+
+        $song->refresh();
+        $this->assertSame($moment->id, $song->liturgical_moment_id);
+        $this->assertTrue($song->liturgicalSeasons->contains($season));
+    }
+
     public function test_admin_can_manage_song_tones_and_upload_into_selected_tone(): void
     {
         Storage::fake('local');
@@ -104,7 +156,7 @@ class SongManagementTest extends TestCase
             ->get(route('songs.read', ['song' => $song, 'tone' => $altTone->id]))
             ->assertOk()
             ->assertSee('Con tonos · Re')
-                ->assertSee(route('songs.files.show', [$song, $altFile]), false);
+            ->assertSee(route('songs.files.show', [$song, $altFile]), false);
     }
 
     public function test_admin_can_upload_valid_image_and_private_file_is_recorded(): void

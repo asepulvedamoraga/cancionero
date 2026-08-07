@@ -3,6 +3,7 @@ import { initFilePreview } from './modules/file-preview';
 import { initCopyButtons } from './modules/copy-buttons';
 import { initSongFileSorter } from './modules/song-files-sorter';
 import { initSongDuplicateCheck } from './modules/song-duplicate-check';
+import { initSongLiturgicalFields } from './modules/song-liturgical-fields';
 import { initRepertoireSorter } from './modules/repertoire-sorter';
 import { initRepertoireSelector } from './modules/repertoire-selector';
 import { initSongUploadFeedback } from './modules/song-upload-feedback';
@@ -28,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	initCopyButtons();
 	initSongFileSorter();
 	initSongDuplicateCheck();
+	initSongLiturgicalFields();
 	initRepertoireSorter();
 	initRepertoireSelector();
 	initSongUploadFeedback();

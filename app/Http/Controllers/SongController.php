@@ -91,11 +91,14 @@ class SongController extends Controller
         $validated['musical_key'] = ToneCatalog::resolveFromLabel($validated['musical_key'] ?? null)->name;
         $validated['user_id'] = $request->user()->id;
         $uploads = $request->file('files', []);
+        $liturgicalSeasons = $validated['liturgical_seasons'] ?? [];
         unset($validated['files'], $validated['liturgical_seasons']);
         $validated['slug'] = $this->uniqueSlug($validated['slug'] ?? null, $validated['title']);
-        $result = DB::transaction(function () use ($validated, $request, $uploads, $files) {
+        $result = DB::transaction(function () use ($validated, $request, $uploads, $files, $liturgicalSeasons) {
             $song = Song::create($validated);
-            $song->liturgicalSeasons()->sync($request->input('liturgical_seasons', []));
+            if ($request->shouldApplyLiturgicalFields()) {
+                $song->liturgicalSeasons()->sync($liturgicalSeasons);
+            }
             $stored = $files->storeUploads($song, $uploads, null);
 
             return [$song, $stored];
@@ -166,11 +169,14 @@ class SongController extends Controller
         $validated['musical_key'] = ToneCatalog::resolveFromLabel($validated['musical_key'] ?? null)->name;
         $uploads = $request->file('files', []);
         $activeToneId = $request->integer('tone') ?: null;
+        $liturgicalSeasons = $validated['liturgical_seasons'] ?? [];
         unset($validated['files'], $validated['liturgical_seasons']);
         $validated['slug'] = $this->uniqueSlug($validated['slug'] ?? null, $validated['title'], $song->id);
-        $stored = DB::transaction(function () use ($song, $validated, $request, $uploads, $files, $activeToneId) {
+        $stored = DB::transaction(function () use ($song, $validated, $request, $uploads, $files, $activeToneId, $liturgicalSeasons) {
             $song->update($validated);
-            $song->liturgicalSeasons()->sync($request->input('liturgical_seasons', []));
+            if ($request->shouldApplyLiturgicalFields()) {
+                $song->liturgicalSeasons()->sync($liturgicalSeasons);
+            }
 
             return $files->storeUploads($song, $uploads, $activeToneId);
         });

@@ -1,4 +1,6 @@
 @php($editing = isset($song))
+@php($liturgicalCategorySlugs = collect(config('cancionero.liturgical_categories.slugs', ['musica-liturgica', 'musica-religiosa']))->filter()->values())
+@php($liturgicalCategoryIds = collect(config('cancionero.liturgical_categories.ids', [1, 2]))->map(fn ($id) => (int) $id)->filter()->values())
 
 <section class="app-form-section">
 	<header class="app-form-section__head">
@@ -34,16 +36,7 @@
 			<label class="app-label" for="performer">Intérprete</label>
 			<input class="form-control" id="performer" name="performer" value="{{ old('performer', $song->performer ?? '') }}">
 		</div>
-	</div>
-</section>
 
-<section class="app-form-section">
-	<header class="app-form-section__head">
-		<h2 class="app-form-section__title">Clasificación litúrgica</h2>
-		<p class="app-form-section__text">Agrupa la canción para búsquedas y repertorios.</p>
-	</header>
-
-	<div class="app-form-grid app-form-grid--3">
 		<div class="app-field">
 			<label class="app-label" for="musical_key">Tonalidad base</label>
 			<select class="form-select" id="musical_key" name="musical_key">
@@ -57,15 +50,18 @@
 
 		<div class="app-field">
 			<label class="app-label" for="category_id">Categoría</label>
-			<select class="form-select" id="category_id" name="category_id">
+			<select class="form-select" id="category_id" name="category_id" data-song-category-select>
 				<option value="">Sin categoría</option>
 				@foreach($categories as $item)
-					<option value="{{ $item->id }}" @selected(old('category_id', $song->category_id ?? '') == $item->id)>{{ $item->name }}</option>
+					<option value="{{ $item->id }}" data-category-slug="{{ $item->slug }}" @selected(old('category_id', $song->category_id ?? '') == $item->id)>{{ $item->name }}</option>
 				@endforeach
 			</select>
 		</div>
+	</div>
 
-		<div class="app-field">
+	<div class="app-form-grid app-form-grid--3 mt-2" data-song-liturgical-fields data-liturgical-category-slugs='@json($liturgicalCategorySlugs)' data-liturgical-category-ids='@json($liturgicalCategoryIds)'>
+
+		<div class="app-field" data-song-liturgical-field>
 			<label class="app-label" for="liturgical_moment_id">Momento litúrgico principal</label>
 			<select class="form-select" id="liturgical_moment_id" name="liturgical_moment_id">
 				<option value="">Sin momento</option>
@@ -75,7 +71,7 @@
 			</select>
 		</div>
 
-		<div class="app-field app-field--full">
+		<div class="app-field app-field--full" data-song-liturgical-field>
 			<label class="app-label">Tiempos litúrgicos</label>
 			<div class="d-flex flex-wrap gap-3">
 				@php($selected = old('liturgical_seasons', $editing ? $song->liturgicalSeasons->pluck('id')->all() : []))

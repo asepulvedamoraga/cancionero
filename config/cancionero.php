@@ -10,6 +10,10 @@ return [
     'upload_max_mb' => (int) env('SONG_UPLOAD_MAX_MB', 20),
     'allowed_mime_types' => ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'],
     'allowed_extensions' => ['jpg', 'jpeg', 'png', 'webp', 'pdf'],
+    'liturgical_categories' => [
+        'slugs' => ['musica-liturgica', 'musica-religiosa'],
+        'ids' => [1, 2],
+    ],
     'image_quality' => (int) env('SONG_IMAGE_QUALITY', 85),
     'pdf_conversion_enabled' => (bool) env('SONG_PDF_CONVERSION_ENABLED', false),
     'pdf_resolution' => (int) env('SONG_PDF_RESOLUTION', 150),
